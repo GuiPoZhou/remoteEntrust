@@ -27,18 +27,18 @@ export const constantRoutes = [
   {
     path: '/newEntrust',
     name: 'newEntrust',
-    component: () => import('@/views/customerMain/company/newEntrust.vue'),
+    component: () => import('@/views/customerMain/index.vue'),
     hidden: true,
     children: [
       {
         path: '/remote/customerMain',
-        name:'indexCustomer',
+        name: 'indexCustomer',
         component: (resolve) => import('@/views/customerMain.vue'),
         children: [
           {
             path: '/remote/customerMain',
-            name:'indexCustomer',
-            component: (resolve) => import('@/views/customerMain/company/indexCustomer'),
+            name: 'indexCustomer',
+            component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
           }
         ]
       },
@@ -118,29 +118,13 @@ export const constantRoutes = [
   },
   {
     path: '/404',
-    component: (resolve) => import('@/views/error/404'),
+    component: (resolve) => import('@/views/error/404.vue'),
     hidden: true,
   },
   {
     path: '/401',
-    component: (resolve) => import('@/views/error/401'),
-    hidden: trueimport
-  },
-
-  {
-    path: '/user',
-    component: Layout,
-    hidden: true,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'profile',
-        component: (resolve) =>
-            import('@/views/system/user/profile/index'),
-        name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' },
-      },
-    ],
+    component: (resolve) => import('@/views/error/401.vue'),
+    hidden: true
   }
 ];
 
