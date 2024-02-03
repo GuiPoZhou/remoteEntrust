@@ -33,14 +33,15 @@
             {{ store.state.user.user.nickName }}
             <i class="el-icon-caret-bottom"/>
           </div>
-          <el-dropdown-menu slot="dropdown">
-            <!--              <router-link to="/remote/company">-->
-            <!--                <el-dropdown-item>个人信息</el-dropdown-item>-->
-            <!--              </router-link>-->
+          <template #dropdown>
+            <router-link to="/remote/company">
+              <el-dropdown-item>个人信息</el-dropdown-item>
+            </router-link>
             <el-dropdown-item divided @click.native="logout">
               <span>退出登录</span>
             </el-dropdown-item>
-          </el-dropdown-menu>
+          </template>
+
         </el-dropdown>
       </div>
 

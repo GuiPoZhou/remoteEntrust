@@ -22,6 +22,13 @@ export default defineConfig({
             },
         },
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                math: 'parens-division',
+            },
+        }
+    },
     // 开发服务器配置
     server: {
         host: '0.0.0.0',

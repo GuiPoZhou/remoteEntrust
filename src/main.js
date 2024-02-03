@@ -7,7 +7,7 @@ import store from './store'
 import SvgIcon from '@/components/SvgIcon/index.vue';
 import './permission.js'
 import {net} from '@/api/requestList'
-
+import '@/assets/styles/index.less'
 const app = createApp(App);
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

@@ -1,0 +1,27 @@
+// 先定义变量
+@bg-color: #f6f6f8;
+
+// 然后在类中使用这个变量
+.imgStyle {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px dashed grey;
+  }
+}
+
+.isMore {
+  color: #909399;
+}
+
+.imgCenter {
+  vertical-align: middle;
+}
+
+.bg-color {
+  background: @bg-color; // 这里应该可以正确识别变量
+}
