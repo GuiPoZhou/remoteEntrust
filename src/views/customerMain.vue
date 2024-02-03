@@ -19,7 +19,7 @@
                   </p>
                 </div>
               </el-col>
-              <el-col :span="8" class="origin-right">
+              <el-col :span="4" class="origin-right">
                 <el-button plain round size="small" type="primary">已登录</el-button>
               </el-col>
             </div>
@@ -42,110 +42,95 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import store from "@/store";
 import logo from "@/assets/image/logo.png";
 import {checkRole} from "@/utils/permission";
+import {getCurrentInstance} from "vue";
+
+const vm = getCurrentInstance().proxy
 import topCard from '@/views/components/topCard/topCard.vue'
 import topMessage from '@/views/components/topCard/topCardMessage.vue'
-import dayjs from "dayjs";
+import {useRouter, useRoute} from "vue-router";
+import {ElMessageBox} from "element-plus";
+import {Position} from "@element-plus/icons-vue";
 
-export default {
-  data() {
-    return {
-      deptName: "-",
-      nickName: "-",
-      timeStatus: "早上好",
-      localTime: '',
-      logo,
-      currentPath: "/remote/customerMain",
-      menu: store.state.permission.addRoutes,
-      staticData: {},
-    };
-  },
-  components: {
-    topCard,
-    topMessage,
-  },
-  methods: {
-    getStatic() {
+const router = useRouter()
+const route = useRoute()
+let deptName = ref('-')
+let nickName = ref('-')
+let timeStatus = ref('早上好')
+let localTime = ref('')
+let currentPath = ref("/remote/customerMain")
+let menu = ref([])
+/**
+ * @author 焦政
+ * @Description: 跳转
+ * @date 2021/3/19
+ */
+const e_goPath = (v) => {
+  window.localStorage.setItem('menuId', '2473')
+  console.log(window.localStorage.getItem('menuId'))
+  currentPath.value = v.path;
+  router.push(v);
+}
+//退出登录
 
-    },
-    /**
-     * @author 焦政
-     * @Description: 跳转
-     * @date 2021/3/19
-     */
-    e_goPath(v) {
-      console.log(v)
-      window.localStorage.setItem('menuId', '2473')
-      console.log(window.localStorage.getItem('menuId'))
-      this.currentPath = v.path;
-      this.$router.push(v);
-    },
-    //退出登录
-    async logout() {
-      this.$confirm("确定注销并退出系统吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      }).then(() => {
-        this.$store.dispatch("LogOut").then(() => {
-          location.href = 'http://mis.topscomm.net:8931/cas/logout?service=http%3A%2F%2Fmis.topscomm.net%3A8931%2Fcas%2Flogin%3Fservice%3Dhttp%253A%252F%252F172.20.5.160%253A6001%252Fremote%252FcustomerMain%26createToken%3Dfalse'
-        });
-      });
-    },
-    getGreeting() {
-      const now = dayjs()
-      const hour = now.hour()
+const e_logout = () => {
+  ElMessageBox.confirm("确定注销并退出系统吗？", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(() => {
+    store.dispatch("LogOut").then(() => {
+      location.href = '/'
+    });
+  });
+}
 
-      if (hour >= 6 && hour < 9) {
-        return '早上好'
-      } else if (hour >= 9 && hour < 12) {
-        return '上午好'
-      } else if (hour >= 12 && hour < 14) {
-        return '中午好'
-      } else if (hour >= 14 && hour < 18) {
-        return '下午好'
-      } else {
-        return '晚上好'
-      }
-    },
+const getGreeting = () => {
+  const now = vm.$dayjs()
+  const hour = now.hour()
 
-  },
-  created() {
-    this.timeStatus = this.getGreeting()
-    setInterval(() => {
-      this.localTime = dayjs().format('YYYY-MM-DD hh:mm:ss')
-    }, 1000)
-    console.log(this.$store.state.user)
-    this.currentPath = this.$route.path;
-    if (this.$store.state.user && this.$store.state.user.deptName) {
-      this.deptName = this.$store.state.user.deptName;
-    } else {
-      this.deptName = "";
-    }
+  if (hour >= 6 && hour < 9) {
+    return '早上好'
+  } else if (hour >= 9 && hour < 12) {
+    return '上午好'
+  } else if (hour >= 12 && hour < 14) {
+    return '中午好'
+  } else if (hour >= 14 && hour < 18) {
+    return '下午好'
+  } else {
+    return '晚上好'
+  }
+}
 
-    if (this.$store.state.user && this.$store.state.user.nickName) {
-      this.nickName = this.$store.state.user.nickName;
-    } else {
-      this.nickName = "";
-    }
-  },
-  mounted() {
-    this.menu = store.state.permission.addRoutes;
-    this.getStatic()
-    window.localStorage.setItem('menuId', '2473')
-    // 获取上方统计
-  },
-  watch: {
-    $route(to, from) {
-      this.currentPath = to.path;
-      // console.log(store.getters && store.getters.nickName)
-      // console.log(store.getters && store.getters.deptName)
-    },
-  },
-};
+onBeforeMount(() => {
+  timeStatus.value = getGreeting()
+  setInterval(() => {
+    localTime.value = vm.$dayjs().format('YYYY-MM-DD hh:mm:ss')
+  }, 1000)
+  currentPath.value = route.path;
+  if (store.state.user && store.state.user.deptName) {
+    deptName.value = store.state.user.deptName;
+  } else {
+    deptName.value = "";
+  }
+
+  if (store.state.user && store.state.user.nickName) {
+    nickName.value = store.state.user.nickName;
+  } else {
+    nickName.value = "";
+  }
+})
+onMounted(() => {
+  menu.value = store.state.permission.addRoutes;
+
+  window.localStorage.setItem('menuId', '2473')
+})
+watch(route, (to, from) => {
+  currentPath.value = to.path
+})
 </script>
 <style lang="less" scoped>
 .customerMain {
@@ -197,6 +182,7 @@ export default {
         border-radius: 2px;
         margin-top: 10px;
         opacity: 1;
+        position: relative;
 
         .origin-left-top {
           flex-wrap: wrap;
@@ -226,10 +212,9 @@ export default {
         }
 
         .origin-right {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          position: absolute;
+          bottom: 14px;
+          right: 50px;
         }
       }
 
