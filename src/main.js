@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 
 import SvgIcon from '@/components/SvgIcon/index.vue';
-
+import './permission.js'
 import {net} from '@/api/requestList'
 
 const app = createApp(App);

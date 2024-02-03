@@ -44,6 +44,7 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
+      console.log('验证')
       const username = userInfo.username.trim()
       const password = userInfo.password
       const code = userInfo.code
@@ -54,7 +55,7 @@ const user = {
         login(username, newpwd, code, uuid,pageSource).then(res => {
           setToken(res.token)
           commit('SET_TOKEN', res.token)
-          resolve()
+          resolve(res)
         }).catch(error => {
           reject(error)
         })
@@ -63,11 +64,13 @@ const user = {
 
     // 获取用户信息
     GetInfo({ commit, state }) {
+      console.log('获取用户信息')
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(res => {
+          console.log('带token', res)
           const user = res.user
           commit('SET_USER',res.user)
-          const avatar = user.avatar == "" ? require("@/assets/image/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
+          let avatar = user.avatar == "" ? import("@/assets/image/profile.jpg") : window.globalEnv.VUE_APP_BASE_API + user.avatar;
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)
@@ -77,7 +80,8 @@ const user = {
           commit('SET_NAME', user.userName)
           commit('SET_AVATAR', avatar)
           commit('SET_NICKNAME',user.nickName)
-          commit('SET_DEPTNAME',user.deptName)
+          commit('SET_DEPTNAME', user.deptName)
+          console.log(3333)
           resolve(res)
         }).catch(error => {
           reject(error)

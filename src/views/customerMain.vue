@@ -46,7 +46,7 @@
 import store from "@/store";
 import logo from "@/assets/image/logo.png";
 import {checkRole} from "@/utils/permission";
-import topCard from '@/views/components/topCard/topCard'
+import topCard from '@/views/components/topCard/topCard.vue'
 import topMessage from '@/views/components/topCard/topCardMessage.vue'
 import dayjs from "dayjs";
 
@@ -147,12 +147,12 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .customerMain {
   width: 100%;
   height: 100%;
   background: #f6f6f8;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   margin-top: 4px;
 
   .cm-top {
@@ -242,7 +242,7 @@ export default {
         font-weight: 500;
         color: #333333;
         white-space: nowrap;
-        overflow: hidden;
+        //overflow: hidden;
         text-overflow: ellipsis;
       }
 
@@ -264,7 +264,7 @@ export default {
         border-radius: 4px;
         border: 1px solid #e6ebf5;
         background-color: #FFFFFF;
-        overflow: hidden;
+        //overflow: hidden;
         color: #303133;
         -webkit-transition: 0.3s;
         margin-top: 6px;
@@ -302,7 +302,7 @@ export default {
 
   .cm-container {
     width: 100%;
-    overflow: auto;
+    //overflow: auto;
   }
 }
 </style>

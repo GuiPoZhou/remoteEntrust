@@ -34,12 +34,12 @@ function stopLogoutTimer() {
 }
 
 function logout() {
-  ElMessageBox .alert('因长时间未操作，请重新登录', '注意', {
-    confirmButtonText: '确定',
-    callback: action => {
-      removeToken()
-      location.href = '/index'
-    }
+  ElMessageBox.alert('因长时间未操作，请重新登录', '注意', {
+      confirmButtonText: '确定',
+      callback: action => {
+          removeToken()
+          location.href = '/index'
+      }
   });
   // 执行注销操作，例如清除 Token 并跳转到登录页
   // 这里可以自定义你的注销逻辑

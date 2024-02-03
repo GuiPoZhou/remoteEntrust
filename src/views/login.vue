@@ -45,14 +45,15 @@
 </template>
 <script setup>
 import { getCodeImg } from "@/api/login";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { getCurrentInstance, ref, reactive } from "vue";
+import {useStore} from "vuex";
+import {useRouter, isNavigationFailure, NavigationFailureType} from "vue-router";
+import {getCurrentInstance, ref, reactive} from "vue";
 import newLoginBgi from "@/assets/image/newloginbgi.png";
 import {User, Lock, Key} from "@element-plus/icons-vue";
 const { proxy } = getCurrentInstance();
 const store = useStore();
 const router = useRouter();
+import {ElMessage} from 'element-plus'
 
 let localYear = ref(proxy.$dayjs().format('YYYY'));
 
@@ -75,11 +76,16 @@ const handleLogin =  () => {
       loading.value = true;
       loginForm.pageSource = "内部";
       store.dispatch("Login", loginForm).then(res => {
-        if (res.code === 200) {
-          router.push({
-            path: "/remote/customerMain"
-          })
-        }
+        console.log('跳转')
+        router.push({
+          path: '/remote/customerMain'
+        }).catch(failure => {
+          console.log(failure)
+          if (isNavigationFailure(failure, NavigationFailureType.redirected)) {
+            // 向用户显示一个小通知
+            ElMessage.error('Login in order to access the admin panel')
+          }
+        })
       }).catch(() => {
         loading.value = false;
       }).finally(_ => {

@@ -8,15 +8,15 @@
       <div class="centerStyle">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
           <el-menu-item index="1" @click="backIndex">首页</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">委托报检</template>
+          <el-sub-menu index="2">
+            <template #title>委托报检</template>
             <el-menu-item v-for="item in store.state.menu.menus" :key="item.id"
                           :index="item.id.toString()"
                           align="center"
             >
               {{ item.configName }}
             </el-menu-item>
-          </el-submenu>
+          </el-sub-menu>
           <el-menu-item v-if="false" index="3">审核管理</el-menu-item>
           <!--            <el-menu-item index="4" >企业管理</el-menu-item>-->
         </el-menu>
@@ -121,7 +121,7 @@ function handleSelect(index) {
 
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .center {
   vertical-align: middle;
   display: flex;

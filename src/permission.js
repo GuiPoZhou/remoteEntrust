@@ -1,37 +1,33 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import store from './store'
+import router from './router/index.js'
+import store from './store/index.js'
 import {ElMessage} from 'element-plus'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import {getToken, setToken} from '@/utils/auth'
-import {net} from '@/api/requestList'
+import {getToken, setToken} from '@/utils/auth.js'
+import {net} from '@/api/requestList.js'
 
 NProgress.configure({showSpinner: false})
-
-// 假设 router 已经被创建并注入了 store，这里仅展示相关逻辑部分
-const router = createRouter({
-  history: createWebHistory(),
-  // ... 路由配置
-})
 
 // 白名单保持不变
 const whiteList = ['/remote/login', '/auth-redirect', '/bind', '/register', '/pathA', '/pathB']
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-
+  console.log('挑战', to, from, next)
   const token = getToken()
-
+  console.log('token', token)
   if (token) {
     if (to.path === '/remote/login') {
       next({path: '/remote/customerMain'})
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) {
+        console.log('store', store)
         store.dispatch('GetInfo').then(res => {
+          console.log('回调', res)
           const roles = res.roles
           store.dispatch('GenerateRoutes', {roles}).then(accessRoutes => {
-            router.addRoute(...accessRoutes)
+            // router.addRoute(...accessRoutes)
             next({...to, replace: true})
           })
         }).catch(err => {
