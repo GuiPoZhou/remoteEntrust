@@ -676,9 +676,9 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 // 按钮
-/deep/ .btns {
+:deep(.btns) {
   height: 66px;
   background-color: white;
   display: flex;
@@ -699,12 +699,12 @@ export default {
   }
 }
 
-/deep/ .containerInfo {
+:deep(.containerInfo) {
   margin: 15px auto; /*上下距离为0px，左右距离自动*/
   width: 73.4%;
 }
 
-/deep/ .tipMessage {
+:deep(.tipMessage) {
   width: 100%;
   height: 60px;
   background: #f8f9fb;
@@ -720,7 +720,7 @@ export default {
 }
 
 //tab切换样式
-/deep/ #tab-entrustInfo {
+:deep(#tab-entrustInfo) {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -731,7 +731,7 @@ export default {
   // color: #8F9BB3;
 }
 
-/deep/ #tab-sampleInfo {
+:deep(#tab-sampleInfo) {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -743,24 +743,24 @@ export default {
 }
 
 // 表单
-/deep/ .tasks {
+:deep(.tasks ) {
   // width: 80px;
   // height: 22px;
   // font-size: 16px;
   // font-weight: 400;
   // line-height: 16px;
   // color: #8f9bb3;
-  /deep/ p {
+  :deep(p) {
     font-weight: 600;
   }
 
-  /deep/ .inputText {
+  :deep(.inputText) {
     display: flex;
     justify-content: flex-start;
   }
 }
 
-/deep/ .el-row-toolbar {
+:deep(.el-row-toolbar) {
   margin: 5px;
 }
 </style>

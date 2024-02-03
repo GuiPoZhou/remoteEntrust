@@ -46,7 +46,7 @@ const route = proxy.$route
 const router = proxy.$router
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .errPage-container {
   width: 800px;
   max-width: 100%;

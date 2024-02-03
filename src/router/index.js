@@ -24,9 +24,9 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: '/remote/customerMain',
-        name: 'indexCustomer',
-        component: (resolve) => import('@/views/customerMain.vue'),
+          path: '/remote/customerMain',
+          name: 'indexCustomer',
+          component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
       },
     ]
   },

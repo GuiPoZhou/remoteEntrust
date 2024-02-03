@@ -76,7 +76,7 @@ const jumpDialog = (item) => {
   })
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .clearfix {
   display: flex;
   justify-content: space-between;

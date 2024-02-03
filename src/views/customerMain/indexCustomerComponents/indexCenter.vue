@@ -122,8 +122,8 @@
 <script setup>
 import {ref, reactive, getCurrentInstance, onMounted} from 'vue'
 import {cloneTask, recallTask} from '@/api/index'
-import {deleteTask} from '@/api/entrust/entrustConfirm'
-import addEntrustDialog from '@/views/customerMain/company/entrustCommponents/addEntrustDialog.vue'
+import {deleteTask} from '@/api/entrust/entrustConfirm.js'
+import addEntrustDialog from '@/views/customerMain/entrustCommponents/addEntrustDialog.vue'
 import indexCenterTop from './indexCenterTop.vue'
 
 const instance = getCurrentInstance()

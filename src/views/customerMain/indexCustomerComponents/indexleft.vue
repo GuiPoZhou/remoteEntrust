@@ -59,8 +59,8 @@
 <script setup>
 import iconlog from '@/assets/logos/icon_log.png'
 import rightBtn from '@/assets/logos/btn_chevron_right@2x.png'
-import noteDialog from "@/views/components/noteDialog";
-import {ref, defineProps, getCurrentInstance, reactive, nextTick} from 'vue'
+import noteDialog from "@/views/components/noteDialog/index.vue";
+import {ref, getCurrentInstance, reactive, nextTick} from 'vue'
 import dayjs from 'dayjs'
 
 const instance = getCurrentInstance()
@@ -146,7 +146,7 @@ function download(item) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .titleLeft {
   font-size: 12px;
 }

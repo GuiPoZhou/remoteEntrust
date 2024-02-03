@@ -65,8 +65,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-/deep/ .el-main {
+<style lang="less" scoped>
+:deep(.el-main) {
   padding: 0px;
 }
 </style>

@@ -175,12 +175,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-/deep/ .app-container {
+<style lang="less" scoped>
+:deep(.app-container) {
   background-color: #f6f6f8;
 }
 
-/deep/ .header-tip {
+:deep(.header-tip) {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -214,21 +214,21 @@ export default {
   }
 }
 
-/deep/ .container {
+:deep(.container) {
   width: 50%;
   height: 100%;
   background: #ffffff;
   margin: 0 auto;
 }
 
-/deep/ .edit-container {
+:deep(.edit-container) {
   width: 80.1%;
   height: 100%;
   background: #ffffff;
   margin: 0 auto 5px;
 }
 
-/deep/ .rule-input {
+:deep(.rule-input) {
   .el-input__inner {
     border: 0;
     background-color: white;
@@ -239,7 +239,7 @@ export default {
   }
 }
 
-/deep/ .item .el-form-item__label {
+:deep(.item) .el-form-item__label {
   font-size: 16px;
   font-weight: 400;
   color: #8f9bb3;

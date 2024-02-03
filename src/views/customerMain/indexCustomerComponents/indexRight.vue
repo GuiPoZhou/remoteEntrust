@@ -42,10 +42,10 @@
 <script setup>
 import searchImg from '@/assets/logos/image_file.png'
 import rightBtn from '@/assets/logos/btn_chevron_right@2x.png'
-import right from '@/views/customerMain/company/indexCustomerComponents/topComponent/right.vue'
+import right from '@/views/customerMain/indexCustomerComponents/topComponent/right.vue'
 import dayjs from 'dayjs'
 import {ref, reactive, getCurrentInstance} from 'vue'
-import questionnaires from '@/components/questionnaire/index'
+import questionnaires from '@/components/questionnaire/index.vue'
 
 const instance = getCurrentInstance()
 var showquestionnaire = ref(false)
@@ -168,7 +168,7 @@ function e_saveQuestionaire() {
   showquestionnaire.value = false
 }
 </script>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .btnStyle {
   width: 100px;
 }

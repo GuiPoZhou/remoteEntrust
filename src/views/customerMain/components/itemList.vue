@@ -175,12 +175,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-/deep/ .el-form {
+<style lang="less" scoped>
+:deep(.el-form) {
   display: flex;
   justify-content: flex-start;
 
-  /deep/ .el-form-item {
+  :deep(.el-form-item) {
     display: flex;
     margin-right: 10px;
   }

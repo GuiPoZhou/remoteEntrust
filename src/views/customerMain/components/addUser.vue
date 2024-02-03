@@ -296,8 +296,8 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-/deep/ .el-dialog {
+<style lang="less" scoped>
+:deep(.el-dialog) {
   width: 46.9%;
   // height: 560px;
   background: #ffffff;

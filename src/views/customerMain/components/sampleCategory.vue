@@ -171,8 +171,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-/deep/ .dialog-footer {
+<style lang="less" scoped>
+:deep(.dialog-footer) {
   // background-color: pink;
   display: flex;
   align-items: center;
@@ -180,19 +180,19 @@ export default {
   line-height: 16px;
   font-size: 16px;
 
-  /deep/ .left {
+  :deep(.left) {
     border-right: 2px solid rgb(156, 153, 153);
     padding-right: 10px;
 
-    /deep/ span {
+    :deep(span) {
       color: blue;
     }
   }
 
-  /deep/ .right {
+  :deep(.right) {
     display: flex;
 
-    /deep/ span {
+    :deep(span) {
       display: block;
       margin-right: 10px;
     }
@@ -202,7 +202,7 @@ export default {
   }
 }
 
-/deep/ .el-row-toolbar {
+:deep(.el-row-toolbar) {
   margin: 5px;
 }
 </style>
