@@ -24,9 +24,26 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-          path: '/remote/customerMain',
-          name: 'indexCustomer',
-          component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
+        path: '/remote/customerMain',
+        name: 'indexCustomer',
+        component: (resolve) => import('@/views/customerMain.vue'),
+        children: [
+          {
+            path: '',
+            component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
+          }
+        ]
+      },
+      {
+        path: '/remote/company',
+        name: 'company',
+        component: (resolve) => import('@/views/customerMain/company.vue'),
+        meta: {title: '企业信息', icon: 'dashboard', noCache: true, affix: true},
+      },
+      {
+        path: '/allMsg',
+        name: 'allMsg',
+        component: (resolve) => import('@/views/customerMain/entrustCommponents/allMsg.vue'),
       },
     ]
   },

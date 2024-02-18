@@ -1,17 +1,12 @@
 <template>
   <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <span class="titleLeft">委托报检</span>
-    </div>
+    <template #header>
+      <div class="clearfix">
+        <span class="titleLeft">委托报检</span>
+      </div>
+    </template>
+
     <div class="cardContent">
-      <!--      <div class="carBox" v-for="item in menus">-->
-      <!--        <el-card @click.native="jumpDialog(item)" class="cardStyle">-->
-      <!--          <div class="container">-->
-      <!--            <img src="@/assets/image/u117.png" class="img-style" alt="">-->
-      <!--            <p class="textStyle">{{item.configName}}</p>-->
-      <!--          </div>-->
-      <!--        </el-card>-->
-      <!--      </div>-->
       <div v-if="menus.length > 4" class="smallBox">
 
         <div v-for="(item,index) in menus" style="">
@@ -83,7 +78,6 @@ const jumpDialog = (item) => {
 }
 
 .titleLeft {
-  flex: 1;
   font-size: 12px;
 }
 
@@ -108,8 +102,8 @@ const jumpDialog = (item) => {
 
     p {
       position: relative;
-      left: 2rem;
-      top: 2rem;
+      right: 40px;
+      top: 14px;
     }
   }
 

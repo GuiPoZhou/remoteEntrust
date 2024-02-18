@@ -46,6 +46,7 @@ import right from '@/views/customerMain/indexCustomerComponents/topComponent/rig
 import dayjs from 'dayjs'
 import {ref, reactive, getCurrentInstance} from 'vue'
 import questionnaires from '@/components/questionnaire/index.vue'
+import {mbu_downloadPageOffice} from "@/mixins/mixinMethod.ts";
 
 const instance = getCurrentInstance()
 var showquestionnaire = ref(false)
@@ -88,7 +89,7 @@ function searchCode() {
         confirmButtonText: '下载',
         cancelButtonText: '取消'
       }).then(_ => {
-        vm.mbu_downloadPageOffice(res.data.pdfUrl)
+        mbu_downloadPageOffice(res.data.pdfUrl)
       }).catch()
     }
   })

@@ -1,31 +1,33 @@
 <template>
   <div class="leftStyle">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
+      <template #header>
         <span class="titleLeft">通知报告</span>
-        <el-button style="float: right;padding: 3px 0 0" type="text" @click="checkAll('note')">
+        <el-button class="btnStyle" type="text" @click="checkAll('note')">
           <span class="isMore">更多</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
         </el-button>
-      </div>
+      </template>
+
       <div class="left-text" style="width: 100%">
         <template v-for="(item, index) in reportList">
           <el-row class="rowStyle" @click.native="noteDetail(item)">
             <span>{{ index + 1 }}.</span>
             <span>{{ item.noticeTitle + '的通知' }}</span>
-            <span class="timeText">{{ dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
+            <span class="timeText">{{ $dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
           </el-row>
         </template>
       </div>
     </el-card>
     <el-card class="box-card" style="position: relative">
-      <div slot="header" class="clearfix">
+      <template #header>
         <span class="titleLeft">检测报告</span>
-        <el-button style="float: right;padding: 3px 0 0" type="text" @click="checkAll('detect')">
+        <el-button class="btnStyle" type="text" @click="checkAll('detect')">
           <span class="isMore">更多</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
         </el-button>
-      </div>
+      </template>
+
       <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
         <span class="leftText">编号{{ item.reportCode }}的检测报告</span>
         <span class="right-text">
@@ -61,7 +63,8 @@ import iconlog from '@/assets/logos/icon_log.png'
 import rightBtn from '@/assets/logos/btn_chevron_right@2x.png'
 import noteDialog from "@/views/components/noteDialog/index.vue";
 import {ref, getCurrentInstance, reactive, nextTick} from 'vue'
-import dayjs from 'dayjs'
+import {mbu_downloadPageOffice} from '@/mixins/mixinMethod.ts'
+
 
 const instance = getCurrentInstance()
 // 获取 vue 实例相当于 this
@@ -140,7 +143,7 @@ function download(item) {
   console.log(window.localStorage.getItem('menuId'))
   vm.$net('/v1/entrustRemoteAgreement/selectReportCode', 'get', item).then(res => {
     if (res.code === 200) {
-      vm.mbu_downloadPageOffice(res.msg)
+      mbu_downloadPageOffice(res.msg)
     }
   })
 }
@@ -148,7 +151,14 @@ function download(item) {
 
 <style lang="less" scoped>
 .titleLeft {
+  float: left;
   font-size: 12px;
+}
+
+.btnStyle {
+  position: absolute;
+  right: 0;
+  top: 6px;
 }
 
 .leftStyle {
@@ -161,6 +171,7 @@ function download(item) {
 
 .box-card {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .leftText {

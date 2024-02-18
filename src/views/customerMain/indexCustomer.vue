@@ -9,15 +9,15 @@
           />
         </el-col>
         <el-col :lg="12" :md="24" :sm="24" :span="12" :xs="24">
-          <!--          <indexCenter-->
-          <!--            :tableData="tableData"-->
-          <!--            @init="init"-->
-          <!--            @changePage="changePage"-->
-          <!--            @evaluate="evaluate"-->
-          <!--            :queryData="queryData"-->
-          <!--            :checkRow="checkRow"-->
-          <!--            :total="total"-->
-          <!--          />-->
+          <indexCenter
+              :checkRow="checkRow"
+              :queryData="queryData"
+              :tableData="tableData"
+              :total="total"
+              @changePage="changePage"
+              @evaluate="evaluate"
+              @init="init"
+          />
         </el-col>
         <el-col :lg="6" :md="24" :sm="24" :span="6" :xs="24" class="cm-center-right">
           <!--          <indexRight></indexRight>-->
@@ -32,10 +32,10 @@
 </template>
 
 <script setup>
-import {createRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import {useStore} from "vuex";
 
-const router = createRouter()
+const router = useRouter()
 const store = useStore()
 const vm = getCurrentInstance().proxy
 import indexCustomerNav from "./indexCustomerNav.vue";

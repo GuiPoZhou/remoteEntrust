@@ -8,7 +8,7 @@
         :close-on-click-modal="false"
         :fullscreen="isFullScreen"
         :show-close="false"
-        :visible.sync="diaLogShows"
+        v-model="diaLogShows"
         :width="diaLogWidth"
         class="fox-dialog"
         @close="e_dialogClose"
@@ -60,69 +60,51 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      isFullScreen: true,
-      diaLogShows: false,
-      closeDrag: true,//表单是否开启拖拽布局
-    }
-  },
-  props: {
-    showEditDrag: {
-      typeof: Boolean,
-      default: false
-    },
-    diaLogWidth: {
-      typeof: String,
-      default: '50%'
-    },
-    diaLogTitle: {
-      typeof: String,
-      default: '弹框'
-    },
-    diaLogShow: {
-      typeof: Boolean,
-      default: false
-    },
-    isFullScreen: {
-      typeof: Boolean,
-      default: true
-    }
-  },
-  watch: {
-    diaLogShow(val) {
-      console.log(val)
-      this.diaLogShows = val
-    }
-  },
-  methods: {
-    /**
-     * @author Coder
-     * @date 2023/1/4
-     * @des 开启表单拖拽
-     */
-    e_changeDrag(b) {
-      this.closeDrag = b
-      this.$store.commit('set_closeDrag', b)
-    },
-    /*
-     *@author: 焦政
-     *@date: 2022-02-21 09:15:45
-     *@description:关闭弹框
-     */
-    e_dialogClose() {
-      this.$emit('close')
-    },
-    e_dialogOpen() {
-      this.$emit('open')
-    },
-    // 是否全屏
-    e_changeBox(type) {
-      this.isFullScreen = type
-    }
-  }
+<script lang="ts" setup>
+import {watch} from "vue";
+import {useStore} from "vuex";
+
+const store = useStore();
+let diaLogShows = ref(false)
+let closeDrag = ref(false)
+const emit = defineEmits(['close'])
+let {showEditDrag, diaLogWidth, diaLogTitle, diaLogShow, isFullScreen} =
+    defineProps({
+      showEditDrag: {
+        type: Boolean,
+        default: false
+      },
+      diaLogWidth: {
+        type: String,
+        default: '50%'
+      },
+      diaLogTitle: {
+        type: String,
+        default: '弹框'
+      },
+      diaLogShow: {
+        type: Boolean,
+        default: false
+      },
+      isFullScreen: {
+        type: Boolean,
+        default: true
+      }
+    })
+watch(diaLogShow, (val: boolean) => {
+  diaLogShows.value = val
+})
+const e_changeDrag = (b: boolean) => {
+  closeDrag.value = b
+}
+const e_dialogClose = () => {
+  emit("close")
+}
+const e_dialogOpen = () => {
+  emit("open")
+}
+const e_changeBox = (type) => {
+  isFullScreen = type
 }
 </script>
 

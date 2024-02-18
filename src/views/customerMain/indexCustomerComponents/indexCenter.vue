@@ -78,7 +78,7 @@
                 <!--        >-->
                 <!--        </el-table-column>-->
                 <el-table-column align="center" fixed="right" label="操作" width="150">
-                  <template slot-scope="scope">
+                  <template v-slot="scope">
                     <el-button v-if="scope.row.status === 1 || scope.row.status == 6"
                                size="mini" type="text" @click="handleEdit(scope.row,'edit')">编辑
                     </el-button>
