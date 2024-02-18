@@ -45,6 +45,11 @@ export const constantRoutes = [
         name: 'allMsg',
         component: (resolve) => import('@/views/customerMain/entrustCommponents/allMsg.vue'),
       },
+      {
+        path: '/bottomT',
+        name: 'bottomT',
+        component: (resolve) => import('@/views/components/entrustTable/index.vue')
+      },
     ]
   },
   {

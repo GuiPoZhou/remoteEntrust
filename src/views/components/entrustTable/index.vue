@@ -1,48 +1,5 @@
 <template>
   <div class="app-container">
-    <el-tabs v-if="false" v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="计量委托" name="first">
-        <listContainer ref="listContainerRef" :businessConfigId="businessConfigId + ''"
-                       @handleSelectionChange="handleSelectionChange"
-        >
-          <template slot="tableColumn.status" scope="row">
-            {{ checkStatus(row.slotScopt.status) }}
-          </template>
-          <template slot="tableColumn.entrustCode" scope="row">
-            {{ checkSource(row) }}
-          </template>
-          <template slot="tableColumn.sampleProductType" scope="row">
-            {{ checkSampleProductType(row.slotScopt) }}
-          </template>
-          <template slot="bobutton">
-            <el-button icon="el-icon-plus" size="mini" type="primary" @click="handleAddPrice">新增委托
-            </el-button>
-          </template>
-          <template slot="action" slot-scope="scope">
-            <el-button v-if="scope.slotScopt.row.status === 0" size="mini" type="text"
-                       @click="editRow('edit',scope.slotScopt.row)">编辑
-            </el-button>
-            <el-button size="mini" type="text" @click="editRow('detail',scope.slotScopt.row)">查看</el-button>
-            <el-button v-if="scope.slotScopt.row.status === 0" size="mini" type="text" @click="handleCopy(scope.row)">
-              复制
-            </el-button>
-            <el-button v-if="scope.slotScopt.row.status === 0" size="mini" type="text" @click="handleDetele(scope.row)">
-              删除
-            </el-button>
-
-            <el-button v-if="scope.slotScopt.row.status === 0" size="mini" type="text"
-                       @click="handlepush(scope.slotScopt.row)">推送
-            </el-button>
-          </template>
-        </listContainer>
-      </el-tab-pane>
-      <el-tab-pane label="验收确认" name="second">
-        <acceptance></acceptance>
-      </el-tab-pane>
-      <el-tab-pane label="状态确认" name="third">
-        <statusT></statusT>
-      </el-tab-pane>
-    </el-tabs>
     <listContainer ref="listContainerRef" :businessConfigId="businessConfigId + ''" :runType="2"
                    @handleSelectionChange="handleSelectionChange"
     >
@@ -86,19 +43,15 @@
   </div>
 </template>
 <script>
-import listContainer from '@/components/executionTemplate/tableColumnConfig/listContainer'
-import acceptance from './jiliang/acceptance'
-import statusT from './jiliang/status'
-import addEntrustDialog from './addEntrustDialog'
-import {cloneTask, recallTask} from '@/api/index'
-import {deleteTask} from '@/api/entrust/entrustConfirm'
+import listContainer from '@/components/executionTemplate/tableColumnConfig/listContainer.vue'
+import addEntrustDialog from './addEntrustDialog.vue'
+import {cloneTask, recallTask} from '@/api/index/index.js'
+import {deleteTask} from '@/api/entrust/entrustConfirm.js'
 
 export default {
   components: {
     listContainer,
     addEntrustDialog,
-    acceptance,
-    statusT,
   },
   created() {
     let query = this.$route.query
@@ -112,14 +65,7 @@ export default {
     "$route.query": {
       handler(val) {
         if (val) {
-          console.log(val)
-          // this.$set(this,'businessConfigId',val?.itemId.toString())
           this.businessConfigId = val?.itemId.toString() + 3333
-          // if (val?.itemId) {
-          //   this.isShowTab = this.$store.state.menu.menus.filter(item => {
-          //     return item.configName == '计量委托'
-          //   })[0].id ==  val?.itemId
-          // }
         }
       },
       deep: true,

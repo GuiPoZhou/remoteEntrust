@@ -1,8 +1,7 @@
 <script setup>
-import noteDialog from "@/views/components/noteDialog";
+import noteDialog from "@/views/components/noteDialog/index.vue";
 import {getCurrentInstance, nextTick, reactive, ref} from 'vue'
-import dayjs from "dayjs";
-
+import {mbu_downloadPageOffice} from '@/mixins/mixinMethod.ts'
 const vm = getCurrentInstance()['proxy']
 let reportList = ref([])
 let queryParams = reactive({
@@ -55,7 +54,7 @@ function download(item) {
   console.log(window.localStorage.getItem('menuId'))
   vm.$net('/v1/entrustRemoteAgreement/selectReportCode', 'get', item).then(res => {
     if (res.code === 200) {
-      vm.mbu_downloadPageOffice(res.msg)
+      mbu_downloadPageOffice(res.msg)
     }
   })
 }
@@ -75,7 +74,7 @@ function download(item) {
           <el-row class="rowStyle" @click.native="noteDetail(item)">
             <span>{{ index + 1 }}.</span>
             <span>{{ item.noticeTitle + '的通知' }}</span>
-            <span class="timeText">{{ dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
+            <span class="timeText">{{ $dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
           </el-row>
         </template>
         <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
@@ -95,7 +94,7 @@ function download(item) {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .left-text {
   span {
     display: inline-block;

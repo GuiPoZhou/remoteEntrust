@@ -25,10 +25,19 @@ app.use(ElementPlus, {
 import 'dayjs/locale/zh-cn'
 import pagination from '@/components/Pagination/index.vue'
 import boDialog from "@components/BoContainer/boDialog.vue";
+import RightToolbar from "@/components/RightToolbar/index.vue"
+import BoContainer from '@/components/Boshland/BoContainer/boContainer.vue'
+import BoMain from '@/components/Boshland/BoContainer/boMain.vue'
+import BoMain4DynamicList from '@/components/Boshland/BoContainer/boMain4DynamicList.vue'
+
 
 app.component('boDialog', boDialog)
 app.component('pagination', pagination)
 app.component('svg-icon', SvgIcon);
+app.component('RightToolbar', RightToolbar)
+app.component('BoContainer', BoContainer)
+app.component('BoMain', BoMain)
+app.component('BoMain4DynamicList', BoMain4DynamicList)
 
 // 将 dayjs 挂载到全局属性
 app.config.globalProperties.$dayjs = dayjs;
