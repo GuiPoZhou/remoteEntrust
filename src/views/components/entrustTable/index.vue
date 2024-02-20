@@ -58,7 +58,8 @@ onBeforeMount(() => {
   //   Object.assign(pluginsInfo,e)
   // })
 })
-watch(route.query, (val) => {
+let itemId = ref(route.query)
+watch(itemId, (val) => {
   businessConfigId.value = val?.itemId.toString() + 3333
 })
 
