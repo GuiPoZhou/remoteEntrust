@@ -17,7 +17,7 @@
       >
         <el-button
             circle
-            icon="el-icon-setting"
+            :icon="Setting"
             size="small"
             @click="showConfig()"
         />
@@ -25,31 +25,24 @@
     </el-row>
   </div>
 </template>
-<script>
-export default {
-  name: "tableListConfigToolBar",
-  data() {
-    return {
-      checkedColumns: []
-    };
+<script setup>
+import {Setting} from '@element-plus/icons-vue'
+
+let checkedColumns = ref([])
+const {showSearch, boxData} = defineProps({
+  showSearch: {
+    type: Boolean,
+    default: true
   },
-  props: {
-    showSearch: {
-      type: Boolean,
-      default: true
-    },
-    boxData: {
-      type: Array,
-      default: () => {
-      }
+  boxData: {
+    type: Array,
+    default: () => {
     }
-  },
-  mounted() {
-  },
-  methods: {
-    showConfig() {
-      this.$emit("showConfig");
-    },
   }
-};
+})
+const emit = defineEmits(['showConfig'])
+
+function showConfig() {
+  emit('showConfig')
+}
 </script>

@@ -4,6 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path';
+import commonjs from '@rollup/plugin-commonjs';
 // https://vitejs.dev/config/
 export default defineConfig({
     // 基础路径配置
@@ -68,6 +69,12 @@ export default defineConfig({
       }),
       Components({
           resolvers: [ElementPlusResolver()],
+      }),
+      commonjs({
+          // 配置选项
+          include: /node_modules/, // 指定哪些模块需要转换为ESM，默认是node_modules中的所有commonjs模块
+          // transformMixedEsModules: true, // 当有混合引用时启用，比如同时包含import和require语句
+          // other options...
       }),
   ],
     resolve: {

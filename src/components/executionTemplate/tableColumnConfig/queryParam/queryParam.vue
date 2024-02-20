@@ -339,7 +339,7 @@ const {finalTableConfig, businessConfigId} = defineProps({
   },
   businessConfigId: String,
 })
-
+const businessConfigIdRef = ref(businessConfigId)
 let queryParams = reactive({})
 let defaultQueryParams = reactive({})
 let cacheRemoteDataSource = reactive({})
@@ -470,7 +470,7 @@ const getRenderQueryParam = computed(() => {
       : getQueryParam.value;
 })
 
-watch(businessConfigId, (val) => {
+watch(businessConfigIdRef, (val) => {
   Object.assign(queryParams, {})
 })
 watch(finalTableConfig, (val) => {
@@ -718,6 +718,10 @@ function loadRemoteDataSource(item) {
     });
   }
 }
+
+defineExpose({
+  getListQueryParams
+})
 </script>
 <style lang="less" scoped>
 .kevin_drawer {

@@ -957,7 +957,7 @@
                 </template>
               </el-table-column>
               <el-table-column label="操作" prop="width" width="80">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <el-link type="danger" @click="removeAggregateTable(scope.row, scope.$index)">删除
                   </el-link>
                 </template>
@@ -996,7 +996,7 @@
                 </template>
               </el-table-column>
               <el-table-column label="操作" prop="width" width="80">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <el-link type="danger" @click="removeTableColumn(scope.row)">删除</el-link>
                 </template>
               </el-table-column>
@@ -1018,12 +1018,12 @@
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="'预览Sql'"
                :visible.sync="showPreViewSql" append-to-body width="1024px">
-      <codemirror
+      <Codemirror
           ref="myEditor"
           :options="codemirrorOptions"
           :value="preViewSqlStr"
           style="height:100%;"
-      ></codemirror>
+      ></Codemirror>
       <!--            <span>{{ preViewSqlStr }}</span>-->
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="closePreView">确定</el-button>
@@ -1057,7 +1057,7 @@ import Sortable from "sortablejs";
 import NumberRange from "@/components/executionTemplate/tableColumnConfig/queryParam/NumberRange.vue";
 
 import sqlFormatter from "sql-formatter";
-import {codemirror} from "vue-codemirror-lite";
+import {Codemirror} from 'vue-codemirror'
 import VueClipBoard from 'vue-clipboard2'
 
 export default {
@@ -1065,7 +1065,7 @@ export default {
   components: {
     Sortable,
     NumberRange,
-    codemirror
+    Codemirror
   },
   props: {
     showTableColumnConfig: {
