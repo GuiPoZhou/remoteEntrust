@@ -4,15 +4,15 @@
       :label="item.label"
       class="foldLabel"
   >
-    <el-tooltip
-        slot="label"
-        :content="item.label"
-        class="item"
-        effect="light"
-        placement="top-start"
-    >
-      <label class="slotFormLabel">{{ item.label }}</label>
-    </el-tooltip>
+    <!--    <el-tooltip-->
+    <!--        slot="label"-->
+    <!--        :content="item.label"-->
+    <!--        class="item"-->
+    <!--        effect="light"-->
+    <!--        placement="top-start"-->
+    <!--    >-->
+    <!--&lt;!&ndash;      <label class="slotFormLabel">{{ item.label }}</label>&ndash;&gt;-->
+    <!--    </el-tooltip>-->
 
     <el-input
         v-if="item.searchType === 0"

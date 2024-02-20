@@ -30,7 +30,7 @@
                                :prop="!item.aliasName ? item.id : item.aliasName"
                                :show-overflow-tooltip="true" :sortable="item.sort ? 'custom' : false"
                                :width="item.width">
-                <template v-slot="scope">
+                <template #default="scope">
                   <slot v-if="!item.aliasName || item.aliasName === ''" :name="'tableColumn.' + item.id"
                         :slot-scopt="scope.row">
                     {{ scope.row[item.id] }}
@@ -41,7 +41,7 @@
                 </template>
               </el-table-column>
               <el-table-column v-if="showAction" :label="'操作'" :width="showActionWidth" align="center" fixed="right">
-                <template v-slot="scope">
+                <template #default="scope">
                   <slot :slot-scopt="scope" name="action"/>
                 </template>
               </el-table-column>

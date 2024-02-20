@@ -137,7 +137,7 @@
                       v-model="queryParams[item.id]"
                       :clearable="true"
                       placeholder="请输入查询条件"
-                      size="medium"
+                      size="default"
                       @keyup.enter.native="getList"
                   />
 
@@ -149,7 +149,7 @@
                       :placeholder="'请选择查询逻辑'"
                       filterable
                       placeholder="请选择"
-                      size="medium"
+                      size="default"
                       @keyup.enter.native="getList"
                   >
                     <el-option
@@ -185,7 +185,7 @@
                       :placeholder="'请选择查询逻辑'"
                       filterable
                       placeholder="请选择"
-                      size="medium"
+                      size="default"
                       @keyup.enter.native="getList"
                   ></selectTree>
 
@@ -214,7 +214,7 @@
                           v-model="queryParams[item.id]"
                           :clearable="true"
                           placeholder="请选择时间"
-                          size="medium"
+                          size="default"
                           style="width: 100%"
                           value-format="HH:mm:ss"
                           @keyup.enter.native="getList"
@@ -227,7 +227,7 @@
                           is-range
                           placeholder="选择时间范围"
                           range-separator="至"
-                          size="medium"
+                          size="default"
                           start-placeholder="开始时间"
                           style="width: 100%"
                           value-format="HH:mm:ss"
@@ -245,7 +245,7 @@
                           :picker-options="pickerOptions"
                           align="right"
                           placeholder="选择日期"
-                          size="medium"
+                          size="default"
                           style="width: 100%"
                           type="date"
                           value-format="yyyy-MM-dd HH:mm:ss"
@@ -260,7 +260,7 @@
                           align="right"
                           end-placeholder="结束日期"
                           range-separator="至"
-                          size="medium"
+                          size="default"
                           start-placeholder="开始日期"
                           style="width: 100%"
                           type="daterange"
@@ -279,7 +279,7 @@
                           :picker-options="pickerOptions"
                           align="right"
                           placeholder="选择日期时间"
-                          size="medium"
+                          size="default"
                           style="width: 100%"
                           type="datetime"
                           value-format="yyyy-MM-dd HH:mm:ss"
@@ -293,7 +293,7 @@
                           align="right"
                           end-placeholder="结束日期"
                           range-separator="至"
-                          size="medium"
+                          size="default"
                           start-placeholder="开始日期"
                           style="width: 100%"
                           type="datetimerange"
