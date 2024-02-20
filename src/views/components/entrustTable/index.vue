@@ -25,7 +25,7 @@
         <el-button v-for="(actionInfo, actionIndex) in pluginsInfo.mainTableButtons"
                    v-show="(!actionInfo.disabled || actionInfo.disabled == '') ? true : checkActionButtonNew(actionInfo.disabled, scope.slotScopt)"
                    :key="actionIndex + Math.random()"
-                   :loading="actionInfo.isLoading" size="mini"
+                   :loading="actionInfo.isLoading" size="small"
                    type="text" @click="e_actionButtonEventsNew(actionInfo, scope.slotScopt)">{{
             actionInfo.label
           }}

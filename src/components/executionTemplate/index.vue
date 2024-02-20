@@ -40,8 +40,8 @@
         </el-form-item>
         <div class="a-c-t-btnarea">
           <el-form-item>
-            <el-button icon="el-icon-search" size="mini" type="cyan" @click="handleQuery">搜索</el-button>
-            <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+            <el-button icon="el-icon-search" size="small" type="cyan" @click="handleQuery">搜索</el-button>
+            <el-button icon="el-icon-refresh" size="small" @click="resetQuery">重置</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -51,7 +51,7 @@
         <el-col :span="1.5">
           <el-button
               icon="el-icon-plus"
-              size="mini"
+              size="small"
               type="primary"
               @click="handleAdd"
           >新增
@@ -81,20 +81,20 @@
           <template slot-scope="scope">
             <el-button
                 icon="el-icon-edit"
-                size="mini"
+                size="small"
                 type="text"
                 @click="handleUpdate(scope.row)"
             >修改
             </el-button>
             <!--            <el-button-->
-            <!--              size="mini"-->
+            <!--              size="small"-->
             <!--              type="text"-->
             <!--              icon="el-icon-edit"-->
             <!--              @click="loadPage(scope.row)"-->
             <!--            >加载页面</el-button>-->
             <el-button
                 icon="el-icon-delete"
-                size="mini"
+                size="small"
                 type="text"
                 @click="handleDelete(scope.row)"
             >删除

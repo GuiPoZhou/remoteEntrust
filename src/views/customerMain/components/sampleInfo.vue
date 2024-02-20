@@ -270,17 +270,17 @@
           <!-- 按钮 -->
           <el-row v-show="!onlySee" :gutter="10" class="mb8">
             <el-col :span="1.5">
-              <el-button size="mini" type="primary" @click="handleAdd">
+              <el-button size="small" type="primary" @click="handleAdd">
                 添加
               </el-button>
             </el-col>
             <el-col :span="1.5">
-              <el-button size="mini" type="primary" @click="handleCopyAdd">
+              <el-button size="small" type="primary" @click="handleCopyAdd">
                 复制添加
               </el-button>
             </el-col>
             <el-col :span="1.5">
-              <el-button size="mini" type="primary" @click="handleDeleteItems">
+              <el-button size="small" type="primary" @click="handleDeleteItems">
                 批量删除
               </el-button>
             </el-col>
@@ -323,19 +323,19 @@
             >
               <template slot-scope="scope">
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="handleDeleteItem(scope.row)"
                 >删除
                 </el-button>
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="configUp(scope.$index, scope.row)"
                 >上移
                 </el-button>
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="configDown(scope.$index, scope.row)"
                 >下移

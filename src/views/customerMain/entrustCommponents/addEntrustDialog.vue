@@ -7,7 +7,7 @@
 <!--      <template slot="bologbody">-->
 <!--        <el-row style="margin-bottom:10px" v-if="!$store.state.system.closeDrag">-->
 <!--          <el-col :span="24">-->
-<!--            <el-button type="success" size="mini" @click="e_addNewTab">新增页签-->
+<!--            <el-button type="success" size="small" @click="e_addNewTab">新增页签-->
 <!--            </el-button>-->
 <!--            <el-popover placement="bottom-end" width="500" style="margin:0 10px" trigger="click">-->
 <!--              <el-row>-->
@@ -34,13 +34,13 @@
 <!--                  </el-table>-->
 <!--                </el-col>-->
 <!--              </el-row>-->
-<!--              <el-button slot="reference" type="primary"  size="mini">弹框管理</el-button>-->
+<!--              <el-button slot="reference" type="primary"  size="small">弹框管理</el-button>-->
 <!--            </el-popover>-->
-<!--            &lt;!&ndash; <el-button size="mini" type="warning"-->
+<!--            &lt;!&ndash; <el-button size="small" type="warning"-->
 <!--                @click="e_showAllBodyCode({ codeJson: listParamsList, index: -1, type: 'global' })">-->
 <!--                主体Code-->
 <!--            </el-button> &ndash;&gt;-->
-<!--            &lt;!&ndash; <el-button type="warning" size="mini"-->
+<!--            &lt;!&ndash; <el-button type="warning" size="small"-->
 <!--                @click="e_showAllBodyCode({ codeJson: bulletBox, index: -1, type: 'box' })">弹框Code-->
 <!--            </el-button> &ndash;&gt;-->
 <!--          </el-col>-->

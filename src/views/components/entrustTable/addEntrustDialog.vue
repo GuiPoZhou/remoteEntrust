@@ -6,7 +6,7 @@
       <template slot="bologbody">
         <el-row v-if="!$store.state.system.closeDrag" style="margin-bottom:10px">
           <el-col :span="24">
-            <el-button size="mini" type="success" @click="e_addNewTab">新增页签
+            <el-button size="small" type="success" @click="e_addNewTab">新增页签
             </el-button>
             <el-popover placement="bottom-end" style="margin:0 10px" trigger="click" width="500">
               <el-row>
@@ -33,13 +33,13 @@
                   </el-table>
                 </el-col>
               </el-row>
-              <el-button slot="reference" size="mini" type="primary">弹框管理</el-button>
+              <el-button slot="reference" size="small" type="primary">弹框管理</el-button>
             </el-popover>
-            <el-button size="mini" type="warning"
+            <el-button size="small" type="warning"
                        @click="e_showAllBodyCode({ codeJson: listParamsList, index: -1, type: 'global' })">
               主体Code
             </el-button>
-            <!-- <el-button type="warning" size="mini"
+            <!-- <el-button type="warning" size="small"
                 @click="e_showAllBodyCode({ codeJson: bulletBox, index: -1, type: 'box' })">弹框Code
             </el-button> -->
           </el-col>

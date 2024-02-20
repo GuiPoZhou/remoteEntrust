@@ -35,11 +35,11 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button :loading="isloading" size="mini" type="primary" @click="submit"
+            <el-button :loading="isloading" size="small" type="primary" @click="submit"
             >保存
             </el-button
             >
-            <el-button size="mini" type="danger" @click="close">关闭</el-button>
+            <el-button size="small" type="danger" @click="close">关闭</el-button>
           </el-form-item>
         </el-form>
       </div>

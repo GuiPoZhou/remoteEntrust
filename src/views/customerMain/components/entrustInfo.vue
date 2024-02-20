@@ -306,7 +306,7 @@
             <el-col :span="1.5">
               <el-button
                   icon="el-icon-download"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="handleAdd"
               >
@@ -350,14 +350,14 @@
               <template slot-scope="scope">
                 <el-button
                     v-show="distinguishCode == 'noConfirm'"
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="handleEdit(scope.row)"
                 >修改
                 </el-button>
                 <el-button
                     v-show="distinguishCode == 'confirmed'"
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="handleEdit(scope.row)"
                 >查看

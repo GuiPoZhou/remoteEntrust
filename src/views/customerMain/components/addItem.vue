@@ -72,7 +72,7 @@
         <template slot-scope="scope">
           <el-button
               icon="el-icon-delete"
-              size="mini"
+              size="small"
               type="text"
               @click="deleteItem(scope.$index, scope.row)"
           >删除

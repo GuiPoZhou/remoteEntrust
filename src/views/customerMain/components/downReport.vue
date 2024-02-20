@@ -24,7 +24,7 @@
             <template slot-scope="scope">
               <el-button
                   icon="el-icon-edit"
-                  size="mini"
+                  size="small"
                   type="text"
                   @click="handleDown(scope.row)"
               >下载

@@ -32,7 +32,7 @@
         :placeholder="'请选择查询逻辑'"
         filterable
         placeholder="请选择"
-        size="mini"
+        size="small"
         @keyup.enter.native="getList"
     >
       <el-option
@@ -66,7 +66,7 @@
         :placeholder="'请选择查询逻辑'"
         filterable
         placeholder="请选择"
-        size="mini"
+        size="small"
         @keyup.enter.native="getList"
     ></selectTree>
 
@@ -126,7 +126,7 @@
             :picker-options="pickerOptions"
             align="right"
             placeholder="选择日期"
-            size="mini"
+            size="small"
             style="width: 100%"
             type="date"
             value-format="yyyy-MM-dd HH:mm:ss"
@@ -141,7 +141,7 @@
             align="right"
             end-placeholder="结束日期"
             range-separator="至"
-            size="mini"
+            size="small"
             start-placeholder="开始日期"
             style="width: 100%"
             type="daterange"
@@ -173,7 +173,7 @@
             align="right"
             end-placeholder="结束日期"
             range-separator="至"
-            size="mini"
+            size="small"
             start-placeholder="开始日期"
             type="datetimerange"
             unlink-panels

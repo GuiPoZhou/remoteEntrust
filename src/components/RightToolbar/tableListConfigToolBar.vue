@@ -18,7 +18,7 @@
         <el-button
             circle
             icon="el-icon-setting"
-            size="mini"
+            size="small"
             @click="showConfig()"
         />
       </el-tooltip>

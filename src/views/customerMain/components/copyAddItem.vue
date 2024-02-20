@@ -66,12 +66,12 @@
             <el-form-item>
               <el-button
                   icon="el-icon-search"
-                  size="mini"
+                  size="small"
                   type="cyan"
                   @click="handleQuery"
               >搜索
               </el-button>
-              <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+              <el-button icon="el-icon-refresh" size="small" @click="resetQuery"
               >重置
               </el-button>
             </el-form-item>

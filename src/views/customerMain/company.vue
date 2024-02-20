@@ -9,7 +9,7 @@
         <el-button
             v-show="buttonShow"
             icon="el-icon-edit-outline"
-            size="mini"
+            size="small"
             type="text"
             @click="handleEdit"
         >
@@ -200,7 +200,7 @@
         <div style="display: flex; justify-content: center;">
           <el-button
               center
-              size="mini"
+              size="small"
               style="
               width: 102px;
               height: 36px;

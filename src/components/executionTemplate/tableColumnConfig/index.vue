@@ -6,15 +6,15 @@
                append-to-body height="100hv" width="100wv" @close="cancel">
       <el-row v-if="$store.state.user.roles.includes('admin')">
         <el-col :span="24">
-          <el-button size="mini" type="primary" @click="showMainForm">配置主表属性</el-button>
+          <el-button size="small" type="primary" @click="showMainForm">配置主表属性</el-button>
           <el-divider direction="vertical"/>
-          <el-button size="mini" type="success" @click="showRelationForm">添加关联表属性</el-button>
+          <el-button size="small" type="success" @click="showRelationForm">添加关联表属性</el-button>
           <el-divider direction="vertical"/>
-          <el-button size="mini" type="success" @click="showAggregateForm">配置聚合查询</el-button>
+          <el-button size="small" type="success" @click="showAggregateForm">配置聚合查询</el-button>
           <el-divider direction="vertical"/>
-          <el-button size="mini" type="success" @click="preview">预览列表</el-button>
+          <el-button size="small" type="success" @click="preview">预览列表</el-button>
           <el-divider direction="vertical"/>
-          <el-button size="mini" type="success" @click="previewSql">预览Sql脚本</el-button>
+          <el-button size="small" type="success" @click="previewSql">预览Sql脚本</el-button>
         </el-col>
         <el-col :span="24">
           <el-divider></el-divider>
@@ -235,11 +235,11 @@
                             </el-col>
                           </el-row>
 
-                          <el-button v-else-if="scope.row.searchType === 2" size="mini" type="primary"
+                          <el-button v-else-if="scope.row.searchType === 2" size="small" type="primary"
                                      @click="selectOptionConfig(scope.row)">配置数据源
                           </el-button>
 
-                          <el-button v-else-if="scope.row.searchType === 7" size="mini" type="primary"
+                          <el-button v-else-if="scope.row.searchType === 7" size="small" type="primary"
                                      @click="selectTreeOptionConfig(scope.row)">配置数据源
                           </el-button>
                           <el-row v-else-if="scope.row.searchType === 4">
@@ -657,7 +657,7 @@
       <el-row>
         <el-form ref="optionsConfigForm" :model="selectOptionRow" @submit.native.prevent>
           <el-col :span="24">
-            <el-radio-group v-model="selectOptionRow.selectOptionType" size="mini" @input="selectOptionTypeChange">
+            <el-radio-group v-model="selectOptionRow.selectOptionType" size="small" @input="selectOptionTypeChange">
               <el-radio-button :label="1">静态数据</el-radio-button>
               <el-radio-button :label="2">远程数据</el-radio-button>
               <el-radio-button :label="3">关联数据源</el-radio-button>
@@ -750,7 +750,7 @@
 
             <el-table-column align="center" label="操作" prop="operation">
               <template slot-scope="scope">
-                <el-button size="mini" type="text" @click="deleteRow(scope.$index, scope.row)">删除
+                <el-button size="small" type="text" @click="deleteRow(scope.$index, scope.row)">删除
                 </el-button>
               </template>
             </el-table-column>
@@ -936,7 +936,7 @@
       <el-divider content-position="center">聚合表明细</el-divider>
       <el-row>
         <el-col :span="24">
-          <el-button size="mini" type="primary" @click="addAggregateTable">添加聚合表</el-button>
+          <el-button size="small" type="primary" @click="addAggregateTable">添加聚合表</el-button>
           <el-divider/>
         </el-col>
         <el-col :span="24">
@@ -969,7 +969,7 @@
       <el-divider content-position="center">聚合列明细</el-divider>
       <el-row>
         <el-col :span="24">
-          <el-button size="mini" type="primary" @click="addAggregateColumn">添加聚合列</el-button>
+          <el-button size="small" type="primary" @click="addAggregateColumn">添加聚合列</el-button>
           <el-divider/>
         </el-col>
 

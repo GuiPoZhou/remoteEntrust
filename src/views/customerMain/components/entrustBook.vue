@@ -26,7 +26,7 @@
               <el-button
                   v-show="scope.row.agreementType == '委托方'"
                   icon="el-icon-edit"
-                  size="mini"
+                  size="small"
                   type="text"
                   @click="handleUpload(scope.row)"
               >上传
@@ -34,7 +34,7 @@
               <el-button
                   v-show="(scope.row.agreement == 2 && scope.row.agreementType == '受理方')||(scope.row.agreement == 1 && scope.row.agreementType == '委托方')||(scope.row.agreement == 3)"
                   icon="el-icon-edit"
-                  size="mini"
+                  size="small"
                   type="text"
                   @click="handleDown(scope.row)"
               >下载

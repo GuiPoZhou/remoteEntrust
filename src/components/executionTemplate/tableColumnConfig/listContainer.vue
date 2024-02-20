@@ -1,16 +1,16 @@
 <template>
   <div>
     <BoContainer ref="BoContainer" :total="total" pageTitle="预览动态列表" @changePage="changePage">
-      <template slot="boMain">
+      <template v-slot:boMain>
         <BoMain4DynamicList>
           <template slot="botabs">
             <slot name="botabs"></slot>
           </template>
-          <template slot="bosearch">
+          <template slot="bosearch" v-slot:bosearch>
             <queryParam ref="query" :businessConfigId="businessConfigId" :finalTableConfig="finalTableConfig"
                         @getList="getList" @reset="reset"/>
           </template>
-          <template slot="bobutton">
+          <template slot="bobutton" v-slot:bobutton>
             <div class="toolarea">
               <slot name="bobutton"></slot>
               <tableListConfigToolBar v-if="canEdit" @showConfig="tableColumnsConfig"/>

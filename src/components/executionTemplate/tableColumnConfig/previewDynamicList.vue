@@ -6,7 +6,7 @@
       </template>
       <template slot="bobutton">
         <!-- 这里放业务的button -->
-        <el-button size="mini" type="primary" @click="getSelection">获取已选中信息</el-button>
+        <el-button size="small" type="primary" @click="getSelection">获取已选中信息</el-button>
       </template>
       <template slot="tableColumn.entrust_code" scope="row">
         <!-- 这里放需特殊处理列的逻辑,插槽名称通过列表配置获取,规则为tableColumn.[列的id] -->

@@ -6,7 +6,7 @@
         <span>消息提示</span>
       </div>
       <div class="top-right">
-        <!--        <el-button type="danger" size="mini" round>{{99}}</el-button>-->
+        <!--        <el-button type="danger" size="small" round>{{99}}</el-button>-->
         <div class="floatStyle" @click="jumpMsg">
           <span class="wanringMsg">{{ nodeRead }}</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>

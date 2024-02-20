@@ -16,7 +16,7 @@
         <el-button
             circle
             icon="el-icon-search"
-            size="mini"
+            size="small"
             @click="toggleSearch()"
         />
       </el-tooltip>
@@ -29,7 +29,7 @@
         <el-button
             circle
             icon="el-icon-refresh"
-            size="mini"
+            size="small"
             @click="refresh()"
         />
       </el-tooltip>
@@ -42,7 +42,7 @@
       >
         <el-checkbox-group
             v-model="checkedColumns"
-            size="mini"
+            size="small"
             @change="e_changeBox"
         >
           <el-checkbox
@@ -57,7 +57,7 @@
             slot="reference"
             circle
             icon="el-icon-s-operation"
-            size="mini"
+            size="small"
         />
       </el-popover>
       <!-- <el-tooltip
@@ -67,7 +67,7 @@
         placement="top"
       >
         <el-button
-          size="mini"
+          size="small"
           circle
           icon="el-icon-full-screen"
           @click="fullScreen()"

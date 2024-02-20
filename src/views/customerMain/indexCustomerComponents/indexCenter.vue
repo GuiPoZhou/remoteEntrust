@@ -87,12 +87,12 @@
                     <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handleDetele(scope.row)">
                       删除
                     </el-button>
-                    <!--            <el-button @click="handleRecall(scope.row)" type="text" size="mini">撤回</el-button>-->
+                    <!--            <el-button @click="handleRecall(scope.row)" type="text" size="small">撤回</el-button>-->
                     <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handlepush(scope.row)">
                       推送
                     </el-button>
 
-                    <!--            <el-button @click="handleEvaluate(scope.row)" type="text" size="mini">评价</el-button>-->
+                    <!--            <el-button @click="handleEvaluate(scope.row)" type="text" size="small">评价</el-button>-->
                   </template>
                 </el-table-column>
               </el-table>

@@ -469,7 +469,7 @@
               <el-button
                   v-show="!onlySee"
                   icon="el-icon-plus"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="addSample"
               >
@@ -561,19 +561,19 @@
             <el-table-column v-if="!onlySee" fixed="right" label="操作" style="width: 100px">
               <template slot-scope="scope">
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="editSample(scope.row.idCode)"
                 >修改
                 </el-button>
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="deleteSample(scope.row.idCode)"
                 >删除
                 </el-button>
                 <el-button
-                    size="mini"
+                    size="small"
                     type="text"
                     @click="openCloneSampleDialog(scope.row.idCode)"
                 >复制

@@ -31,7 +31,7 @@
       <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
         <span class="leftText">编号{{ item.reportCode }}的检测报告</span>
         <span class="right-text">
-          <el-button size="mini" type="text" @click="download(item)">下载</el-button>
+          <el-button size="small" type="text" @click="download(item)">下载</el-button>
         </span>
       </div>
       <p class="totalStyle">

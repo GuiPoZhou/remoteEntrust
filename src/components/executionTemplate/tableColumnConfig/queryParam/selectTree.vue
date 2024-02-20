@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select ref="selectTree" v-model="modelValue" :clearable="true" class="main-select-tree" size="mini">
+    <el-select ref="selectTree" v-model="modelValue" :clearable="true" class="main-select-tree" size="small">
       <el-option v-for="item in dataSource" :key="item.value" :label="item.label" :value="item.value"
                  style="display: none;"/>
       <el-tree ref="selecteltree" :current-node-key="modelValue"

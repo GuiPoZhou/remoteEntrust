@@ -32,7 +32,7 @@
             <el-form-item>
               <el-button
                   icon="el-icon-search"
-                  size="mini"
+                  size="small"
                   type="cyan"
                   @click="handleQuery"
               >搜索

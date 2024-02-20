@@ -24,14 +24,14 @@
         <el-col :span="6" style="margin-top: 5px">
           <el-button
               icon="el-icon-search"
-              size="mini"
+              size="small"
               style="margin:0 1rem"
               type="primary"
               @click="getList"
           >搜索
           </el-button
           >
-          <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          <el-button icon="el-icon-refresh" size="small" @click="resetQuery"
           >重置
           </el-button
           >
@@ -57,20 +57,20 @@
           <div class="dgc-button">
             <el-button
                 icon="el-icon-search"
-                size="mini"
+                size="small"
                 style="margin:0 0.6rem"
                 type="primary"
                 @click="getList"
             >搜索
             </el-button
             >
-            <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+            <el-button icon="el-icon-refresh" size="small" @click="resetQuery"
             >重置
             </el-button
             >
             <el-button
                 icon="el-icon-s-operation"
-                size="mini"
+                size="small"
                 @click="showMorePanel = true"
             >高级搜索
             </el-button
