@@ -29,7 +29,7 @@
                                :label="item.label"
                                :prop="!item.aliasName ? item.id : item.aliasName"
                                :show-overflow-tooltip="true" :sortable="item.sort ? 'custom' : false" :width="item.width">
-                <template scope="scope">
+                <template v-slot="scope">
                   <slot v-if="!item.aliasName || item.aliasName === ''" :name="'tableColumn.' + item.id"
                         :slot-scopt="scope.row">
                     {{ scope.row[item.id] }}

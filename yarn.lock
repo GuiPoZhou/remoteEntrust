@@ -1509,6 +1509,11 @@ jsonc-parser@^3.2.0:
   resolved "https://registry.npmmirror.com/jsonc-parser/-/jsonc-parser-3.2.1.tgz#031904571ccf929d7670ee8c547545081cb37f1a"
   integrity sha512-AilxAyFOAcK5wA1+LeaySVBrHsGQvUFCDWXKpZjzaL0PqW+xfBOttn8GNtWKFWqneyMZj41MWF9Kl6iPWLwgOA==
 
+kevin-engine@latest:
+  version "1.0.503"
+  resolved "https://registry.npmmirror.com/kevin-engine/-/kevin-engine-1.0.503.tgz#0bd01550139281a0732278ebace79c6692357c01"
+  integrity sha512-Lcvw1rRE5OZSnzTP+rPqREHFD5yOIgVIBpLeLMps74JdLA93ahS3XGKwrQc9CKXYpuJT5aU2a3bFkwGEyFWqPA==
+
 kind-of@^3.0.2:
   version "3.2.2"
   resolved "https://registry.npmmirror.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"

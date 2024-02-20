@@ -73,7 +73,7 @@ export function getBusinessConfigWithId(id) {
 // 获取扩展属性
 export function getDynamicListData(businessConfigId, data) {
   return request({
-    url: '/v1/entrustRemoteAgreement/isAdminEntrust/' + businessConfigId,
+    url: '/dbConfig/getDynamicListData/' + businessConfigId,
     method: 'post',
     data: data
   })
@@ -108,6 +108,14 @@ export function getDataSourceConfig(id) {
 export function getBusinessData(id) {
   return request({
     url: '/reportDataSourceConfig/getBusinessData/?dataSourceId=' + id,
+    method: 'get',
+  })
+}
+
+// 获取数据源具体配置
+export function getExColumnConfigList(tableName) {
+  return request({
+    url: '/dbConfig/getExColumnConfigList/' + tableName,
     method: 'get',
   })
 }

@@ -80,15 +80,15 @@
                 <el-table-column align="center" fixed="right" label="操作" width="150">
                   <template v-slot="scope">
                     <el-button v-if="scope.row.status === 1 || scope.row.status == 6"
-                               size="mini" type="text" @click="handleEdit(scope.row,'edit')">编辑
+                               size="small" type="text" @click="handleEdit(scope.row,'edit')">编辑
                     </el-button>
-                    <el-button size="mini" type="text" @click="handleEdit(scope.row,'detail')">查看</el-button>
-                    <el-button size="mini" type="text" @click="handleCopy(scope.row)">复制</el-button>
-                    <el-button v-if="scope.row.status === 1" size="mini" type="text" @click="handleDetele(scope.row)">
+                    <el-button size="small" type="text" @click="handleEdit(scope.row,'detail')">查看</el-button>
+                    <el-button size="small" type="text" @click="handleCopy(scope.row)">复制</el-button>
+                    <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handleDetele(scope.row)">
                       删除
                     </el-button>
                     <!--            <el-button @click="handleRecall(scope.row)" type="text" size="mini">撤回</el-button>-->
-                    <el-button v-if="scope.row.status === 1" size="mini" type="text" @click="handlepush(scope.row)">
+                    <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handlepush(scope.row)">
                       推送
                     </el-button>
 
@@ -125,7 +125,6 @@ import {cloneTask, recallTask} from '@/api/index'
 import {deleteTask} from '@/api/entrust/entrustConfirm.js'
 import addEntrustDialog from '@/views/customerMain/entrustCommponents/addEntrustDialog.vue'
 import indexCenterTop from './indexCenterTop.vue'
-
 const instance = getCurrentInstance()
 // 获取vue实例
 const vm = instance['proxy']

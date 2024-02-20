@@ -112,6 +112,57 @@ export default {
             })
 
         },
+        //获取project插件按钮 3.0版本  维护地址：系统管理-低码维护-项目抽取类型
+        getPluginsForButtons(businessName, callback) {
+            this.$net('/formLayout/v2/getFormLayoutConfig', 'get', {id: businessName}).then(re => {
+                if (re.data) {
+                    let formDataStr = re.data.configStr
+                    let resultDataStr = formDataStr.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                    let info = JSON.parse(resultDataStr)
+                    let mainHomeButtons = []
+                    let mainTableButtons = []
+                    let mainTableSlotRender = []
+                    let mainDialogBottomButtons = []
+                    let engineList = []
+                    let businessCode = {}
+
+                    mainHomeButtons = info.mainHomeButtons.filter(item => {
+                        return this.$checkPermi([item.perm]) || !item.perm
+                    })
+                    mainTableButtons = info.mainTableButtons.filter(item => {
+                        return this.$checkPermi([item.perm]) || !item.perm
+                    })
+                    mainDialogBottomButtons = info.mainDialogBottomButtons
+                    mainTableSlotRender = info.mainTableSlotRender || []
+                    engineList = info.engineList || []
+                    businessCode = info.businessCode
+                    callback({
+                        mainHomeButtons,
+                        mainTableButtons,
+                        mainDialogBottomButtons,
+                        businessCode,
+                        mainTableSlotRender,
+                        engineList
+                    })
+                } else {
+                    let mainHomeButtons = []
+                    let mainTableButtons = []
+                    let mainTableSlotRender = []
+                    let mainDialogBottomButtons = []
+                    let engineList = []
+                    let businessCode = {}
+                    callback({
+                        mainHomeButtons,
+                        mainTableButtons,
+                        mainDialogBottomButtons,
+                        businessCode,
+                        mainTableSlotRender,
+                        engineList
+                    })
+                }
+
+            })
+        },
         /**
          * @author Coder
          * @date 2023/5/23
@@ -183,33 +234,68 @@ export default {
                 window.globalEnv.VUE_APP_BASE_API +
                 '/common/download?fileName=' + encodeURI(fileName) + '&delete=' + isDoneDelte + '&Authorization=' + getToken() + '&MenuId=' + MenuId;
         },
-        // 提取公共下载
-        mbu_downloadPdf(fileName, isDoneDelte = true) {
-            window.location.href =
-              window.globalEnv.VUE_APP_BASE_API +
-              '/v1/entrustRemoteAgreement/common/downloadFile?fileName=' + encodeURI(fileName) + '&delete=' + isDoneDelte + '&Authorization=' + getToken() + '&MenuId=' + MenuId;
-        },
-        mbu_downloadPageOffice(fileName,isDoneDelte = true) {
-          window.location.href =
-            window.globalEnv.VUE_APP_BASE_API + encodeURI(fileName) + '&delete=' + isDoneDelte + '&Authorization=' + getToken() + '&MenuId=' + MenuId;
-        },
-      // mbu_downloadPageOffice(fileName,isDoneDelte = true) {
-      //   window.location.href =
-      //     window.globalEnv.VUE_APP_BASE_API + '/v1/pageOffice/common/downloadFile?fileName=' + encodeURI(fileName) + '&delete=' + isDoneDelte + '&Authorization=' + getToken() + '&MenuId=' + MenuId;
-      // },
         mbu_downloadBatch(code, idList) {
             window.open(`${window.globalEnv.VUE_APP_BASE_API}/common/downloadBatch?code=${code}&idList=${idList}&Authorization=${getToken()}&MenuId=${MenuId}`)
 
         },
-        // 获取project配置的文字信息（公共页面只修改文字显示 不修改key）
+        sortByArr1(arr, rev) {
+            if (rev === undefined) {
+                rev = 1;
+            } else {
+                rev = (rev) ? 1 : -1;
+            }
+            return function (a, b) {
+                for (let i = 0; i < arr.length; i++) {
+                    let attr = arr[i]
+                    if (a[attr] !== b[attr]) {
+                        if (a[attr] > b[attr]) {
+                            return rev * 1;
+                        } else {
+                            return rev * -1;
+                        }
+                    }
+                }
+            }
+        },
+        //排序
+        resultData(tableData, merge) {
+            return tableData.sort(this.sortByArr1(merge, true))
+        },
+        //渲染动态table行内增加列表
+        getSpanArr(data, tableInfo) {
+            let tableDataList = []
+            tableDataList = this.resultData(data, tableInfo.mergeArr)
+            console.log('tableDataListaaa==============', tableDataList)
+            tableInfo.tableData = tableDataList
+            tableInfo.mergeArr.forEach((key, index1) => {
+                let count = 0; // 用来记录需要合并行的起始位置
+                tableInfo.mergeObj[key] = []; // 记录每一列的合并信息
+                tableDataList.forEach((item, index) => {
+                    // index == 0表示数据为第一行，直接 push 一个 1
+                    if (index === 0) {
+                        tableInfo.mergeObj[key].push(1);
+                    } else {
+                        // 判断当前行是否与上一行其值相等 如果相等 在 count 记录的位置其值 +1 表示当前行需要合并 并push 一个 0 作为占位
+                        if (item[key] === tableDataList[index - 1][key]) {
+                            tableInfo.mergeObj[key][count] += 1;
+                            tableInfo.mergeObj[key].push(0);
+                        } else {
+                            // 如果当前行和上一行其值不相等
+                            count = index; // 记录当前位置
+                            tableInfo.mergeObj[key].push(1); // 重新push 一个 1
+                        }
+                    }
+                })
+            })
+        },
         getProjectK18(textName) {
             return new Promise((re, rj) => {
                 let host = process.env.NODE_ENV === "production" ? '/subProject/' : `//${window.location.hostname}:7004/`
                 let url = `${host}profiles/k18/${textName}.json`
-                axios.get(url, { headers: { 'Authorization': getToken() } }).then(response => {
+                axios.get(url, {headers: {'Authorization': getToken()}}).then(response => {
                     console.log('k18请求', typeof response.data)
                     if (typeof response.data == 'string') {
-                        rj({ code: 500 })
+                        rj({code: 500})
                     } else {
                         re(response.data)
                     }
@@ -220,37 +306,6 @@ export default {
                 })
             })
         },
-      //获取project插件按钮 3.0版本  维护地址：系统管理-低码维护-项目抽取类型
-      getPluginsForButtons(businessName, callback) {
-        this.$net('/formLayout/v2/getFormLayoutConfig', 'get', { id: businessName }).then(re => {
-          if (re.data) {
-            let formDataStr = re.data.configStr
-            let resultDataStr = formDataStr.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-            let info = JSON.parse(resultDataStr)
-            let mainHomeButtons = []
-            let mainTableButtons = []
-            let mainDialogBottomButtons = []
-            let businessCode = {}
-
-            mainHomeButtons = info.mainHomeButtons.filter(item => {
-              return this.$checkPermi([item.perm]) || !item.perm
-            })
-            mainTableButtons = info.mainTableButtons.filter(item => {
-              return this.$checkPermi([item.perm]) || !item.perm
-            })
-            mainDialogBottomButtons = info.mainDialogBottomButtons
-            businessCode = info.businessCode
-            callback({ mainHomeButtons, mainTableButtons, mainDialogBottomButtons, businessCode })
-          } else {
-            let mainHomeButtons = []
-            let mainTableButtons = []
-            let mainDialogBottomButtons = []
-            let businessCode = {}
-            callback({ mainHomeButtons, mainTableButtons, mainDialogBottomButtons, businessCode })
-          }
-
-        })
-      },
         arrayToTreeV(list) {
             const roots = [];
             const map = {};

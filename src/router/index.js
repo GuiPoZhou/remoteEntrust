@@ -25,11 +25,11 @@ export const constantRoutes = [
     children: [
       {
         path: '/remote/customerMain',
-        name: 'indexCustomer',
         component: (resolve) => import('@/views/customerMain.vue'),
         children: [
           {
             path: '',
+            name: 'indexCustomer',
             component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
           }
         ]

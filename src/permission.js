@@ -13,9 +13,7 @@ const whiteList = ['/remote/login', '/auth-redirect', '/bind', '/register', '/pa
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  console.log('挑战', to, from, next)
   const token = getToken()
-  console.log('token', token)
   if (token) {
     if (to.path === '/remote/login') {
       next({path: '/remote/customerMain'})

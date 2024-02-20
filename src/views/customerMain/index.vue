@@ -17,8 +17,6 @@
               {{ item.configName }}
             </el-menu-item>
           </el-sub-menu>
-          <el-menu-item v-if="false" index="3">审核管理</el-menu-item>
-          <!--            <el-menu-item index="4" >企业管理</el-menu-item>-->
         </el-menu>
       </div>
       <div class="rightStyle">
@@ -29,19 +27,22 @@
             placement:="bottom-end"
             trigger="click"
         >
-          <div class="avatar-wrapper">
-            {{ store.state.user.user.nickName }}
-            <i class="el-icon-caret-bottom"/>
-          </div>
+            <span class="el-dropdown-link">
+             {{ store.state.user.user.nickName }}
+            <el-icon class="el-icon--right">
+              <arrow-down/>
+           </el-icon>
+          </span>
           <template #dropdown>
-            <router-link to="/remote/company">
-              <el-dropdown-item>个人信息</el-dropdown-item>
-            </router-link>
-            <el-dropdown-item divided @click.native="logout">
-              <span>退出登录</span>
-            </el-dropdown-item>
+            <el-dropdown-menu>
+              <router-link to="/remote/company">
+                <el-dropdown-item>个人信息</el-dropdown-item>
+              </router-link>
+              <el-dropdown-item divided @click.native="logout">
+                <span>退出登录</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
           </template>
-
         </el-dropdown>
       </div>
 
@@ -63,9 +64,11 @@ export default {
 <script setup>
 import {ref, reactive, getCurrentInstance, watch} from 'vue'
 import {useStore} from "vuex";
-import {useRouter} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
+import {ArrowDown} from '@element-plus/icons-vue'
 
 const store = useStore()
+const route = useRoute()
 const router = useRouter()
 const instance = getCurrentInstance()
 // 获取vue实例相当于this
@@ -94,7 +97,7 @@ vm.$net('/template/execution/run/getBusinessConfig/ENTRUSTMENT_AGREEMENT_PRE', '
   }
 
 })
-watch(() => vm.$route.query, (val) => {
+watch(() => route.query, (val) => {
   if (val.itemId) {
     activeIndex.value = val.itemId.toString()
   }
@@ -104,7 +107,7 @@ function handleSelect(index) {
   console.log(index)
   if (index == 1) {
     router.push({
-      path: '/'
+      name: 'indexCustomer'
     })
   } else if (index == 4) {
     router.push({

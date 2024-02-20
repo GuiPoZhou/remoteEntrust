@@ -26,9 +26,9 @@ import 'dayjs/locale/zh-cn'
 import pagination from '@/components/Pagination/index.vue'
 import boDialog from "@components/BoContainer/boDialog.vue";
 import RightToolbar from "@/components/RightToolbar/index.vue"
-import BoContainer from '@/components/Boshland/BoContainer/boContainer.vue'
-import BoMain from '@/components/Boshland/BoContainer/boMain.vue'
-import BoMain4DynamicList from '@/components/Boshland/BoContainer/boMain4DynamicList.vue'
+import BoContainer from '@/components/BoContainer/boContainer.vue'
+import BoMain from '@/components/BoContainer/boMain.vue'
+import BoMain4DynamicList from '@/components/BoContainer/boMain4DynamicList.vue'
 
 
 app.component('boDialog', boDialog)
@@ -39,9 +39,11 @@ app.component('BoContainer', BoContainer)
 app.component('BoMain', BoMain)
 app.component('BoMain4DynamicList', BoMain4DynamicList)
 
+import {getDicts} from "@/api/system/dict/data.js";
 // 将 dayjs 挂载到全局属性
 app.config.globalProperties.$dayjs = dayjs;
 app.config.globalProperties.$net = net;
+app.config.globalProperties.getDicts = getDicts
 app.use(router)
 app.use(store)
 // 如果需要使用插件，可以在这里注册

@@ -28,6 +28,7 @@
 
 <script>
 export default {
+  name: "boContainer",
   props: {
     pageTitle: {
       typeof: String,
