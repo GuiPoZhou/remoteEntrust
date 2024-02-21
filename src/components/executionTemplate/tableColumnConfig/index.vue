@@ -351,7 +351,8 @@
       </div>
     </el-dialog>
 
-    <el-dialog v-if="showMain" :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen"
+    <el-dialog v-if="showMain" v-model="showMain" :close-on-click-modal="false" :close-on-press-escape="false"
+               :fullscreen="isFullScreen"
                :title="'配置主表属性'" :visible.sync="showMain" append-to-body
                width="1024px">
       <el-row>
@@ -510,7 +511,8 @@
       </div>
     </el-dialog>
 
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="'配置关联表属性'"
+    <el-dialog v-model="showRelation" :close-on-click-modal="false" :close-on-press-escape="false"
+               :fullscreen="isFullScreen" :title="'配置关联表属性'"
                :visible.sync="showRelation" append-to-body width="1024px">
       <el-row>
 
@@ -655,8 +657,9 @@
       </div>
     </el-dialog>
 
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="'配置下拉数据源'"
-               :visible.sync="showSelectOptionConfig" append-to-body width="1024px">
+    <el-dialog v-model="showSelectOptionConfig" :close-on-click-modal="false" :close-on-press-escape="false"
+               :fullscreen="isFullScreen"
+               :title="'配置下拉数据源'" :visible.sync="showSelectOptionConfig" append-to-body width="1024px">
       <el-row>
         <el-form ref="optionsConfigForm" :model="selectOptionRow" @submit.native.prevent>
           <el-col :span="24">
@@ -832,7 +835,8 @@
         <el-button type="primary" @click="submitSelectOptionConfig">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="'配置下拉树数据源'"
+    <el-dialog v-model="showTreeSelectOptionConfig" :close-on-click-modal="false" :close-on-press-escape="false"
+               :fullscreen="isFullScreen" :title="'配置下拉树数据源'"
                :visible.sync="showTreeSelectOptionConfig" append-to-body width="1024px">
       <el-row>
         <el-col :span="24">
@@ -915,7 +919,7 @@
         <el-button type="primary" @click="submitTreeSelectOptionConfig">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog v-if="showAggregateConfig" :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen"
+    <el-dialog v-model="showAggregateConfig" :close-on-click-modal="false" :fullscreen="isFullScreen"
                :title="'配置聚合查询'" :visible.sync="showAggregateConfig" append-to-body
                width="1024px">
       <el-divider content-position="center">已配置表明细</el-divider>
@@ -1019,7 +1023,8 @@
         <el-button type="primary" @click="submitAggregateConfig">确定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="'预览Sql'"
+    <el-dialog v-model="showPreViewSql" :close-on-click-modal="false" :close-on-press-escape="false"
+               :fullscreen="isFullScreen" :title="'预览Sql'"
                :visible.sync="showPreViewSql" append-to-body width="1024px">
       <Codemirror
           ref="myEditor"
