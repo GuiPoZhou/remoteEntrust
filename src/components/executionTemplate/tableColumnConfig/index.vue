@@ -42,14 +42,14 @@
 
             <el-table-column v-if="$store.state.user.roles.includes('admin')" label="属性别名"
                              prop="label">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-input v-model="scope.row.aliasName" :disabled="scope.row.sourceType > 2"
                           placeholder="请输入属性别名"/>
               </template>
             </el-table-column>
             <el-table-column v-if="$store.state.user.roles.includes('admin')" label="属性类型" prop="label"
                              width="150">
-              <template slot-scope="scope">{{
+              <template #default="scope">{{
                   scope.row.mateType === 1 ? '元属性' : scope.row.mateType === 2 ? '扩展' : '聚合'
                 }}-
                 {{ scope.row.sourceType === 1 ? '主表' : scope.row.sourceType === 2 ? '关联' : '聚合' }}
@@ -62,39 +62,39 @@
             <!--                            </template>-->
             <!--                        </el-table-column>-->
             <el-table-column label="属性label" prop="label">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-input v-model="scope.row.label" placeholder="请输入列表属性label"/>
               </template>
             </el-table-column>
             <el-table-column label="列表隐藏" prop="hidden" width="50">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-switch v-model="scope.row.hidden"/>
               </template>
             </el-table-column>
             <el-table-column label="导出数据" prop="hidden" width="50">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-switch v-model="scope.row.export"/>
               </template>
             </el-table-column>
             <el-table-column label="允许排序" prop="sort" width="50">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-switch v-model="scope.row.sort" @change="changeSort($event, scope.$index)"/>
               </template>
             </el-table-column>
             <el-table-column label="默认排序" prop="sort" width="50">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <!--                                <el-switch v-model="scope.row.defaultSort" :disabled="!scope.row.sort" @change="changeDefaultSort($event, scope.$index)"/>-->
                 <el-switch v-model="scope.row.defaultSort" :disabled="!scope.row.sort"/>
               </template>
             </el-table-column>
             <el-table-column label="排序顺序" prop="sort" width="80">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-input v-model="scope.row.defaultSortNum" :disabled="!scope.row.defaultSort"
                           placeholder="请输入排序顺序"/>
               </template>
             </el-table-column>
             <el-table-column label="排序方式" prop="sort" width="100">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-select slot="prepend" v-model="scope.row.sortType"
                            :disabled="!scope.row.defaultSort" :placeholder="'请选择查询逻辑'" placeholder="请选择">
                   <el-option :key="0" :value="0" label="降序"/>
@@ -103,18 +103,18 @@
               </template>
             </el-table-column>
             <el-table-column label="宽度" prop="width" width="80">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-input v-model="scope.row.width" placeholder="请输入宽度"/>
               </template>
             </el-table-column>
             <el-table-column label="排序" prop="width" width="70">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-link type="danger" @click="sortUp(scope.$index, scope.row)">↑上移↑</el-link>
                 <el-link type="danger" @click="sortDown(scope.$index, scope.row)">↓下移↓</el-link>
               </template>
             </el-table-column>
             <el-table-column label="查询条件" prop="search" type="expand" width="50">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-card class="box-card">
                   <div slot="header">
                     <span>[ {{ scope.row.label }} ] : 查询条件配置</span>
@@ -124,34 +124,35 @@
                         :data="[scope.row]"
                     >
                       <el-table-column label="启用查询" prop="hidden" width="80">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-switch v-model="scope.row.search"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" label="Having" prop="having"
                                        width="80">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-switch v-model="scope.row.having"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" label="隐藏条件" prop="searchHidden"
                                        width="80">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-switch v-model="scope.row.searchHidden"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" :disabled="!scope.row.search" label="渲染顺序(降序)"
                                        prop="queryOrderIndex"
                                        width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-input-number v-model="scope.row.queryOrderIndex" :min="0" controls-position="right"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" :disabled="!scope.row.search" label="栅格宽度" prop="gridWidth"
                                        width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
 
-                          <el-tooltip class="item" content="排除查询按钮部分,等分24列,渲染查询面板时会计算满足栅格总和<=24的查询条件,若>24,则出现高级搜索按钮,其他条件亦通过高级搜索面板渲染."
+                          <el-tooltip class="item"
+                                      content="排除查询按钮部分,等分24列,渲染查询面板时会计算满足栅格总和<=24的查询条件,若>24,则出现高级搜索按钮,其他条件亦通过高级搜索面板渲染."
                                       effect="dark"
                                       placement="top">
                             <el-input-number v-model="scope.row.gridWidth" :max="24" :min="1"
@@ -162,13 +163,13 @@
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" :disabled="!scope.row.search" label="查询条件Label宽度"
                                        prop="labelWidth"
                                        width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-input-number v-model="scope.row.labelWidth" :min="0" controls-position="right"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" label="查询控件类型" prop="search"
                                        width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-select slot="prepend" v-model="scope.row.searchType" :disabled="!scope.row.search"
                                      :placeholder="'查询控件类型'" placeholder="请选择"
                                      @change="initSearchTypeValue(scope.row)">
@@ -184,7 +185,7 @@
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" label="查询逻辑" prop="search"
                                        width="180">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-select slot="prepend" v-model="scope.row.searchLogic"
                                      :disabled="!scope.row.search" :placeholder="'请选择查询逻辑'" placeholder="请选择"
                                      @change="initSearchLogic(scope.row)">
@@ -208,14 +209,15 @@
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" label="系统参数" prop="searchHidden"
                                        width="80">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                           <el-switch v-model="scope.row.sysQueryType"/>
                         </template>
                       </el-table-column>
                       <el-table-column v-if="$store.state.user.roles.includes('admin')" align="center" label="默认查询条件"
                                        prop="label">
-                        <template slot-scope="scope">
-                          <el-input v-if="scope.row.searchType === 0 && !scope.row.sysQueryType" v-model="scope.row.defaultQueryValue"
+                        <template #default="scope">
+                          <el-input v-if="scope.row.searchType === 0 && !scope.row.sysQueryType"
+                                    v-model="scope.row.defaultQueryValue"
                                     class="input-with-select"
                                     placeholder="请输入默认查询条件"/>
                           <el-select v-if="scope.row.searchType === 0 && scope.row.sysQueryType" slot="prepend"
@@ -336,7 +338,7 @@
             </el-table-column>
             <el-table-column v-if="$store.state.user.roles.includes('admin')" align="center" label="操作" prop="width"
                              width="80">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-link type="danger" @click="removeTableColumn(scope.row)">删除</el-link>
               </template>
             </el-table-column>
@@ -736,7 +738,7 @@
               ooltip-effect="dark"
           >
             <el-table-column align="center" label="选项值">
-              <template scope="scope">
+              <template #default="scope">
                 <el-input v-if="selectOptionRow.staticKeyType === 1" v-model="scope.row.key"
                           placeholder="请输入Key"/>
                 <el-input-number v-else-if="selectOptionRow.staticKeyType === 2" v-model="scope.row.key"
@@ -744,13 +746,13 @@
               </template>
             </el-table-column>
             <el-table-column align="center" label="选项名称">
-              <template scope="scope">
+              <template #default="scope">
                 <el-input v-model="scope.row.label" placeholder="请输入Label"/>
               </template>
             </el-table-column>
 
             <el-table-column align="center" label="操作" prop="operation">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <el-button size="small" type="text" @click="deleteRow(scope.$index, scope.row)">删除
                 </el-button>
               </template>
@@ -948,12 +950,12 @@
                 ooltip-effect="dark"
             >
               <el-table-column align="center" label="Join子句脚本" prop="script">
-                <template scope="scope">
+                <template #default="scope">
                   <el-input v-model="scope.row.script" placeholder="请输入Join子句脚本"/>
                 </template>
               </el-table-column>
               <el-table-column align="center" label="备注" prop="commit">
-                <template scope="scope">
+                <template #default="scope">
                   <el-input v-model="scope.row.commit" placeholder="请输入备注"/>
                 </template>
               </el-table-column>
@@ -982,17 +984,17 @@
                 ooltip-effect="dark"
             >
               <el-table-column align="center" label="聚合列脚本" prop="script">
-                <template scope="scope">
+                <template #default="scope">
                   <el-input v-model="scope.row.script" placeholder="请输入聚合列脚本"/>
                 </template>
               </el-table-column>
               <el-table-column align="center" label="别名" prop="id">
-                <template scope="scope">
+                <template #default="scope">
                   <el-input v-model="scope.row.id" placeholder="请输入别名"/>
                 </template>
               </el-table-column>
               <el-table-column align="center" label="属性label" prop="label">
-                <template scope="scope">
+                <template #default="scope">
                   <el-input v-model="scope.row.label" placeholder="请输入属性label"/>
                 </template>
               </el-table-column>
@@ -1038,7 +1040,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import {
   getTableInfo,
@@ -1063,1819 +1064,7 @@ import VueClipBoard from 'vue-clipboard2'
 
 export default {
   name: "tableColumnConfig",
-  components: {
-    Sortable,
-    NumberRange,
-    Codemirror
-  },
-  props: {
-    businessConfigId: {
-      type: String,
-      default: null,
-    },
-    runType: {
-      type: Number,
-      default: 1,
-    }
-  },
-  data() {
-    return {
-      showTableColumnConfig: false,
-      title: '列表配置',
-      activeNames: ['1'],
-      isFullScreen: true,
-      mainColumnListInfo: [],
-      mainTableInfo: null,
-      tableListInfo: [],
-      tableSearchName: null,
-      columnSearchName: null,
-      columnExSearchName: null,
-      mainColumnSearchName: null,
-      columnListInfo: [],
-      businessConfigList: null,
-      relationBusinessConfigId: null,
-      exDataOptions: [],
-      exDataKey: null,
-      relationExDataOptions: [],
-      relationKeyLeft: null,
-      relationKeyRight: null,
-      relationExDataKey: null,
-      relationTableName: null,
-
-
-      showMain: false,
-      showRelation: false,
-      showSelectOptionConfig: false,
-      showTreeSelectOptionConfig: false,
-      showAggregateConfig: false,
-      aggregateConfig: {
-        tableList: [],
-        columnList: [],
-        groupScript: null,
-        havingScript: null,
-      },
-      finalTableConfig: {},
-      configId: null,
-      selectOptionRow: {
-        selectOptionType: 1,
-        staticKeyType: 1,
-      },
-
-      preViewSqlStr: '',
-      showPreViewSql: false,
-
-      userDataScope: 2,
-      deptIdName: 'create_dept_id',
-      userIdName: 'create_user_id',
-
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        },
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date());
-          }
-        }, {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24);
-            picker.$emit('pick', date);
-          }
-        }, {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', date);
-          }
-        }]
-      },
-
-      pickerRangeOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近一个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: '最近三个月',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
-      codemirrorOptions: {
-        mode: 'text/sql',
-        lineNumbers: true,
-        lineWrapping: true
-      },
-
-      bindDataSourceId: null,
-      dataSourceOptions: [],
-      selectTreeNode: [],
-      selectTreeLabel: null,
-      defaultProps: {
-        children: 'children',
-        label: 'label',
-        id: 'id',
-      },
-      parentDataRelationData: [],
-      treeData: [],
-      form: {
-        id: null,
-        templateId: null,
-        name: '',
-        dataSourceType: 1,
-        relationshipType: 1,
-        parentDataId: null,
-        parentDataName: null,
-        parentDataRelationKey: null,
-        remark: null,
-      },
-      inputVisible: false,
-      inputValue: null,
-      specialTimeConditions: null,
-
-    }
-  },
-  //计算属性 类似于data概念
-  computed: {
-    getTableListInfoList() {
-      let result = [];
-      this.tableListInfo.forEach(item => {
-        let record = {
-          id: item.tableName,
-          label: item.tableName + ' | (' + item.tableComment + ')',
-          // label: item.tableComment ,
-        }
-        result.push(record);
-      })
-      return result;
-    },
-    getColumnListInfoList() {
-      let result = [];
-      this.columnListInfo.forEach(item => {
-        let record = {
-          id: item.columnName,
-          label: item.columnName + ' | (' + item.columnComment + ')',
-          // label: item.columnComment ,
-        }
-        result.push(record);
-      })
-      return result;
-    },
-    getMainColumnListInfoList() {
-      let result = [];
-      this.mainColumnListInfo.forEach(item => {
-        let record = {
-          id: item.columnName,
-          label: item.columnName + ' | (' + item.columnComment + ')',
-          // label: item.columnComment ,
-        }
-        result.push(record);
-      })
-      return result;
-    },
-    getAllTableInfoList() {
-      let result = [];
-      result.push({
-        id: this.mainTableInfo.tableName,
-        label: this.mainTableInfo.tableName + ' | (' + this.mainTableInfo.tableComment + ')',
-        type: '主表',
-        alias: 'main',
-        aliasEx: 'mainEx',
-      })
-      if (this.finalTableConfig.relationConfig) {
-        this.finalTableConfig.relationConfig.forEach((item, index) => {
-          result.push({
-            id: item.relationTableName,
-            label: this.getTableListInfoList.filter((subItem) => subItem.id === item.relationTableName)[0].label,
-            type: '关联表',
-            alias: 'r' + index,
-            aliasEx: 'rEx' + index,
-          })
-        })
-      }
-      return result;
-    }
-  },
-  watch: {
-    tableSearchName(val) {
-      this.$refs.tree.filter(val);
-    },
-    columnSearchName(val) {
-      this.$refs.columnTree.filter(val);
-    },
-    columnExSearchName(val) {
-      console.log('columnExSearchName', val, this.$refs.exDataTree, this.$refs.exMainDataTree);
-      if (this.$refs.exDataTree) {
-        this.$refs.exDataTree.filter(val);
-      }
-      if (this.$refs.exMainDataTree) {
-        this.$refs.exMainDataTree.filter(val);
-      }
-    },
-    mainColumnSearchName(val) {
-      this.$refs.mainColumnTree.filter(val);
-    }
-  },
-  //方法集合
-  methods: {
-    init() {
-      this.showTableColumnConfig = true
-    },
-    submitForm() {
-      let saveData = {
-        id: this.configId,
-        businessConfigId: this.businessConfigId,
-        listConfig: this.finalTableConfig,
-      }
-      saveTableListConfig(saveData).then(res => {
-        this.$message.success(res.msg);
-        this.$emit('closeTableColumnsConfig');
-      })
-    },
-    cancel() {
-      this.$emit('closeTableColumnsConfig');
-    },
-    handleCheckChange(data, checked, indeterminate) {
-      this.relationTableName = data.id;
-      this.relationBusinessConfigId = null;
-      getColumnInfo(data.id).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'columnListInfo', res.data);
-        }
-      })
-
-      if (!this.finalTableConfig.version) {
-        getBusinessConfig(data.id).then(res => {
-          if (res && res.data) {
-            this.$set(this, 'businessConfigList', res.data);
-          }
-        })
-      } else if (this.finalTableConfig.version && this.finalTableConfig.version === 'v2') {
-        this.refreshExColumnConfig(data.id, 'relationExDataOptions');
-      }
-    },
-    // 筛选节点
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    },
-    handleColumnCheckChange(data, checked, indeterminate) {
-    },
-    handleMainColumnCheckChange(data, checked, indeterminate) {
-    },
-    filterColumnNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    },
-    relationSelectChange(value) {
-      getExDataConfigOptions(value).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'relationExDataOptions', res.data);
-        }
-      })
-    },
-
-
-    showMainForm() {
-      this.showMain = true;
-    },
-
-    showRelationForm() {
-      this.showRelation = true;
-    },
-
-    submitMain() {
-      let mateColumns = this.$refs.mainColumnTree.getCheckedNodes();
-      mateColumns.forEach(item => {
-        this.$set(item, 'sourceType', 1);
-        this.$set(item, 'mateType', 1);
-        this.$set(item, 'sortNum', 100);
-        this.$set(item, 'tableAlias', 'main');
-        this.$set(item, 'aliasName', this.toCamel(item.id));
-        if (!item.having) {
-          this.$set(item, 'having', false);
-        }
-      });
-      let dynamicColumns = this.$refs.exMainDataTree.getCheckedNodes();
-      dynamicColumns.forEach(item => {
-        this.$set(item, 'sourceType', 1);
-        this.$set(item, 'mateType', 2);
-        this.$set(item, 'sortNum', 100);
-        this.$set(item, 'id', item.key);
-        this.$set(item, 'aliasName', this.toCamel(item.key));
-        if (!this.finalTableConfig.version) {
-          this.$set(item, 'tableAlias', 'mainEx');
-        } else if (this.finalTableConfig.version && this.finalTableConfig.version === 'v2') {
-          this.$set(item, 'tableAlias', 'main');
-        }
-        if (!item.having) {
-          this.$set(item, 'having', false);
-        }
-      });
-      if (this.finalTableConfig && this.finalTableConfig.mateConfig) {
-        if (mateColumns && mateColumns.length > 0) {
-          this.finalTableConfig.mateConfig.mateColumns.push(...mateColumns);
-        }
-        if (dynamicColumns && dynamicColumns.length > 0) {
-          this.finalTableConfig.mateConfig.dynamicColumns.push(...dynamicColumns);
-        }
-        if (this.businessConfigId) {
-          this.$set(this.finalTableConfig.mateConfig, 'businessConfigId', this.businessConfigId);
-        }
-        if (this.exDataKey) {
-          this.$set(this.finalTableConfig.mateConfig, 'exDataKey', this.exDataKey);
-        }
-        this.$set(this.finalTableConfig.mateConfig, 'userDataScope', this.userDataScope);
-        this.$set(this.finalTableConfig.mateConfig, 'userIdName', this.userIdName);
-        this.$set(this.finalTableConfig.mateConfig, 'deptIdName', this.deptIdName);
-        this.$set(this.finalTableConfig.mateConfig, 'mainTableName', this.mainTableInfo.tableName);
-      } else {
-        this.$set(this.finalTableConfig, 'mateConfig', {
-          mateColumns: mateColumns,
-          dynamicColumns: dynamicColumns,
-          exDataKey: this.exDataKey,
-          businessConfigId: this.businessConfigId,
-          userDataScope: this.userDataScope,
-          deptIdName: this.deptIdName,
-          userIdName: this.userIdName,
-          mainTableName: this.mainTableInfo.tableName,
-        });
-      }
-
-      if (this.finalTableConfig.mateConfig.mateColumns) {
-        let hash = {};
-        let result = this.finalTableConfig.mateConfig.mateColumns.reduce((preVal, curVal) => {
-          hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
-          return preVal;
-        }, []);
-        this.$set(this.finalTableConfig.mateConfig, 'mateColumns', result);
-      }
-
-      if (this.finalTableConfig.mateConfig.dynamicColumns) {
-        let hash = {};
-        let result = this.finalTableConfig.mateConfig.dynamicColumns.reduce((preVal, curVal) => {
-          hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
-          return preVal;
-        }, []);
-        this.$set(this.finalTableConfig.mateConfig, 'dynamicColumns', result);
-      }
-      if (!this.finalTableConfig.relationConfig) {
-        this.finalTableConfig.relationConfig = new Array();
-      }
-      if (!this.finalTableConfig.aggregateConfig) {
-        this.finalTableConfig.aggregateConfig = {
-          tableList: [],
-          columnList: [],
-        }
-      }
-      this.processAllColumns();
-      this.cancelMain();
-    },
-    submitRelation() {
-      let mateColumns = this.$refs.columnTree.getCheckedNodes();
-      mateColumns.forEach(item => {
-        this.$set(item, 'sourceType', 2);
-        this.$set(item, 'mateType', 1);
-        this.$set(item, 'sortNum', 100);
-        this.$set(item, 'aliasName', this.toCamel(item.id));
-        if (!item.having) {
-          this.$set(item, 'having', false);
-        }
-      });
-      let dynamicColumns = this.$refs.exDataTree.getCheckedNodes();
-      dynamicColumns.forEach(item => {
-        this.$set(item, 'sourceType', 2);
-        this.$set(item, 'mateType', 2);
-        this.$set(item, 'sortNum', 100);
-        this.$set(item, 'id', item.key);
-        this.$set(item, 'aliasName', this.toCamel(item.key));
-        if (!item.having) {
-          this.$set(item, 'having', false);
-        }
-      });
-      if (!this.finalTableConfig.relationConfig) {
-        this.finalTableConfig.relationConfig = new Array();
-      }
-      let relationConfig = {
-        mateColumns: mateColumns,
-        dynamicColumns: dynamicColumns,
-        exDataKey: this.relationExDataKey,
-        relationKeyLeft: this.relationKeyLeft,
-        relationKeyRight: this.relationKeyRight,
-        relationTableName: this.relationTableName,
-        businessConfigId: this.relationBusinessConfigId,
-      };
-      if ((mateColumns && mateColumns.length > 0) || (dynamicColumns && dynamicColumns.length > 0)) {
-        this.finalTableConfig.relationConfig.push(relationConfig);
-      }
-      this.processAllColumns();
-      this.cancelRelation();
-    },
-    cancelMain() {
-      this.showMain = false;
-    },
-    cancelRelation() {
-      this.showRelation = false;
-    },
-    processAllColumns() {
-      let mainConfig;
-      if (this.finalTableConfig.mateConfig) {
-        let mainMateColumns = this.finalTableConfig.mateConfig.mateColumns;
-        let dynamicColumns = this.finalTableConfig.mateConfig.dynamicColumns;
-        mainMateColumns.forEach(item => {
-          this.$set(item, 'tableAlias', 'main');
-          if (!item.hasOwnProperty("having")) {
-            this.$set(item, 'having', false);
-          }
-        })
-        dynamicColumns.forEach(item => {
-          if (!this.finalTableConfig.version) {
-            this.$set(item, 'tableAlias', 'mainEx');
-          } else if (this.finalTableConfig.version && this.finalTableConfig.version === 'v2') {
-            this.$set(item, 'tableAlias', 'main');
-          }
-          if (!item.hasOwnProperty("having")) {
-            this.$set(item, 'having', false);
-          }
-        })
-        mainConfig = [...mainMateColumns, ...dynamicColumns];
-      }
-      if (this.finalTableConfig.relationConfig) {
-        this.finalTableConfig.relationConfig.forEach((item, index) => {
-          let mainMateColumns = item.mateColumns;
-          let dynamicColumns = item.dynamicColumns;
-          mainMateColumns.forEach(subItem => {
-            this.$set(subItem, 'tableAlias', 'r' + index);
-            if (!subItem.hasOwnProperty("having")) {
-              this.$set(subItem, 'having', false);
-            }
-          })
-          dynamicColumns.forEach(subItem => {
-            if (!this.finalTableConfig.version) {
-              this.$set(subItem, 'tableAlias', 'rEx' + index);
-            } else if (this.finalTableConfig.version && this.finalTableConfig.version === 'v2') {
-              this.$set(subItem, 'tableAlias', 'r' + index);
-            }
-            if (!subItem.hasOwnProperty("having")) {
-              this.$set(subItem, 'having', false);
-            }
-          })
-          mainConfig.push(...mainMateColumns);
-          mainConfig.push(...dynamicColumns);
-        })
-      }
-      if (this.finalTableConfig.aggregateConfig && this.finalTableConfig.aggregateConfig.columnList && this.finalTableConfig.aggregateConfig.columnList.length > 0) {
-        let columnList = this.finalTableConfig.aggregateConfig.columnList;
-        mainConfig.push(...columnList);
-      }
-      let finalMainConfig = mainConfig;
-      // let hash = {};
-      // let finalMainConfig = mainConfig.reduce((preVal, curVal) => {
-      //     hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
-      //     return preVal;
-      // }, []);
-      finalMainConfig.forEach(item => {
-        if (!item.hasOwnProperty('sortNum')) {
-          this.$set(item, 'sortNum', 100);
-        }
-      })
-      finalMainConfig = finalMainConfig.sort(function (a, b) {
-        return a.sortNum - b.sortNum;
-      });
-      this.$set(this.finalTableConfig, 'allColumns', finalMainConfig);
-      this.initSort();
-    },
-    removeTableColumn(row) {
-      this.$confirm('确认删除[' + row.label + ']配置?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        if (row.sourceType === 1) {
-          if (row.mateType === 1) {
-            this.$set(this.finalTableConfig.mateConfig, 'mateColumns', this.finalTableConfig.mateConfig.mateColumns.filter(item => item.id !== row.id));
-          } else if (row.mateType === 2) {
-            this.$set(this.finalTableConfig.mateConfig, 'dynamicColumns', this.finalTableConfig.mateConfig.dynamicColumns.filter(item => item.id !== row.id));
-          }
-        } else if (row.sourceType === 2) {
-          if (row.mateType === 1) {
-            this.finalTableConfig.relationConfig.forEach(item => {
-              this.$set(item, 'mateColumns', item.mateColumns.filter(subItem => subItem.id !== row.id));
-            })
-          } else {
-            this.finalTableConfig.relationConfig.forEach(item => {
-              this.$set(item, 'dynamicColumns', item.dynamicColumns.filter(subItem => subItem.id !== row.id));
-            })
-          }
-        } else {
-          this.$set(this.finalTableConfig.aggregateConfig, 'columnList', this.finalTableConfig.aggregateConfig.columnList.filter(item => item.id !== row.id));
-        }
-        if (this.finalTableConfig.relationConfig) {
-          this.finalTableConfig.relationConfig.forEach((item, index) => {
-            if (item.mateColumns.length === 0 && item.dynamicColumns.length === 0) {
-              this.finalTableConfig.relationConfig.splice(index, 1);
-            }
-          })
-        }
-        this.processAllColumns();
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
-      });
-    },
-    //上移操作
-    sortUp(index, row) {
-      let temp = this.finalTableConfig.allColumns[index - 1];
-      if (!temp) {
-        return;
-      }
-      this.$set(row, 'sortNum', index - 1);
-      this.$set(temp, 'sortNum', index);
-      // this.$set(this.finalTableConfig.allColumns, index - 1, this.finalTableConfig.allColumns[index]);
-      // this.$set(this.finalTableConfig.allColumns, index, temp)
-      this.processAllColumns();
-    },
-    //下移操作
-    sortDown(index, row) {
-      let temp = this.finalTableConfig.allColumns[index + 1];
-      if (!temp) {
-        return;
-      }
-      this.$set(row, 'sortNum', index + 1);
-      this.$set(temp, 'sortNum', index);
-      // this.$set(this.finalTableConfig.allColumns, index + 1, this.finalTableConfig.allColumns[index]);
-      // this.$set(this.finalTableConfig.allColumns, index, temp)
-      this.processAllColumns();
-    },
-
-
-    initSort() {
-      const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[1];
-      if (!el) {
-        return;
-      }
-      console.log(' document.querySelectorAll(\'.el-table__body-wrapper > table > tbody\')', document.querySelectorAll('.el-table__body-wrapper > table > tbody'));
-      // const sortable = new Sortable(el, options);
-      // 根据具体需求配置options配置项
-      let that = this;
-      const sortable = new Sortable(el, {
-
-        handle: '.handle', // handle's class
-        onEnd({newIndex, oldIndex}) {
-          const currRow = that.finalTableConfig.allColumns.splice(oldIndex, 1)[0]
-          that.finalTableConfig.allColumns.splice(newIndex, 0, currRow)
-          that.finalTableConfig.allColumns[newIndex]['sortNum'] = newIndex;
-          // evt.oldIndex 是当前拖动的行，evt.newIndex 是放置到的位置。
-          // 我们有了 evt.oldIndex 和 evt.newIndex 这两个参数做索引，我们可以根据绑定在表格上面的 data 这个 Array 找到两个相应的记录。就可以针对数据进行操作啦。
-        }
-      })
-    },
-    preview() {
-      this.parentRouter.push('/micFoundation/previewDynamicList?businessConfigId=' + this.businessConfigId);
-    },
-
-
-    selectOptionConfig(row) {
-      this.selectOptionRow = row;
-      if (!this.selectOptionRow.hasOwnProperty('selectOptionType')) {
-        this.$set(this.selectOptionRow, 'selectOptionType', 1);
-        this.$set(this.selectOptionRow, 'staticOptions', []);
-        this.$set(this.selectOptionRow, 'staticKeyType', 1);
-      }
-      this.showSelectOptionConfig = !this.showSelectOptionConfig;
-      if (this.selectOptionRow.selectOptionType === 3) {
-        getDataSourceAllList().then(res => {
-          if (res && res.data) {
-            let tempData = [];
-            res.data.forEach(item => {
-              tempData.push({
-                value: item.id,
-                label: item.name
-              })
-            })
-            this.$set(this, 'dataSourceOptions', tempData);
-            console.log(res.data);
-            if (this.selectOptionRow.bindDataSourceId) {
-              getDataSourceTreeData(this.selectOptionRow.bindDataSourceId).then(res => {
-                if (res && res.data) {
-                  this.$set(this, 'treeData', res.data);
-                }
-              })
-            }
-            if (this.selectOptionRow.selectTreeNode) {
-              getDataSourceConfig(this.selectOptionRow.selectTreeNode).then(res => {
-                this.parentDataRelationData.splice(0);
-                this.$set(this, 'parentDataRelationData', res.data.dataSourceConfig.allColumns);
-              })
-            }
-          }
-        })
-      }
-    },
-    selectTreeOptionConfig(row) {
-      this.selectOptionRow = row;
-      if (!this.selectOptionRow.hasOwnProperty('selectOptionType')) {
-        this.$set(this.selectOptionRow, 'selectOptionType', 3);
-        this.$set(this.selectOptionRow, 'staticOptions', []);
-        this.$set(this.selectOptionRow, 'staticKeyType', 1);
-      }
-      this.showTreeSelectOptionConfig = !this.showTreeSelectOptionConfig;
-      getDataSourceAllList().then(res => {
-        if (res && res.data) {
-          let tempData = [];
-          res.data.forEach(item => {
-            tempData.push({
-              value: item.id,
-              label: item.name
-            })
-          })
-          this.$set(this, 'dataSourceOptions', tempData);
-          console.log(res.data);
-          if (this.selectOptionRow.bindDataSourceId) {
-            getDataSourceTreeData(this.selectOptionRow.bindDataSourceId).then(res => {
-              if (res && res.data) {
-                this.$set(this, 'treeData', res.data);
-              }
-            })
-          }
-          if (this.selectOptionRow.selectTreeNode) {
-            getDataSourceConfig(this.selectOptionRow.selectTreeNode).then(res => {
-              this.parentDataRelationData.splice(0);
-              this.$set(this, 'parentDataRelationData', res.data.dataSourceConfig.allColumns);
-            })
-          }
-        }
-      })
-    },
-    submitSelectOptionConfig() {
-      this.showSelectOptionConfig = !this.showSelectOptionConfig;
-    },
-    submitTreeSelectOptionConfig() {
-      this.showTreeSelectOptionConfig = !this.showTreeSelectOptionConfig;
-    },
-    addRow() {
-      let list = {
-        key: null,
-        label: null,
-        default: false,
-      }
-      this.selectOptionRow.staticOptions.push(list);
-    },
-    // 删除行
-    deleteRow(index, row) {
-      this.selectOptionRow.staticOptions.splice(index, 1)
-    },
-    changeOptionDefault(row, index) {
-      if (row.default) {
-        this.selectOptionRow.staticOptions.forEach((item, optionIndex) => {
-          if (index !== optionIndex) {
-            item.default = false;
-          }
-        })
-      }
-    },
-    initSearchTypeValue(row) {
-      this.$set(row, 'defaultQueryValue', null);
-      this.$set(row, 'searchLogic', 0);
-    },
-    initSearchLogic(row) {
-      if (row.searchLogic !== 7 && row.defaultQueryValue instanceof Array) {
-        this.$set(row, 'defaultQueryValue', row.defaultQueryValue[0]);
-      } else if (row.searchLogic === 7) {
-        this.$set(row, 'defaultQueryValue', null);
-      }
-    },
-
-
-    showAggregateForm() {
-      this.showAggregateConfig = !this.showAggregateConfig;
-    },
-    submitAggregateConfig() {
-      this.$set(this.finalTableConfig, 'aggregateConfig', this.aggregateConfig);
-      this.showAggregateConfig = !this.showAggregateConfig;
-      this.processAllColumns();
-    },
-    addAggregateTable() {
-      this.aggregateConfig.tableList.push({
-        script: '',
-        commit: '',
-      })
-    },
-    removeAggregateTable(row, index) {
-      this.aggregateConfig.tableList.splice(index, 1);
-    },
-    addAggregateColumn() {
-      this.aggregateConfig.columnList.push({
-        script: '',
-        sourceType: 3,
-        mateType: 3,
-        id: '',
-        label: '',
-        sortNum: 100,
-      })
-    },
-    previewSql() {
-      if (this.finalTableConfig.version === 'v2') {
-        this.previewSqlV2();
-        return;
-      }
-      let sql = 'select ';
-      if (this.finalTableConfig.mateConfig.mateColumns) {
-        for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-          let item = this.finalTableConfig.mateConfig.mateColumns[index];
-          sql += item.tableAlias + '.' + item.id + ' as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
-        }
-      }
-      if (this.finalTableConfig.mateConfig.dynamicColumns) {
-        for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-          let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-          sql += 'JSON_UNQUOTE(mainEx.ex_form_data -> \'$.' + item.id + '\') as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
-        }
-      }
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          if (item.mateColumns) {
-            for (let subIndex in item.mateColumns) {
-              let subItem = item.mateColumns[subIndex];
-              sql += subItem.tableAlias + '.' + subItem.id + ' as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
-            }
-          }
-          if (item.dynamicColumns) {
-            for (let subIndex in item.dynamicColumns) {
-              let subItem = item.dynamicColumns[subIndex];
-              sql += 'JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig && this.finalTableConfig.aggregateConfig.columnList) {
-        for (let index in this.finalTableConfig.aggregateConfig.columnList) {
-          let item = this.finalTableConfig.aggregateConfig.columnList[index];
-          sql += item.script + ' as ' + item.id + ', ';
-        }
-      }
-      sql = sql.substr(0, sql.length - 2);
-      sql += ' from ' + this.mainTableInfo.tableName + ' main';
-      if (this.finalTableConfig.mateConfig.dynamicColumns && this.finalTableConfig.mateConfig.dynamicColumns.length > 0) {
-        sql += ' left join env_ex_form_data as mainEx on mainEx.business_id = main.' + this.finalTableConfig.mateConfig.exDataKey + ' and mainEx.business_config_id = ' + this.finalTableConfig.mateConfig.businessConfigId;
-      }
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          sql += ' left join ' + item.relationTableName + ' r' + index + ' on main.' + item.relationKeyLeft + ' = r' + index + '.' + item.relationKeyRight
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig && this.finalTableConfig.aggregateConfig.tableList.length > 0) {
-        for (let index in this.finalTableConfig.aggregateConfig.tableList) {
-          let item = this.finalTableConfig.aggregateConfig.tableList[index];
-          sql += ' ' + item.script + ' ';
-        }
-      }
-      sql += ' where true ';
-      if (this.finalTableConfig.mateConfig.mateColumns) {
-        for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-          let item = this.finalTableConfig.mateConfig.mateColumns[index];
-          if (item && item.search && !item.having) {
-            switch (item.searchLogic) {
-              case 0:
-                sql += ' and main.' + item.id + ' = ? ';
-                break;
-              case 1:
-                sql += ' and main.' + item.id + ' != ? ';
-                break;
-              case 2:
-                sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
-                break;
-              case 3:
-                sql += ' and main.' + item.id + ' > ? ';
-                break;
-              case 4:
-                sql += ' and main.' + item.id + ' >= ? ';
-                break;
-              case 5:
-                sql += ' and main.' + item.id + ' < ? ';
-                break;
-              case 6:
-                sql += ' and main.' + item.id + ' <= ? ';
-                break;
-              case 7:
-                sql += ' and main.' + item.id + ' between ? and ? ';
-                break;
-              case 8:
-                if (item.multipleOptions === 1) {
-                  sql += ' and main.' + item.id + ' = ? ';
-                } else {
-                  sql += ' and main.' + item.id + ' in (?)';
-                }
-                break;
-
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.mateConfig.dynamicColumns) {
-        for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-          let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-          if (item && item.search && !item.having) {
-            switch (item.searchLogic) {
-              case 0:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
-                break;
-              case 1:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' != ? ';
-                break;
-              case 2:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
-                break;
-              case 3:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' > ? ';
-                break;
-              case 4:
-                sql += ' and main.' + item.id + ' >= ? ';
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' >= ? ';
-                break;
-              case 5:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' < ? ';
-                break;
-              case 6:
-                sql += ' and main.' + item.id + ' <= ? ';
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' <= ? ';
-                break;
-              case 7:
-                sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' between ? and ? ';
-                break;
-              case 8:
-                if (item.multipleOptions === 1) {
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
-                } else {
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' in (?) ';
-                }
-                break;
-
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          if (item.mateColumns) {
-            for (let subIndex in item.mateColumns) {
-              let subItem = item.mateColumns[index];
-              if (subItem && subItem.search && !subItem.having) {
-                console.log(subItem);
-                switch (subItem.searchLogic) {
-                  case 0:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                    break;
-                  case 1:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
-                    break;
-                  case 2:
-                    console.log('search', subItem)
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
-                    break;
-                  case 3:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
-                    break;
-                  case 4:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
-                    break;
-                  case 5:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
-                    break;
-                  case 6:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
-                    break;
-                  case 7:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
-                    break;
-                  case 8:
-                    if (item.multipleOptions === 1) {
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                    } else {
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?)';
-                    }
-                    break;
-
-                }
-              }
-            }
-          }
-          if (item.dynamicColumns) {
-            for (let subIndex in item.dynamicColumns) {
-              let subItem = item.dynamicColumns[subIndex];
-              if (subItem && subItem.search && !subItem.having) {
-                switch (item.searchLogic) {
-                  case 0:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
-                    break;
-                  case 1:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') != ? ';
-                    break;
-                  case 2:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
-                    break;
-                  case 3:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') > ? ';
-                    break;
-                  case 4:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') >= ? ';
-                    break;
-                  case 5:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') < ? ';
-                    break;
-                  case 6:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') <= ? ';
-                    break;
-                  case 7:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') between ? and ? ';
-                    break;
-                  case 8:
-                    if (item.multipleOptions === 1) {
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
-                    } else {
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') in (?) ';
-                    }
-                    break;
-
-
-                }
-              }
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig.groupScript) {
-        sql += ' ' + this.finalTableConfig.aggregateConfig.groupScript;
-        sql += ' having true';
-        if (this.finalTableConfig.mateConfig.mateColumns) {
-          for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-            let item = this.finalTableConfig.mateConfig.mateColumns[index];
-            if (item && item.search && item.having) {
-              switch (item.searchLogic) {
-                case 0:
-                  sql += ' and main.' + item.id + ' = ? ';
-                  break;
-                case 1:
-                  sql += ' and main.' + item.id + ' != ? ';
-                  break;
-                case 2:
-                  sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
-                  break;
-                case 3:
-                  sql += ' and main.' + item.id + ' > ? ';
-                  break;
-                case 4:
-                  sql += ' and main.' + item.id + ' >= ? ';
-                  break;
-                case 5:
-                  sql += ' and main.' + item.id + ' < ? ';
-                  break;
-                case 6:
-                  sql += ' and main.' + item.id + ' <= ? ';
-                  break;
-                case 7:
-                  sql += ' and main.' + item.id + ' between ? and ? ';
-                  break;
-                case 8:
-                  if (item.multipleOptions === 1) {
-                    sql += ' and main.' + item.id + ' = ? ';
-                  } else {
-                    sql += ' and main.' + item.id + ' in (?) ';
-                  }
-                  break;
-
-              }
-            }
-          }
-        }
-        if (this.finalTableConfig.mateConfig.dynamicColumns) {
-          for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-            let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-            if (item && item.search && item.having) {
-              switch (item.searchLogic) {
-                case 0:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
-                  break;
-                case 1:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' != ? ';
-                  break;
-                case 2:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
-                  break;
-                case 3:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' > ? ';
-                  break;
-                case 4:
-                  sql += ' and main.' + item.id + ' >= ? ';
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' >= ? ';
-                  break;
-                case 5:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' < ? ';
-                  break;
-                case 6:
-                  sql += ' and main.' + item.id + ' <= ? ';
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' <= ? ';
-                  break;
-                case 7:
-                  sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' between ? and ? ';
-                  break;
-                case 8:
-                  if (item.multipleOptions === 1) {
-                    sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
-                  } else {
-                    sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' in(?) ';
-                  }
-                  break;
-
-              }
-            }
-          }
-        }
-        if (this.finalTableConfig.relationConfig) {
-          for (let index in this.finalTableConfig.relationConfig) {
-            let item = this.finalTableConfig.relationConfig[index];
-            if (item.mateColumns) {
-              for (let subIndex in item.mateColumns) {
-                let subItem = item.mateColumns[index];
-                if (subItem && subItem.search && subItem.having) {
-                  switch (item.searchLogic) {
-                    case 0:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                      break;
-                    case 1:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
-                      break;
-                    case 2:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
-                      break;
-                    case 3:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
-                      break;
-                    case 4:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
-                      break;
-                    case 5:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
-                      break;
-                    case 6:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
-                      break;
-                    case 7:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
-                      break;
-                    case 8:
-                      if (item.multipleOptions === 1) {
-                        sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                      } else {
-                        sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?) ';
-                      }
-                      break;
-
-                  }
-                }
-              }
-            }
-            if (item.dynamicColumns) {
-              for (let subIndex in item.dynamicColumns) {
-                let subItem = item.dynamicColumns[subIndex];
-                if (subItem && subItem.search && subItem.having) {
-                  switch (item.searchLogic) {
-                    case 0:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
-                      break;
-                    case 1:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') != ? ';
-                      break;
-                    case 2:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
-                      break;
-                    case 3:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') > ? ';
-                      break;
-                    case 4:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') >= ? ';
-                      break;
-                    case 5:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') < ? ';
-                      break;
-                    case 6:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') <= ? ';
-                      break;
-                    case 7:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') between ? and ? ';
-                      break;
-                    case 8:
-                      if (item.multipleOptions === 1) {
-                        sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
-                      } else {
-                        sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') in (?) ';
-                      }
-                      break;
-
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      if (this.finalTableConfig.allColumns.filter(item => item.sort).length > 0) {
-        sql += ' order by ';
-        for (let index in this.finalTableConfig.allColumns) {
-          let item = this.finalTableConfig.allColumns[index];
-          if (item.sort) {
-            sql += (item.aliasName ? item.aliasName : item.id) + ' DESC, '
-          }
-        }
-        sql = sql.substr(0, sql.length - 2);
-      }
-      sql += ' limit 10';
-      this.showPreViewSql = true;
-      this.preViewSqlStr = sql;
-      this.beautifyCode();
-
-    },
-    previewSqlV2() {
-      let sql = 'select ';
-      if (this.finalTableConfig.mateConfig.mateColumns) {
-        for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-          let item = this.finalTableConfig.mateConfig.mateColumns[index];
-          sql += item.tableAlias + '.' + item.id + ' as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
-        }
-      }
-      if (this.finalTableConfig.mateConfig.dynamicColumns) {
-        for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-          let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-          sql += 'JSON_UNQUOTE(main.extended_data -> \'$.' + item.id + '\') as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
-        }
-      }
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          if (item.mateColumns) {
-            for (let subIndex in item.mateColumns) {
-              let subItem = item.mateColumns[subIndex];
-              sql += subItem.tableAlias + '.' + subItem.id + ' as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
-            }
-          }
-          if (item.dynamicColumns) {
-            for (let subIndex in item.dynamicColumns) {
-              let subItem = item.dynamicColumns[subIndex];
-              sql += 'JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig && this.finalTableConfig.aggregateConfig.columnList) {
-        for (let index in this.finalTableConfig.aggregateConfig.columnList) {
-          let item = this.finalTableConfig.aggregateConfig.columnList[index];
-          sql += item.script + ' as ' + item.id + ', ';
-        }
-      }
-      sql = sql.substr(0, sql.length - 2);
-      sql += ' from ' + this.mainTableInfo.tableName + ' main';
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          sql += ' left join ' + item.relationTableName + ' r' + index + ' on main.' + item.relationKeyLeft + ' = r' + index + '.' + item.relationKeyRight
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig && this.finalTableConfig.aggregateConfig.tableList.length > 0) {
-        for (let index in this.finalTableConfig.aggregateConfig.tableList) {
-          let item = this.finalTableConfig.aggregateConfig.tableList[index];
-          sql += ' ' + item.script + ' ';
-        }
-      }
-      sql += ' where true ';
-      if (this.finalTableConfig.mateConfig.mateColumns) {
-        for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-          let item = this.finalTableConfig.mateConfig.mateColumns[index];
-          if (item && item.search && !item.having) {
-            switch (item.searchLogic) {
-              case 0:
-                sql += ' and main.' + item.id + ' = ? ';
-                break;
-              case 1:
-                sql += ' and main.' + item.id + ' != ? ';
-                break;
-              case 2:
-                sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
-                break;
-              case 3:
-                sql += ' and main.' + item.id + ' > ? ';
-                break;
-              case 4:
-                sql += ' and main.' + item.id + ' >= ? ';
-                break;
-              case 5:
-                sql += ' and main.' + item.id + ' < ? ';
-                break;
-              case 6:
-                sql += ' and main.' + item.id + ' <= ? ';
-                break;
-              case 7:
-                sql += ' and main.' + item.id + ' between ? and ? ';
-                break;
-              case 8:
-                if (item.multipleOptions === 1) {
-                  sql += ' and main.' + item.id + ' = ? ';
-                } else {
-                  sql += ' and main.' + item.id + ' in (?) ';
-                }
-                break;
-
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.mateConfig.dynamicColumns) {
-        for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-          let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-          if (item && item.search && !item.having) {
-            switch (item.searchLogic) {
-              case 0:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
-                break;
-              case 1:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' != ? ';
-                break;
-              case 2:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
-                break;
-              case 3:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' > ? ';
-                break;
-              case 4:
-                sql += ' and main.' + item.id + ' >= ? ';
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' >= ? ';
-                break;
-              case 5:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' < ? ';
-                break;
-              case 6:
-                sql += ' and main.' + item.id + ' <= ? ';
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' <= ? ';
-                break;
-              case 7:
-                sql += ' and main.extended_data -> \'$.' + item.id + '\' between ? and ? ';
-                break;
-              case 8:
-                if (item.multipleOptions === 1) {
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
-                } else {
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' in (?) ';
-                }
-                break;
-
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.relationConfig) {
-        for (let index in this.finalTableConfig.relationConfig) {
-          let item = this.finalTableConfig.relationConfig[index];
-          if (item.mateColumns) {
-            for (let subIndex in item.mateColumns) {
-              let subItem = item.mateColumns[index];
-              if (subItem && subItem.search && !subItem.having) {
-                console.log(subItem);
-                switch (subItem.searchLogic) {
-                  case 0:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                    break;
-                  case 1:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
-                    break;
-                  case 2:
-                    console.log('search', subItem)
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
-                    break;
-                  case 3:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
-                    break;
-                  case 4:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
-                    break;
-                  case 5:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
-                    break;
-                  case 6:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
-                    break;
-                  case 7:
-                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
-                    break;
-                  case 8:
-                    if (item.multipleOptions === 1) {
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                    } else {
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?) ';
-                    }
-                    break;
-
-                }
-              }
-            }
-          }
-          if (item.dynamicColumns) {
-            for (let subIndex in item.dynamicColumns) {
-              let subItem = item.dynamicColumns[subIndex];
-              if (subItem && subItem.search && !subItem.having) {
-                switch (item.searchLogic) {
-                  case 0:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
-                    break;
-                  case 1:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') != ? ';
-                    break;
-                  case 2:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
-                    break;
-                  case 3:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') > ? ';
-                    break;
-                  case 4:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') >= ? ';
-                    break;
-                  case 5:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') < ? ';
-                    break;
-                  case 6:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') <= ? ';
-                    break;
-                  case 7:
-                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') between ? and ? ';
-                    break;
-                  case 8:
-                    if (item.multipleOptions === 1) {
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
-                    } else {
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') in (?) ';
-                    }
-                    break;
-
-                }
-              }
-            }
-          }
-        }
-      }
-      if (this.finalTableConfig.aggregateConfig.groupScript) {
-        sql += ' ' + this.finalTableConfig.aggregateConfig.groupScript;
-        sql += ' having true';
-        if (this.finalTableConfig.mateConfig.mateColumns) {
-          for (let index in this.finalTableConfig.mateConfig.mateColumns) {
-            let item = this.finalTableConfig.mateConfig.mateColumns[index];
-            if (item && item.search && item.having) {
-              switch (item.searchLogic) {
-                case 0:
-                  sql += ' and main.' + item.id + ' = ? ';
-                  break;
-                case 1:
-                  sql += ' and main.' + item.id + ' != ? ';
-                  break;
-                case 2:
-                  sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
-                  break;
-                case 3:
-                  sql += ' and main.' + item.id + ' > ? ';
-                  break;
-                case 4:
-                  sql += ' and main.' + item.id + ' >= ? ';
-                  break;
-                case 5:
-                  sql += ' and main.' + item.id + ' < ? ';
-                  break;
-                case 6:
-                  sql += ' and main.' + item.id + ' <= ? ';
-                  break;
-                case 7:
-                  sql += ' and main.' + item.id + ' between ? and ? ';
-                  break;
-                case 8:
-                  if (item.multipleOptions === 1) {
-                    sql += ' and main.' + item.id + ' = ? ';
-                  } else {
-                    sql += ' and main.' + item.id + ' in (?) ';
-                    ;
-                  }
-                  break;
-
-              }
-            }
-          }
-        }
-        if (this.finalTableConfig.mateConfig.dynamicColumns) {
-          for (let index in this.finalTableConfig.mateConfig.dynamicColumns) {
-            let item = this.finalTableConfig.mateConfig.dynamicColumns[index];
-            if (item && item.search && item.having) {
-              switch (item.searchLogic) {
-                case 0:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
-                  break;
-                case 1:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' != ? ';
-                  break;
-                case 2:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
-                  break;
-                case 3:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' > ? ';
-                  break;
-                case 4:
-                  sql += ' and main.' + item.id + ' >= ? ';
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' >= ? ';
-                  break;
-                case 5:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' < ? ';
-                  break;
-                case 6:
-                  sql += ' and main.' + item.id + ' <= ? ';
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' <= ? ';
-                  break;
-                case 7:
-                  sql += ' and main.extended_data -> \'$.' + item.id + '\' between ? and ? ';
-                  break;
-                case 8:
-                  if (item.multipleOptions === 1) {
-                    sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
-                  } else {
-                    sql += ' and main.extended_data -> \'$.' + item.id + '\' in (?) ';
-                  }
-                  break;
-
-              }
-            }
-          }
-        }
-        if (this.finalTableConfig.relationConfig) {
-          for (let index in this.finalTableConfig.relationConfig) {
-            let item = this.finalTableConfig.relationConfig[index];
-            if (item.mateColumns) {
-              for (let subIndex in item.mateColumns) {
-                let subItem = item.mateColumns[index];
-                if (subItem && subItem.search && subItem.having) {
-                  switch (item.searchLogic) {
-                    case 0:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                      break;
-                    case 1:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
-                      break;
-                    case 2:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
-                      break;
-                    case 3:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
-                      break;
-                    case 4:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
-                      break;
-                    case 5:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
-                      break;
-                    case 6:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
-                      break;
-                    case 7:
-                      sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
-                      break;
-                    case 8:
-                      if (item.multipleOptions === 1) {
-                        sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
-                      } else {
-                        sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?) ';
-                      }
-                      break;
-
-                  }
-                }
-              }
-            }
-            if (item.dynamicColumns) {
-              for (let subIndex in item.dynamicColumns) {
-                let subItem = item.dynamicColumns[subIndex];
-                if (subItem && subItem.search && subItem.having) {
-                  switch (item.searchLogic) {
-                    case 0:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
-                      break;
-                    case 1:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') != ? ';
-                      break;
-                    case 2:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
-                      break;
-                    case 3:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') > ? ';
-                      break;
-                    case 4:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') >= ? ';
-                      break;
-                    case 5:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') < ? ';
-                      break;
-                    case 6:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') <= ? ';
-                      break;
-                    case 7:
-                      sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') between ? and ? ';
-                      break;
-                    case 8:
-                      if (item.multipleOptions === 1) {
-                        sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
-                      } else {
-                        sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') in (?) ';
-                      }
-                      break;
-
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      if (this.finalTableConfig.allColumns.filter(item => item.sort).length > 0) {
-        sql += ' order by ';
-        for (let index in this.finalTableConfig.allColumns) {
-          let item = this.finalTableConfig.allColumns[index];
-          if (item.sort) {
-            sql += (item.aliasName ? item.aliasName : item.id) + ' DESC, '
-          }
-        }
-        sql = sql.substr(0, sql.length - 2);
-      }
-      sql += ' limit 10';
-      this.showPreViewSql = true;
-      this.preViewSqlStr = sql;
-      this.beautifyCode();
-
-    },
-    closePreView() {
-      this.showPreViewSql = false;
-    },
-    changeSort(value, index) {
-      console.log(value, index);
-      if (!value) {
-        this.$set(this.finalTableConfig.allColumns[index], 'defaultSort', false);
-      }
-    },
-    changeDefaultSort(value, index) {
-      if (value) {
-        this.finalTableConfig.allColumns.forEach((item, num) => {
-          if (index !== num) {
-            this.$set(item, 'defaultSort', false);
-          }
-        })
-      }
-      console.log(value, index);
-    },
-    beautifyCode() {
-      console.log('sqlFormatter', sqlFormatter);
-      this.preViewSqlStr = sqlFormatter.format(this.preViewSqlStr);
-    },
-    firstCopySuccess() {
-      this.$message.success('复制成功')
-    },
-    firstCopyError() {
-      this.$message.error('复制失败')
-    },
-    selectOptionTypeChange(val) {
-      console.log('selectOptionTypeChange', val);
-      if (val === 3) {
-        getDataSourceAllList().then(res => {
-          if (res && res.data) {
-            let tempData = [];
-            res.data.forEach(item => {
-              tempData.push({
-                value: item.id,
-                label: item.name
-              })
-            })
-            this.$set(this, 'dataSourceOptions', tempData);
-            console.log(res.data);
-          }
-        })
-      }
-    },
-    bindDataSourceChange(val) {
-      console.log(val);
-      getDataSourceTreeData(val).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'treeData', res.data);
-        }
-      })
-    },
-    handleNodeClick(data) {
-      console.log('handleNodeClick', data.id, data);
-      this.selectOptionRow.selectTreeNode = [data.id];
-      this.selectOptionRow.selectTreeLabel = data.label;
-      getDataSourceConfig(data.id).then(res => {
-        this.parentDataRelationData.splice(0);
-        this.$set(this, 'parentDataRelationData', res.data.dataSourceConfig.allColumns);
-      })
-    },
-    handleMainCheckChange(data) {
-      console.log('handleMainCheckChange', data);
-      if (!this.mainTableInfo) {
-        this.mainTableInfo = {};
-      }
-      this.$set(this.mainTableInfo, 'tableName', data.id);
-      this.relationTableName = data.id;
-      this.relationBusinessConfigId = null;
-      this.getMainColumnInfo(data.id);
-      if (!this.finalTableConfig.version) {
-        getBusinessConfig(data.id).then(res => {
-          if (res && res.data) {
-            this.$set(this, 'businessConfigList', res.data);
-          }
-        })
-      } else if (this.finalTableConfig.version && this.finalTableConfig.version === 'v2') {
-        this.refreshExColumnConfig(data.id, 'exDataOptions');
-      }
-    },
-    getMainColumnInfo(id) {
-      getColumnInfo(id).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'mainColumnListInfo', res.data);
-        }
-      })
-    },
-    refreshExColumnConfig(tableName, dataName) {
-      getExColumnConfigList(tableName).then(res => {
-        if (res && res.data) {
-          this.$set(this, dataName, res.data);
-        }
-      })
-    },
-    relationMainSelectChange(value) {
-      getExDataConfigOptions(value).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'exDataOptions', res.data);
-        }
-      })
-    },
-    toCamel(str) {
-      return str.replace(/([^_])(?:_+([^_]))/g, function ($0, $1, $2) {
-        return $1 + $2.toUpperCase();
-      });
-    },
-
-    handleClose(tag) {
-      if (this.selectOptionRow.multipleOptions === 1) {
-        this.selectOptionRow.defaultQueryValue = null;
-      } else {
-        this.selectOptionRow.defaultQueryValue.splice(this.selectOptionRow.defaultQueryValue.indexOf(tag), 1);
-      }
-    },
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        if (this.selectOptionRow.multipleOptions === 1) {
-          this.selectOptionRow.defaultQueryValue = inputValue;
-        } else {
-          this.selectOptionRow.defaultQueryValue.push(inputValue);
-        }
-      }
-      this.inputVisible = false;
-      this.inputValue = '';
-    },
-    multipleOptionsChange(val) {
-      console.log('multipleOptionsChange', val);
-      if (val === 1) {
-        this.selectOptionRow.defaultQueryValue = null;
-      } else {
-        this.selectOptionRow.defaultQueryValue = [];
-        console.log(this.selectOptionRow.defaultQueryValue);
-      }
-    },
-    dataPickerClick(rowConfig) {
-      console.log('dataPickerClick', rowConfig);
-      this.specialTimeConditions = rowConfig;
-    }
-  },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {
-  },
-  //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-    //businessConfigId
-    getTableListConfig(this.businessConfigId).then(res => {
-      if (res && res.data) {
-        this.configId = res.data.id;
-        this.finalTableConfig = res.data.listConfig;
-        if (this.finalTableConfig.aggregateConfig) {
-          this.$set(this, 'aggregateConfig', this.finalTableConfig.aggregateConfig);
-        }
-        if (this.finalTableConfig.mateConfig) {
-          this.$set(this, 'userDataScope', this.finalTableConfig.mateConfig.userDataScope);
-          if (this.finalTableConfig.mateConfig.deptIdName) {
-            this.$set(this, 'deptIdName', this.finalTableConfig.mateConfig.deptIdName);
-          }
-          if (this.finalTableConfig.mateConfig.userIdName) {
-            this.$set(this, 'userIdName', this.finalTableConfig.mateConfig.userIdName);
-          }
-          if (this.runType === 2 && this.finalTableConfig.mateConfig.mainTableName) {
-            this.mainTableInfo = {};
-            this.$set(this.mainTableInfo, 'tableName', this.finalTableConfig.mateConfig.mainTableName);
-            getColumnInfo(this.finalTableConfig.mateConfig.mainTableName).then(res => {
-              if (res && res.data) {
-                this.$set(this, 'mainColumnListInfo', res.data);
-              }
-            })
-          }
-        }
-        this.processAllColumns();
-      } else {
-        this.$set(this.finalTableConfig, 'version', 'v2');
-      }
-    })
-    getTableInfo().then(res => {
-      if (res && res.data) {
-        this.$set(this, 'tableListInfo', res.data);
-      }
-    })
-    if (this.runType !== 2) {
-      getColumnInfoWithBusinessId(this.businessConfigId).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'mainColumnListInfo', res.data);
-        }
-
-      })
-      getExDataConfigOptions(this.businessConfigId).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'exDataOptions', res.data);
-        }
-      })
-      getTableInfoWithBusinessConfigId(this.businessConfigId).then(res => {
-        if (res && res.data) {
-          this.$set(this, 'mainTableInfo', res.data);
-        }
-      })
-    }
-
-
-  },
-  //生命周期 - 创建之前
-  beforeCreate() {
-  },
-  //生命周期 - 挂载之前
-  beforeMount() {
-  },
-  //生命周期 - 更新之前
-  beforeUpdate() {
-  },
-  //生命周期 - 更新之后
-  updated() {
-  },
-  //生命周期 - 销毁之前
-  beforeDestroy() {
-  },
-  //生命周期 - 销毁完成
-  destroyed() {
-  },
-  //如果页面有keep-alive缓存功能，这个函数会触发
-  activated() {
-  }
-};
+}
 </script>
 <script setup>
 import {
@@ -2898,7 +1087,10 @@ import NumberRange from "@/components/executionTemplate/tableColumnConfig/queryP
 import sqlFormatter from "sql-formatter";
 import {Codemirror} from 'vue-codemirror'
 import VueClipBoard from 'vue-clipboard2'
+import {ElMessage, ElMessageBox} from 'element-plus'
 
+const vm = getCurrentInstance().proxy
+const emit = defineEmits(['closeTableColumnsConfig'])
 const prop = defineProps({
   businessConfigId: {
     type: String,
@@ -3026,6 +1218,1499 @@ let defaultProps = reactive({
 })
 let parentDataRelationData = ref([])
 let treeData = ref([])
+let form = reactive({
+  id: null,
+  templateId: null,
+  name: '',
+  dataSourceType: 1,
+  relationshipType: 1,
+  parentDataId: null,
+  parentDataName: null,
+  parentDataRelationKey: null,
+  remark: null,
+})
+let inputVisible = ref(false)
+let inputValue = ref(null)
+let specialTimeConditions = ref(null)
+
+
+const getTableListInfoList = computed(() => {
+  let result = [];
+  tableListInfo.value.forEach(item => {
+    let record = {
+      id: item.tableName,
+      label: item.tableName + ' | (' + item.tableComment + ')',
+      // label: item.tableComment ,
+    }
+    result.push(record);
+  })
+  return result;
+})
+
+const getColumnListInfoList = computed(() => {
+  let result = [];
+  columnListInfo.value.forEach(item => {
+    let record = {
+      id: item.columnName,
+      label: item.columnName + ' | (' + item.columnComment + ')',
+      // label: item.columnComment ,
+    }
+    result.push(record);
+  })
+  return result;
+})
+const getAllTableInfoList = computed(() => {
+  let result = [];
+  result.push({
+    id: mainTableInfo.value.tableName,
+    label: mainTableInfo.value.tableName + ' | (' + mainTableInfo.value.tableComment + ')',
+    type: '主表',
+    alias: 'main',
+    aliasEx: 'mainEx',
+  })
+  if (finalTableConfig.relationConfig) {
+    finalTableConfig.relationConfig.forEach((item, index) => {
+      result.push({
+        id: item.relationTableName,
+        label: getTableListInfoList.filter((subItem) => subItem.id === item.relationTableName)[0].label,
+        type: '关联表',
+        alias: 'r' + index,
+        aliasEx: 'rEx' + index,
+      })
+    })
+  }
+  return result;
+})
+
+watch(tableSearchName, (newValue, oldValue) => {
+  vm.$refs.tree.filter(newValue)
+})
+watch(columnSearchName, (val) => {
+  vm.$refs.columnTree.filter(val)
+})
+watch(columnExSearchName, (val) => {
+  if (vm.$refs.exDataTree) {
+    vm.$refs.exDataTree.filter(val)
+  }
+  if (vm.$refs.exMainDataTree) {
+    vm.$refs.exMainDataTree.filter(val)
+  }
+})
+watch(mainColumnSearchName, (val) => {
+  vm.$refs.mainColumnTree.filter(val)
+})
+
+function init() {
+  showTableColumnConfig.value = true
+}
+
+function submitForm() {
+  let saveData = {
+    id: configId.value,
+    businessConfigId: businessConfigId.value,
+    listConfig: finalTableConfig,
+  };
+  saveTableListConfig(saveData).then(res => {
+    ElMessage.success(res.msg)
+    emit('closeTableColumnsConfig')
+  })
+}
+
+function cancel() {
+  emit('closeTableColumnsConfig')
+}
+
+function handleCheckChange(data, checked, indeterminate) {
+  relationTableName.value = data.id
+  relationBusinessConfigId.value = null
+  getColumnInfo(data.id).then(res => {
+    if (res && res.data) {
+      columnListInfo.value = res.data
+    }
+  })
+
+  if (!finalTableConfig.version) {
+    getBusinessConfig(data.id).then(res => {
+      if (res && res.data) {
+        businessConfigId.value = res.data
+      }
+    })
+  } else if (finalTableConfig.version && finalTableConfig.version === 'v2') {
+    refreshExColumnConfig(data.id, 'relationExDataOptions')
+  }
+}
+
+// 筛选节点
+function filterNode(value, data) {
+  if (!value) return true;
+  return data.label.indexOf(value) !== -1;
+}
+
+function handleColumnCheckChange(data, checked, indeterminate) {
+}
+
+function handleMainColumnCheckChange(data, checked, indeterminate) {
+}
+
+function filterColumnNode(value, data) {
+  if (!value) return true;
+  return data.label.indexOf(value) !== -1;
+}
+
+function relationSelectChange(value) {
+  getExDataConfigOptions(value).then(res => {
+    if (res && res.data) {
+      relationExDataOptions.value = res.data
+    }
+  })
+}
+
+function showMainForm() {
+  showMain.value = true;
+}
+
+function showRelationForm() {
+  showRelation.value = true;
+}
+
+function submitMain() {
+  let mateColumns = vm.$refs.mainColumnTree.getCheckedNodes()
+  mateColumns.forEach(item => {
+    item.sourceType = 1
+    item.mateType = 1
+    item.sortNum = 100
+    item.tableAlias = 'main'
+    item.aliasName = toCamel(item.id)
+    if (!item.having) {
+      item.having = false
+    }
+  });
+  let dynamicColumns = vm.$refs.exMainDataTree.getCheckedNodes();
+  dynamicColumns.forEach(item => {
+    item.sourceType = 1
+    item.mateType = 2
+    item.sortNum = 100
+    item.id = item.key
+    item.aliasName = toCamel(item.key)
+    if (!finalTableConfig.version) {
+      item.tableAlias = 'mainEx'
+    } else if (finalTableConfig.version && finalTableConfig.version === 'v2') {
+      item.tableAlias = 'main'
+    }
+    if (!item.having) {
+      item.having = false
+    }
+  })
+  if (finalTableConfig && finalTableConfig.mateConfig) {
+    if (mateColumns && mateColumns.length > 0) {
+      finalTableConfig.mateConfig.mateColumns.push(...mateColumns)
+    }
+    if (dynamicColumns && dynamicColumns.length > 0) {
+      finalTableConfig.mateConfig.dynamicColumns.push(...dynamicColumns)
+    }
+    if (businessConfigId) {
+      finalTableConfig.mateConfig.businessConfigId = businessConfigId.value
+    }
+    if (exDataKey.value) {
+      finalTableConfig.mateConfig.exDataKey = exDataKey.value
+    }
+    finalTableConfig.mateConfig.userDataScope = userDataScope.value
+    finalTableConfig.mateConfig.userIdName = userIdName.value
+    finalTableConfig.mateConfig.deptIdName = deptIdName.value
+    finalTableConfig.mateConfig.mainTableName = mainTableInfo.value.tableName
+  } else {
+    let configs = {
+      mateColumns,
+      dynamicColumns,
+      exDataKey: exDataKey.value,
+      businessConfigId: businessConfigId.value,
+      userDataScope: userDataScope.value,
+      deptIdName: deptIdName.value,
+      userIdName: userIdName.value,
+      mainTableName: mainTableInfo.value.tableName
+
+    }
+    Object.assign(finalTableConfig.mateConfig, configs)
+  }
+  if (finalTableConfig.mateConfig.mateColumns) {
+    let hash = {};
+    let result = finalTableConfig.mateConfig.mateColumns.reduce((preVal, curVal) => {
+      hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
+      return preVal;
+    }, []);
+    finalTableConfig.mateConfig.mateColumns = result
+  }
+  if (finalTableConfig.mateConfig.dynamicColumns) {
+    let hash = {};
+    let result = finalTableConfig.mateConfig.dynamicColumns.reduce((preVal, curVal) => {
+      hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
+      return preVal;
+    }, []);
+    finalTableConfig.mateConfig.dynamicColumns = result
+  }
+  if (!finalTableConfig.relationConfig) {
+    finalTableConfig.relationConfig = []
+  }
+  if (!finalTableConfig.aggregateConfig) {
+    finalTableConfig.aggregateConfig = {
+      tableList: [],
+      columnList: [],
+    }
+  }
+  processAllColumns()
+  cancelMain();
+}
+
+function submitRelation() {
+  let mateColumns = vm.$refs.columnTree.getCheckedNodes()
+  mateColumns.forEach(item => {
+    item.sourceType = 2
+    item.mateType = 1
+    item.sortNum = 100
+    item.aliasName = toCamel(item.id)
+    if (!item.having) {
+      item.having = false
+    }
+  })
+  let dynamicColumns = vm.$refs.exDataTree.getCheckedNodes();
+  dynamicColumns.forEach(item => {
+    item.sourceType = 2
+    item.mateType = 2
+    item.sortNum = 100
+    item.id = item.key
+    item.aliasName = toCamel(item.key)
+    if (!item.having) {
+      item.having = false
+    }
+  })
+  if (!finalTableConfig.relationConfig) {
+    finalTableConfig.relationConfig = []
+  }
+  let relationConfig = {
+    mateColumns,
+    dynamicColumns,
+    exDataKey: relationExDataKey.value,
+    relationKeyLeft: relationKeyLeft.value,
+    relationKeyRight: relationKeyRight.value,
+    relationTableName: relationTableName.value,
+    businessConfigId: relationBusinessConfigId.value,
+  };
+  if ((mateColumns && mateColumns.length > 0) || (dynamicColumns && dynamicColumns.length > 0)) {
+    finalTableConfig.relationConfig.push(relationConfig);
+  }
+  processAllColumns();
+  cancelRelation();
+}
+
+function cancelMain() {
+  showMain.value = false;
+}
+
+function cancelRelation() {
+  this.showRelation = false;
+}
+
+function processAllColumns() {
+  let mainConfig;
+  if (finalTableConfig.mateConfig) {
+    let mainMateColumns = finalTableConfig.mateConfig.mateColumns;
+    let dynamicColumns = finalTableConfig.mateConfig.dynamicColumns;
+    mainMateColumns.forEach(item => {
+      item.tableAlias = 'main'
+      if (!item.hasOwnProperty("having")) {
+        item.having = false
+      }
+    })
+    dynamicColumns.forEach(item => {
+      if (!finalTableConfig.version) {
+        item.tableAlias = 'mainEx'
+      } else if (finalTableConfig.version && finalTableConfig.version === 'v2') {
+        item.tableAlias = 'main'
+      }
+      if (!item.hasOwnProperty("having")) {
+        item.having = false
+      }
+    })
+    mainConfig = [...mainMateColumns, ...dynamicColumns];
+  }
+  if (finalTableConfig.relationConfig) {
+    finalTableConfig.relationConfig.forEach((item, index) => {
+      let mainMateColumns = item.mateColumns;
+      let dynamicColumns = item.dynamicColumns;
+      mainMateColumns.forEach(subItem => {
+        subItem.tableAlias = 'r' + index
+        if (!subItem.hasOwnProperty("having")) {
+          item.having = false
+        }
+      })
+      dynamicColumns.forEach(subItem => {
+        if (!finalTableConfig.version) {
+          subItem.tableAlias = 'rEx' + index;
+        } else if (finalTableConfig.version && finalTableConfig.version === 'v2') {
+          subItem.tableAlias = 'r' + index;
+        }
+        if (!subItem.hasOwnProperty("having")) {
+          subItem.having = false
+        }
+      })
+      mainConfig.push(...mainMateColumns);
+      mainConfig.push(...dynamicColumns);
+    })
+  }
+  if (finalTableConfig.aggregateConfig && finalTableConfig.aggregateConfig.columnList && finalTableConfig.aggregateConfig.columnList.length > 0) {
+    let columnList = finalTableConfig.aggregateConfig.columnList;
+    mainConfig.push(...columnList);
+  }
+  let finalMainConfig = mainConfig;
+  // let hash = {};
+  // let finalMainConfig = mainConfig.reduce((preVal, curVal) => {
+  //     hash[curVal.id] ? "" : (hash[curVal.id] = true && preVal.push(curVal));
+  //     return preVal;
+  // }, []);
+  finalMainConfig.forEach(item => {
+    if (!item.hasOwnProperty('sortNum')) {
+      item.sortNum = 100
+    }
+  })
+  finalMainConfig = finalMainConfig.sort(function (a, b) {
+    return a.sortNum - b.sortNum;
+  });
+  finalTableConfig.allColumns = finalMainConfig
+  initSort();
+}
+
+function removeTableColumn(row) {
+  ElMessageBox.confirm('确认删除[' + row.label + ']配置?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    if (row.sourceType === 1) {
+      if (row.mateType === 1) {
+        finalTableConfig.mateConfig.mateColumns = finalTableConfig.mateConfig.mateColumns.filter(item => item.id !== row.id)
+      } else if (row.mateType === 2) {
+        finalTableConfig.mateConfig.dynamicColumns = finalTableConfig.mateConfig.dynamicColumns.filter(item => item.id !== row.id)
+      }
+    } else if (row.sourceType === 2) {
+      if (row.mateType === 1) {
+        finalTableConfig.relationConfig.forEach(item => {
+          item.mateColumns = item.mateColumns.filter(subItem => subItem.id !== row.id)
+        })
+      } else {
+        finalTableConfig.relationConfig.forEach(item => {
+          item.dynamicColumns = item.dynamicColumns.filter(subItem => subItem.id !== row.id)
+        })
+      }
+    } else {
+      finalTableConfig.aggregateConfig.columnList = finalTableConfig.aggregateConfig.columnList.filter(item => item.id !== row.id)
+    }
+    if (finalTableConfig.relationConfig) {
+      finalTableConfig.relationConfig.forEach((item, index) => {
+        if (item.mateColumns.length === 0 && item.dynamicColumns.length === 0) {
+          finalTableConfig.relationConfig.splice(index, 1);
+        }
+      })
+    }
+    processAllColumns();
+    ElMessage({
+      type: 'success',
+      message: '删除成功!'
+    });
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '已取消删除'
+    });
+  });
+}
+
+//上移操作
+function sortUp(index, row) {
+  let temp = finalTableConfig.allColumns[index - 1];
+  if (!temp) {
+    return;
+  }
+  row.sortNum = index - 1
+  temp.sortNum = index;
+  processAllColumns();
+}
+
+//下移操作
+function sortDown(index, row) {
+  let temp = finalTableConfig.allColumns[index + 1];
+  if (!temp) {
+    return;
+  }
+  row.sortNum = index - 1
+  temp.sortNum = index;
+  processAllColumns();
+}
+
+function initSort() {
+  const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[1];
+  if (!el) {
+    return;
+  }
+  console.log(' document.querySelectorAll(\'.el-table__body-wrapper > table > tbody\')', document.querySelectorAll('.el-table__body-wrapper > table > tbody'));
+  // const sortable = new Sortable(el, options);
+  // 根据具体需求配置options配置项
+  const sortable = new Sortable(el, {
+
+    handle: '.handle', // handle's class
+    onEnd({newIndex, oldIndex}) {
+      const currRow = finalTableConfig.allColumns.splice(oldIndex, 1)[0]
+      finalTableConfig.allColumns.splice(newIndex, 0, currRow)
+      finalTableConfig.allColumns[newIndex]['sortNum'] = newIndex;
+      // evt.oldIndex 是当前拖动的行，evt.newIndex 是放置到的位置。
+      // 我们有了 evt.oldIndex 和 evt.newIndex 这两个参数做索引，我们可以根据绑定在表格上面的 data 这个 Array 找到两个相应的记录。就可以针对数据进行操作啦。
+    }
+  })
+}
+
+function preview() {
+  vm.parentRouter.push('/micFoundation/previewDynamicList?businessConfigId=' + businessConfigId);
+}
+
+function selectOptionConfig(row) {
+  Object.assign(selectOptionRow, row)
+  if (!selectOptionRow.hasOwnProperty('selectOptionType')) {
+    selectOptionRow.selectOptionType = 1
+    selectOptionRow.staticOptions = []
+    selectOptionRow.staticKeyType = 1
+  }
+  showSelectOptionConfig.value = !showSelectOptionConfig.value
+  if (selectOptionRow.selectOptionType === 3) {
+    getDataSourceAllList().then(res => {
+      if (res && res.data) {
+        let tempData = [];
+        res.data.forEach(item => {
+          tempData.push({
+            value: item.id,
+            label: item.name
+          })
+        })
+        dataSourceOptions.value = tempData
+        console.log(res.data);
+        if (selectOptionRow.bindDataSourceId) {
+          getDataSourceTreeData(selectOptionRow.bindDataSourceId).then(res => {
+            if (res && res.data) {
+              treeData.value = res.data
+            }
+          })
+        }
+        if (selectOptionRow.selectTreeNode) {
+          getDataSourceConfig(selectOptionRow.selectTreeNode).then(res => {
+            parentDataRelationData.value.splice(0);
+            parentDataRelationData.value = res.data.dataSourceConfig.allColumns
+          })
+        }
+      }
+    })
+  }
+}
+
+function selectTreeOptionConfig(row) {
+  Object.assign(selectOptionRow, row)
+  if (!selectOptionRow.hasOwnProperty('selectOptionType')) {
+    selectOptionRow.selectOptionType = 3
+    selectOptionRow.staticOptions = []
+    selectOptionRow.staticKeyType = 1
+  }
+  showTreeSelectOptionConfig.value = !showTreeSelectOptionConfig.value
+  getDataSourceAllList().then(res => {
+    if (res && res.data) {
+      let tempData = [];
+      res.data.forEach(item => {
+        tempData.push({
+          value: item.id,
+          label: item.name
+        })
+      })
+      dataSourceOptions.value = tempData
+      console.log(res.data);
+      if (selectOptionRow.bindDataSourceId) {
+        getDataSourceTreeData(selectOptionRow.bindDataSourceId).then(res => {
+          if (res && res.data) {
+            treeData.value = res.data
+          }
+        })
+      }
+      if (selectOptionRow.selectTreeNode) {
+        getDataSourceConfig(selectOptionRow.selectTreeNode).then(res => {
+          parentDataRelationData.value.splice(0);
+          parentDataRelationData.value = res.data.dataSourceConfig.allColumns
+        })
+      }
+    }
+  })
+}
+
+function submitSelectOptionConfig() {
+  showSelectOptionConfig.value = !showSelectOptionConfig.value;
+}
+
+function submitTreeSelectOptionConfig() {
+  showTreeSelectOptionConfig.value = !showTreeSelectOptionConfig.value;
+}
+
+function addRow() {
+  let list = {
+    key: null,
+    label: null,
+    default: false,
+  }
+  selectOptionRow.staticOptions.push(list);
+}
+
+// 删除行
+function deleteRow(index, row) {
+  selectOptionRow.staticOptions.splice(index, 1)
+}
+
+function changeOptionDefault(row, index) {
+  if (row.default) {
+    selectOptionRow.staticOptions.forEach((item, optionIndex) => {
+      if (index !== optionIndex) {
+        item.default = false;
+      }
+    })
+  }
+}
+
+function initSearchTypeValue(row) {
+  row.defaultQueryValue = null
+  row.searchLogic = 0
+}
+
+function initSearchLogic(row) {
+  if (row.searchLogic !== 7 && row.defaultQueryValue instanceof Array) {
+    row.defaultQueryValue = row.defaultQueryValue[0]
+  } else if (row.searchLogic === 7) {
+    row.defaultQueryValue = null
+  }
+}
+
+function showAggregateForm() {
+  showAggregateConfig.value = !showAggregateConfig.value;
+}
+
+function submitAggregateConfig() {
+  finalTableConfig.aggregateConfig = aggregateConfig
+  showAggregateConfig.value = !showAggregateConfig.value;
+  processAllColumns();
+}
+
+function addAggregateTable() {
+  aggregateConfig.tableList.push({
+    script: '',
+    commit: '',
+  })
+}
+
+function removeAggregateTable(row, index) {
+  aggregateConfig.tableList.splice(index, 1);
+}
+
+function addAggregateColumn() {
+  aggregateConfig.columnList.push({
+    script: '',
+    sourceType: 3,
+    mateType: 3,
+    id: '',
+    label: '',
+    sortNum: 100,
+  })
+}
+
+function previewSql() {
+  if (finalTableConfig.version === 'v2') {
+    previewSqlV2()
+    return
+  }
+  let sql = 'select ';
+  if (finalTableConfig.meteConfig.mateColumn) {
+    for (let index in finalTableConfig.meteConfig.mateColumns) {
+      let item = finalTableConfig.mateConfig.mateColumns[index];
+      sql += item.tableAlias + '.' + item.id + ' as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
+    }
+  }
+  if (finalTableConfig.mateConfig.dynamicColumns) {
+    for (let index in finalTableConfig.mateConfig.dynamicColumns) {
+      let item = finalTableConfig.mateConfig.dynamicColumns[index];
+      sql += 'JSON_UNQUOTE(mainEx.ex_form_data -> \'$.' + item.id + '\') as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
+    }
+  }
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      if (item.mateColumns) {
+        for (let subIndex in item.mateColumns) {
+          let subItem = item.mateColumns[subIndex];
+          sql += subItem.tableAlias + '.' + subItem.id + ' as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
+        }
+      }
+      if (item.dynamicColumns) {
+        for (let subIndex in item.dynamicColumns) {
+          let subItem = item.dynamicColumns[subIndex];
+          sql += 'JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
+        }
+      }
+    }
+  }
+  if (finalTableConfig.aggregateConfig && finalTableConfig.aggregateConfig.columnList) {
+    for (let index in finalTableConfig.aggregateConfig.columnList) {
+      let item = finalTableConfig.aggregateConfig.columnList[index];
+      sql += item.script + ' as ' + item.id + ', ';
+    }
+  }
+  sql = sql.slice(0, sql.length - 2);
+  sql += ' from ' + mainTableInfo.value.tableName + ' main';
+  if (finalTableConfig.mateConfig.dynamicColumns && finalTableConfig.mateConfig.dynamicColumns.length > 0) {
+    sql += ' left join env_ex_form_data as mainEx on mainEx.business_id = main.' + finalTableConfig.mateConfig.exDataKey + ' and mainEx.business_config_id = ' + finalTableConfig.mateConfig.businessConfigId;
+  }
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      sql += ' left join ' + item.relationTableName + ' r' + index + ' on main.' + item.relationKeyLeft + ' = r' + index + '.' + item.relationKeyRight
+    }
+  }
+  if (finalTableConfig.aggregateConfig && finalTableConfig.aggregateConfig.tableList.length > 0) {
+    for (let index in finalTableConfig.aggregateConfig.tableList) {
+      let item = finalTableConfig.aggregateConfig.tableList[index];
+      sql += ' ' + item.script + ' ';
+    }
+  }
+  sql += ' where true ';
+  if (finalTableConfig.mateConfig.mateColumns) {
+    for (let index in finalTableConfig.mateConfig.mateColumns) {
+      let item = finalTableConfig.mateConfig.mateColumns[index];
+      if (item && item.search && !item.having) {
+        switch (item.searchLogic) {
+          case 0:
+            sql += ' and main.' + item.id + ' = ? ';
+            break;
+          case 1:
+            sql += ' and main.' + item.id + ' != ? ';
+            break;
+          case 2:
+            sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
+            break;
+          case 3:
+            sql += ' and main.' + item.id + ' > ? ';
+            break;
+          case 4:
+            sql += ' and main.' + item.id + ' >= ? ';
+            break;
+          case 5:
+            sql += ' and main.' + item.id + ' < ? ';
+            break;
+          case 6:
+            sql += ' and main.' + item.id + ' <= ? ';
+            break;
+          case 7:
+            sql += ' and main.' + item.id + ' between ? and ? ';
+            break;
+          case 8:
+            if (item.multipleOptions === 1) {
+              sql += ' and main.' + item.id + ' = ? ';
+            } else {
+              sql += ' and main.' + item.id + ' in (?)';
+            }
+            break;
+
+        }
+      }
+    }
+  }
+  if (finalTableConfig.mateConfig.dynamicColumns) {
+    for (let index in finalTableConfig.mateConfig.dynamicColumns) {
+      let item = finalTableConfig.mateConfig.dynamicColumns[index];
+      if (item && item.search && !item.having) {
+        switch (item.searchLogic) {
+          case 0:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
+            break;
+          case 1:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' != ? ';
+            break;
+          case 2:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
+            break;
+          case 3:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' > ? ';
+            break;
+          case 4:
+            sql += ' and main.' + item.id + ' >= ? ';
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' >= ? ';
+            break;
+          case 5:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' < ? ';
+            break;
+          case 6:
+            sql += ' and main.' + item.id + ' <= ? ';
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' <= ? ';
+            break;
+          case 7:
+            sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' between ? and ? ';
+            break;
+          case 8:
+            if (item.multipleOptions === 1) {
+              sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' = ? ';
+            } else {
+              sql += ' and mainEx.ex_form_data -> \'$.' + item.id + '\' in (?) ';
+            }
+            break;
+
+        }
+      }
+    }
+  }
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      if (item.mateColumns) {
+        for (let subIndex in item.mateColumns) {
+          let subItem = item.mateColumns[index];
+          if (subItem && subItem.search && !subItem.having) {
+            console.log(subItem);
+            switch (subItem.searchLogic) {
+              case 0:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                break;
+              case 1:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
+                break;
+              case 2:
+                console.log('search', subItem)
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
+                break;
+              case 3:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
+                break;
+              case 4:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
+                break;
+              case 5:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
+                break;
+              case 6:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
+                break;
+              case 7:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
+                break;
+              case 8:
+                if (item.multipleOptions === 1) {
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                } else {
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?)';
+                }
+                break;
+
+            }
+          }
+        }
+      }
+      if (item.dynamicColumns) {
+        for (let subIndex in item.dynamicColumns) {
+          let subItem = item.dynamicColumns[subIndex];
+          if (subItem && subItem.search && !subItem.having) {
+            switch (item.searchLogic) {
+              case 0:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
+                break;
+              case 1:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') != ? ';
+                break;
+              case 2:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
+                break;
+              case 3:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') > ? ';
+                break;
+              case 4:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') >= ? ';
+                break;
+              case 5:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') < ? ';
+                break;
+              case 6:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') <= ? ';
+                break;
+              case 7:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') between ? and ? ';
+                break;
+              case 8:
+                if (item.multipleOptions === 1) {
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') = ? ';
+                } else {
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.ex_form_data -> \'$.' + subItem.id + '\') in (?) ';
+                }
+                break;
+
+
+            }
+          }
+        }
+      }
+    }
+  }
+  if (finalTableConfig.allColumns.filter(item => item.sort).length > 0) {
+    sql += ' order by ';
+    for (let index in finalTableConfig.allColumns) {
+      let item = finalTableConfig.allColumns[index];
+      if (item.sort) {
+        sql += (item.aliasName ? item.aliasName : item.id) + ' DESC, '
+      }
+    }
+    sql = sql.slice(0, sql.length - 2);
+  }
+  sql += ' limit 10';
+  showPreViewSql.value = true;
+  preViewSqlStr.value = sql;
+  beautifyCode();
+}
+
+function previewSqlV2() {
+  let sql = 'select ';
+  if (finalTableConfig.mateConfig.mateColumns) {
+    for (let index in finalTableConfig.mateConfig.mateColumns) {
+      let item = finalTableConfig.mateConfig.mateColumns[index];
+      sql += item.tableAlias + '.' + item.id + ' as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
+    }
+  }
+  if (finalTableConfig.mateConfig.dynamicColumns) {
+    for (let index in finalTableConfig.mateConfig.dynamicColumns) {
+      let item = finalTableConfig.mateConfig.dynamicColumns[index];
+      sql += 'JSON_UNQUOTE(main.extended_data -> \'$.' + item.id + '\') as ' + (!item.aliasName ? item.id : item.aliasName) + ', ';
+    }
+  }
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      if (item.mateColumns) {
+        for (let subIndex in item.mateColumns) {
+          let subItem = item.mateColumns[subIndex];
+          sql += subItem.tableAlias + '.' + subItem.id + ' as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
+        }
+      }
+      if (item.dynamicColumns) {
+        for (let subIndex in item.dynamicColumns) {
+          let subItem = item.dynamicColumns[subIndex];
+          sql += 'JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') as ' + (!subItem.aliasName ? subItem.id : subItem.aliasName) + ', ';
+        }
+      }
+    }
+  }
+  if (finalTableConfig.aggregateConfig && finalTableConfig.aggregateConfig.columnList) {
+    for (let index in finalTableConfig.aggregateConfig.columnList) {
+      let item = finalTableConfig.aggregateConfig.columnList[index];
+      sql += item.script + ' as ' + item.id + ', ';
+    }
+  }
+  sql = sql.slice(0, sql.length - 2);
+  sql += ' from ' + mainTableInfo.value.tableName + ' main';
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      sql += ' left join ' + item.relationTableName + ' r' + index + ' on main.' + item.relationKeyLeft + ' = r' + index + '.' + item.relationKeyRight
+    }
+  }
+  if (finalTableConfig.aggregateConfig && finalTableConfig.aggregateConfig.tableList.length > 0) {
+    for (let index in finalTableConfig.aggregateConfig.tableList) {
+      let item = finalTableConfig.aggregateConfig.tableList[index];
+      sql += ' ' + item.script + ' ';
+    }
+  }
+  sql += ' where true ';
+  if (finalTableConfig.mateConfig.mateColumns) {
+    for (let index in finalTableConfig.mateConfig.mateColumns) {
+      let item = finalTableConfig.mateConfig.mateColumns[index];
+      if (item && item.search && !item.having) {
+        switch (item.searchLogic) {
+          case 0:
+            sql += ' and main.' + item.id + ' = ? ';
+            break;
+          case 1:
+            sql += ' and main.' + item.id + ' != ? ';
+            break;
+          case 2:
+            sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
+            break;
+          case 3:
+            sql += ' and main.' + item.id + ' > ? ';
+            break;
+          case 4:
+            sql += ' and main.' + item.id + ' >= ? ';
+            break;
+          case 5:
+            sql += ' and main.' + item.id + ' < ? ';
+            break;
+          case 6:
+            sql += ' and main.' + item.id + ' <= ? ';
+            break;
+          case 7:
+            sql += ' and main.' + item.id + ' between ? and ? ';
+            break;
+          case 8:
+            if (item.multipleOptions === 1) {
+              sql += ' and main.' + item.id + ' = ? ';
+            } else {
+              sql += ' and main.' + item.id + ' in (?) ';
+            }
+            break;
+
+        }
+      }
+    }
+  }
+  if (finalTableConfig.mateConfig.dynamicColumns) {
+    for (let index in finalTableConfig.mateConfig.dynamicColumns) {
+      let item = finalTableConfig.mateConfig.dynamicColumns[index];
+      if (item && item.search && !item.having) {
+        switch (item.searchLogic) {
+          case 0:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
+            break;
+          case 1:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' != ? ';
+            break;
+          case 2:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
+            break;
+          case 3:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' > ? ';
+            break;
+          case 4:
+            sql += ' and main.' + item.id + ' >= ? ';
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' >= ? ';
+            break;
+          case 5:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' < ? ';
+            break;
+          case 6:
+            sql += ' and main.' + item.id + ' <= ? ';
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' <= ? ';
+            break;
+          case 7:
+            sql += ' and main.extended_data -> \'$.' + item.id + '\' between ? and ? ';
+            break;
+          case 8:
+            if (item.multipleOptions === 1) {
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
+            } else {
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' in (?) ';
+            }
+            break;
+
+        }
+      }
+    }
+  }
+  if (finalTableConfig.relationConfig) {
+    for (let index in finalTableConfig.relationConfig) {
+      let item = finalTableConfig.relationConfig[index];
+      if (item.mateColumns) {
+        for (let subIndex in item.mateColumns) {
+          let subItem = item.mateColumns[index];
+          if (subItem && subItem.search && !subItem.having) {
+            console.log(subItem);
+            switch (subItem.searchLogic) {
+              case 0:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                break;
+              case 1:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
+                break;
+              case 2:
+                console.log('search', subItem)
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
+                break;
+              case 3:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
+                break;
+              case 4:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
+                break;
+              case 5:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
+                break;
+              case 6:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
+                break;
+              case 7:
+                sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
+                break;
+              case 8:
+                if (item.multipleOptions === 1) {
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                } else {
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?) ';
+                }
+                break;
+
+            }
+          }
+        }
+      }
+      if (item.dynamicColumns) {
+        for (let subIndex in item.dynamicColumns) {
+          let subItem = item.dynamicColumns[subIndex];
+          if (subItem && subItem.search && !subItem.having) {
+            switch (item.searchLogic) {
+              case 0:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
+                break;
+              case 1:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') != ? ';
+                break;
+              case 2:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
+                break;
+              case 3:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') > ? ';
+                break;
+              case 4:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') >= ? ';
+                break;
+              case 5:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') < ? ';
+                break;
+              case 6:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') <= ? ';
+                break;
+              case 7:
+                sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') between ? and ? ';
+                break;
+              case 8:
+                if (item.multipleOptions === 1) {
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
+                } else {
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') in (?) ';
+                }
+                break;
+
+            }
+          }
+        }
+      }
+    }
+  }
+  if (finalTableConfig.aggregateConfig.groupScript) {
+    sql += ' ' + finalTableConfig.aggregateConfig.groupScript;
+    sql += ' having true';
+    if (finalTableConfig.mateConfig.mateColumns) {
+      for (let index in finalTableConfig.mateConfig.mateColumns) {
+        let item = finalTableConfig.mateConfig.mateColumns[index];
+        if (item && item.search && item.having) {
+          switch (item.searchLogic) {
+            case 0:
+              sql += ' and main.' + item.id + ' = ? ';
+              break;
+            case 1:
+              sql += ' and main.' + item.id + ' != ? ';
+              break;
+            case 2:
+              sql += ' and main.' + item.id + ' like concat(\'%\', ?, \'%\')';
+              break;
+            case 3:
+              sql += ' and main.' + item.id + ' > ? ';
+              break;
+            case 4:
+              sql += ' and main.' + item.id + ' >= ? ';
+              break;
+            case 5:
+              sql += ' and main.' + item.id + ' < ? ';
+              break;
+            case 6:
+              sql += ' and main.' + item.id + ' <= ? ';
+              break;
+            case 7:
+              sql += ' and main.' + item.id + ' between ? and ? ';
+              break;
+            case 8:
+              if (item.multipleOptions === 1) {
+                sql += ' and main.' + item.id + ' = ? ';
+              } else {
+                sql += ' and main.' + item.id + ' in (?) ';
+                ;
+              }
+              break;
+
+          }
+        }
+      }
+    }
+    if (finalTableConfig.mateConfig.dynamicColumns) {
+      for (let index in finalTableConfig.mateConfig.dynamicColumns) {
+        let item = finalTableConfig.mateConfig.dynamicColumns[index];
+        if (item && item.search && item.having) {
+          switch (item.searchLogic) {
+            case 0:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
+              break;
+            case 1:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' != ? ';
+              break;
+            case 2:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' like concat(\'%\', ?, \'%\') ';
+              break;
+            case 3:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' > ? ';
+              break;
+            case 4:
+              sql += ' and main.' + item.id + ' >= ? ';
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' >= ? ';
+              break;
+            case 5:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' < ? ';
+              break;
+            case 6:
+              sql += ' and main.' + item.id + ' <= ? ';
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' <= ? ';
+              break;
+            case 7:
+              sql += ' and main.extended_data -> \'$.' + item.id + '\' between ? and ? ';
+              break;
+            case 8:
+              if (item.multipleOptions === 1) {
+                sql += ' and main.extended_data -> \'$.' + item.id + '\' = ? ';
+              } else {
+                sql += ' and main.extended_data -> \'$.' + item.id + '\' in (?) ';
+              }
+              break;
+
+          }
+        }
+      }
+    }
+    if (finalTableConfig.relationConfig) {
+      for (let index in finalTableConfig.relationConfig) {
+        let item = finalTableConfig.relationConfig[index];
+        if (item.mateColumns) {
+          for (let subIndex in item.mateColumns) {
+            let subItem = item.mateColumns[index];
+            if (subItem && subItem.search && subItem.having) {
+              switch (item.searchLogic) {
+                case 0:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                  break;
+                case 1:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' != ? ';
+                  break;
+                case 2:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' like concat(\'%\', ?, \'%\')';
+                  break;
+                case 3:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' > ? ';
+                  break;
+                case 4:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' >= ? ';
+                  break;
+                case 5:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' < ? ';
+                  break;
+                case 6:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' <= ? ';
+                  break;
+                case 7:
+                  sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' between ? and ? ';
+                  break;
+                case 8:
+                  if (item.multipleOptions === 1) {
+                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' = ? ';
+                  } else {
+                    sql += ' and ' + subItem.tableAlias + '.' + subItem.id + ' in (?) ';
+                  }
+                  break;
+
+              }
+            }
+          }
+        }
+        if (item.dynamicColumns) {
+          for (let subIndex in item.dynamicColumns) {
+            let subItem = item.dynamicColumns[subIndex];
+            if (subItem && subItem.search && subItem.having) {
+              switch (item.searchLogic) {
+                case 0:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
+                  break;
+                case 1:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') != ? ';
+                  break;
+                case 2:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') like concat(\'%\', ?, \'%\')';
+                  break;
+                case 3:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') > ? ';
+                  break;
+                case 4:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') >= ? ';
+                  break;
+                case 5:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') < ? ';
+                  break;
+                case 6:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') <= ? ';
+                  break;
+                case 7:
+                  sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') between ? and ? ';
+                  break;
+                case 8:
+                  if (item.multipleOptions === 1) {
+                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') = ? ';
+                  } else {
+                    sql += ' and JSON_UNQUOTE(' + subItem.tableAlias + '.extended_data -> \'$.' + subItem.id + '\') in (?) ';
+                  }
+                  break;
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (finalTableConfig.allColumns.filter(item => item.sort).length > 0) {
+    sql += ' order by ';
+    for (let index in finalTableConfig.allColumns) {
+      let item = finalTableConfig.allColumns[index];
+      if (item.sort) {
+        sql += (item.aliasName ? item.aliasName : item.id) + ' DESC, '
+      }
+    }
+    sql = sql.slice(0, sql.length - 2);
+  }
+  sql += ' limit 10';
+  showPreViewSql.value = true;
+  preViewSqlStr.value = sql;
+  beautifyCode();
+}
+
+function closePreView() {
+  showPreViewSql.value = false;
+}
+
+function changeSort(value, index) {
+  console.log(value, index);
+  if (!value) {
+    finalTableConfig.allColumns[index].defaultSort = false
+  }
+}
+
+function changeDefaultSort(value, index) {
+  if (value) {
+    finalTableConfig.allColumns.forEach((item, num) => {
+      if (index !== num) {
+        item.defaultSort = false
+      }
+    })
+  }
+  console.log(value, index);
+}
+
+function beautifyCode() {
+  console.log('sqlFormatter', sqlFormatter);
+  preViewSqlStr.value = sqlFormatter.format(preViewSqlStr.value);
+}
+
+function firstCopySuccess() {
+  ElMessage.success('复制成功')
+}
+
+function firstCopyError() {
+  ElMessage.error('复制失败')
+}
+
+function selectOptionTypeChange(val) {
+  console.log('selectOptionTypeChange', val);
+  if (val === 3) {
+    getDataSourceAllList().then(res => {
+      if (res && res.data) {
+        let tempData = [];
+        res.data.forEach(item => {
+          tempData.push({
+            value: item.id,
+            label: item.name
+          })
+        })
+        dataSourceOptions.value = tempData
+        console.log(res.data);
+      }
+    })
+  }
+}
+
+function bindDataSourceChange(val) {
+  console.log(val);
+  getDataSourceTreeData(val).then(res => {
+    if (res && res.data) {
+      treeData.value = res.data
+    }
+  })
+}
+
+function handleNodeClick(data) {
+  console.log('handleNodeClick', data.id, data);
+  selectOptionRow.selectTreeNode = [data.id];
+  selectOptionRow.selectTreeLabel = data.label
+  getDataSourceConfig(data.id).then(res => {
+    parentDataRelationData.value.splice(0)
+    parentDataRelationData.value = res.data.dataSourceConfig.allColumns;
+  })
+}
+
+function handleMainCheckChange(data) {
+  console.log('handleMainCheckChange', data);
+  if (!mainTableInfo.value) {
+    mainTableInfo.value = {};
+  }
+  mainTableInfo.value.tableName = data.id;
+  relationTableName.value = data.id
+  relationBusinessConfigId.value = null
+  getMainColumnInfo(data.id);
+  if (!finalTableConfig.version) {
+    getBusinessConfig(data.id).then(res => {
+      if (res && res.data) {
+        businessConfigList.value = res.data
+      }
+    })
+  } else if (finalTableConfig.version && finalTableConfig.version === 'v2') {
+    refreshExColumnConfig(data.id, 'exDataOptions');
+  }
+}
+
+function getMainColumnInfo(id) {
+  getColumnInfo(id).then(res => {
+    if (res && res.data) {
+      mainColumnListInfo.value = res.data
+    }
+  })
+}
+
+function refreshExColumnConfig(tableName, dataName) {
+  getExColumnConfigList(tableName).then(res => {
+    if (res && res.data) {
+      dataName = res.data
+    }
+  })
+}
+
+function relationMainSelectChange(value) {
+  getExDataConfigOptions(value).then(res => {
+    if (res && res.data) {
+      exDataOptions.value = res.data
+    }
+  })
+}
+
+function toCamel(str) {
+  return str.replace(/([^_])(?:_+([^_]))/g, function ($0, $1, $2) {
+    return $1 + $2.toUpperCase();
+  });
+}
+
+function handleClose(tag) {
+  if (selectOptionRow.multipleOptions === 1) {
+    selectOptionRow.defaultQueryValue = null;
+  } else {
+    selectOptionRow.defaultQueryValue.splice(selectOptionRow.defaultQueryValue.indexOf(tag), 1);
+  }
+}
+
+function showInput() {
+  inputVisible.value = true;
+  nextTick(_ => {
+    vm.$refs.saveTagInput.$refs.input.focus();
+  });
+}
+
+function handleInputConfirm() {
+  let inputVal = inputValue.value;
+  if (inputVal) {
+    if (selectOptionRow.multipleOptions === 1) {
+      selectOptionRow.defaultQueryValue = inputVal;
+    } else {
+      selectOptionRow.defaultQueryValue.push(inputVal);
+    }
+  }
+  inputVisible.value = false;
+  inputValue.value = '';
+}
+
+function multipleOptionsChange(val) {
+  console.log('multipleOptionsChange', val);
+  if (val === 1) {
+    selectOptionRow.defaultQueryValue = null;
+  } else {
+    selectOptionRow.defaultQueryValue = [];
+  }
+}
+
+function dataPickerClick(rowConfig) {
+  console.log('dataPickerClick', rowConfig);
+  specialTimeConditions.value = rowConfig;
+}
+
+onMounted(() => {
+  //businessConfigId
+  getTableListConfig(businessConfigId.value).then(res => {
+    if (res && res.data) {
+      configId.value = res.data.id;
+      Object.assign(finalTableConfig, res.data.listConfig)
+      if (finalTableConfig.aggregateConfig) {
+        Object.assign(aggregateConfig, finalTableConfig.aggregateConfig)
+      }
+      if (finalTableConfig.mateConfig) {
+        userDataScope.value = finalTableConfig.meteConfig.userDataScope
+        if (finalTableConfig.mateConfig.deptIdName) {
+          deptIdName.value = finalTableConfig.meteConfig.deptIdName
+        }
+        if (finalTableConfig.mateConfig.userIdName) {
+          userIdName.value = finalTableConfig.meteConfig.userIdName
+        }
+        if (runType.value === 2 && finalTableConfig.mateConfig.mainTableName) {
+          mainTableInfo.value = {};
+          mainTableInfo.value.tableName = finalTableConfig.mateConfig.mainTableName
+          getColumnInfo(finalTableConfig.mateConfig.mainTableName).then(res => {
+            if (res && res.data) {
+              mainColumnListInfo.value = res.data
+            }
+          })
+        }
+      }
+      processAllColumns();
+    } else {
+      finalTableConfig.version = 'v2'
+    }
+  })
+  getTableInfo().then(res => {
+    if (res && res.data) {
+      tableListInfo.value = res.data;
+    }
+  })
+  if (runType.value !== 2) {
+    getColumnInfoWithBusinessId(businessConfigId.value).then(res => {
+      if (res && res.data) {
+        mainColumnListInfo.value = res.data;
+      }
+
+    })
+    getExDataConfigOptions(businessConfigId.value).then(res => {
+      if (res && res.data) {
+        exDataOptions.value = res.data
+      }
+    })
+    getTableInfoWithBusinessConfigId(businessConfigId.value).then(res => {
+      if (res && res.data) {
+        mainTableInfo.value = res.data;
+      }
+    })
+  }
+})
+defineExpose({init})
 </script>
 
 <style scoped>
