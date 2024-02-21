@@ -50,7 +50,7 @@
         </BoMain4DynamicList>
       </template>
     </BoContainer>
-    <tableColumnConfig v-if="showTableColumnConfig" :businessConfigId="String(businessConfigId)"
+    <tableColumnConfig v-if="showTableColumnConfig" ref="configRef" :businessConfigId="String(businessConfigId)"
                        :runType="runType" :showTableColumnConfig="showTableColumnConfig"
                        @closeTableColumnsConfig="closeTableColumnsConfig"/>
   </div>
@@ -319,6 +319,9 @@ function sortChange(v1, v2) {
 
 function tableColumnsConfig() {
   showTableColumnConfig.value = true;
+  nextTick(() => {
+    vm.$refs.configRef.init()
+  })
 }
 
 function closeTableColumnsConfig() {

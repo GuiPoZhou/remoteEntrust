@@ -2,7 +2,8 @@
 
   <div>
     <!-- 添加或修改业务单运行实例对话框 -->
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen" :title="title" :visible.sync="showTableColumnConfig"
+    <el-dialog v-model="showTableColumnConfig" :close-on-click-modal="false" :close-on-press-escape="false" :fullscreen="isFullScreen"
+               :title="title"
                append-to-body height="100hv" width="100wv" @close="cancel">
       <el-row v-if="$store.state.user.roles.includes('admin')">
         <el-col :span="24">
@@ -1068,10 +1069,6 @@ export default {
     Codemirror
   },
   props: {
-    showTableColumnConfig: {
-      type: Boolean,
-      default: false,
-    },
     businessConfigId: {
       type: String,
       default: null,
@@ -1083,11 +1080,9 @@ export default {
   },
   data() {
     return {
+      showTableColumnConfig: false,
       title: '列表配置',
       activeNames: ['1'],
-      form: {
-        subBusinessCode: '',
-      },
       isFullScreen: true,
       mainColumnListInfo: [],
       mainTableInfo: null,
@@ -1303,6 +1298,9 @@ export default {
   },
   //方法集合
   methods: {
+    init() {
+      this.showTableColumnConfig = true
+    },
     submitForm() {
       let saveData = {
         id: this.configId,
@@ -2878,6 +2876,156 @@ export default {
   activated() {
   }
 };
+</script>
+<script setup>
+import {
+  getTableInfo,
+  getColumnInfo,
+  getBusinessConfig,
+  getColumnInfoWithBusinessId,
+  getExDataConfigOptions,
+  saveTableListConfig,
+  getTableListConfig,
+  getTableInfoWithBusinessConfigId,
+  getDataSourceAllList,
+  getDataSourceTreeData,
+  getDataSourceConfig,
+  getExColumnConfigList,
+} from "@/api/tableColumnConfig/api.js";
+import Sortable from "sortablejs";
+import NumberRange from "@/components/executionTemplate/tableColumnConfig/queryParam/NumberRange.vue";
+
+import sqlFormatter from "sql-formatter";
+import {Codemirror} from 'vue-codemirror'
+import VueClipBoard from 'vue-clipboard2'
+
+const prop = defineProps({
+  businessConfigId: {
+    type: String,
+    default: null,
+  },
+  runType: {
+    type: Number,
+    default: 1,
+  }
+})
+let businessConfigId = ref(prop.businessConfigId);
+let runType = ref(prop.runType)
+let showTableColumnConfig = ref(false)
+let title = ref('列表配置')
+let activeNames = ref(['1'])
+let isFullScreen = ref(true)
+let mainColumnListInfo = ref([])
+let mainTableInfo = ref(null)
+let tableListInfo = ref([])
+let tableSearchName = ref(null)
+let columnSearchName = ref(null)
+let columnExSearchName = ref(null)
+let mainColumnSearchName = ref(null)
+let columnListInfo = ref([])
+let businessConfigList = ref(null)
+let relationBusinessConfigId = ref(null)
+let exDataOptions = ref([])
+let exDataKey = ref(null)
+let relationExDataOptions = ref([])
+let relationKeyLeft = ref(null)
+let relationKeyRight = ref(null)
+let relationExDataKey = ref(null)
+let relationTableName = ref(null)
+let showMain = ref(false)
+let showRelation = ref(false)
+let showSelectOptionConfig = ref(false)
+let showTreeSelectOptionConfig = ref(false)
+let showAggregateConfig = ref(false)
+let aggregateConfig = reactive({
+  tableList: [],
+  columnList: [],
+  groupScript: null,
+  havingScript: null,
+})
+let finalTableConfig = reactive({})
+let configId = ref(null)
+let selectOptionRow = reactive({
+  selectOptionType: 1,
+  staticKeyType: 1,
+})
+let preViewSqlStr = ref('')
+let showPreViewSql = ref(false)
+
+let userDataScope = ref(2)
+let deptIdName = ref('create_dept_id')
+let userIdName = ref('create_user_id')
+
+let pickerOptions = reactive({
+  disabledDate(time) {
+    return time.getTime() > Date.now();
+  },
+  shortcuts: [{
+    text: '今天',
+    onClick(picker) {
+      picker.$emit('pick', new Date());
+    }
+  }, {
+    text: '昨天',
+    onClick(picker) {
+      const date = new Date();
+      date.setTime(date.getTime() - 3600 * 1000 * 24);
+      picker.$emit('pick', date);
+    }
+  }, {
+    text: '一周前',
+    onClick(picker) {
+      const date = new Date();
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+      picker.$emit('pick', date);
+    }
+  }]
+})
+
+let pickerRangeOptions = reactive({
+  shortcuts: [{
+    text: '最近一周',
+    onClick(picker) {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+      picker.$emit('pick', [start, end]);
+    }
+  }, {
+    text: '最近一个月',
+    onClick(picker) {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+      picker.$emit('pick', [start, end]);
+    }
+  }, {
+    text: '最近三个月',
+    onClick(picker) {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+      picker.$emit('pick', [start, end]);
+    }
+  }]
+})
+
+let codemirrorOptions = reactive({
+  mode: 'text/sql',
+  lineNumbers: true,
+  lineWrapping: true
+})
+let bindDataSourceId = ref(null)
+let dataSourceOptions = ref([])
+let selectTreeNode = ref([])
+let selectTreeLabel = ref(null)
+let defaultProps = reactive({
+  children: 'children',
+  label: 'label',
+  id: 'id',
+})
+let parentDataRelationData = ref([])
+let treeData = ref([])
 </script>
 
 <style scoped>
