@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getToken } from '@/utils/auth'
 const MenuId = localStorage.getItem('menuId')
+import {net} from '@/api/requestList.js'
 export default {
     data() {
         return {
@@ -114,7 +115,7 @@ export default {
         },
         //获取project插件按钮 3.0版本  维护地址：系统管理-低码维护-项目抽取类型
         getPluginsForButtons(businessName, callback) {
-            this.$net('/formLayout/v2/getFormLayoutConfig', 'get', {id: businessName}).then(re => {
+            net('/formLayout/v2/getFormLayoutConfig', 'get', {id: businessName}).then(re => {
                 if (re.data) {
                     let formDataStr = re.data.configStr
                     let resultDataStr = formDataStr.replace(/&lt;/g, '<').replace(/&gt;/g, '>');

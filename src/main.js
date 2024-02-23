@@ -29,8 +29,9 @@ import RightToolbar from "@/components/RightToolbar/index.vue"
 import BoContainer from '@/components/BoContainer/boContainer.vue'
 import BoMain from '@/components/BoContainer/boMain.vue'
 import BoMain4DynamicList from '@/components/BoContainer/boMain4DynamicList.vue'
+import MasterBanUi from '@/components/MasterBanUi/index.js'
 
-
+app.use(MasterBanUi)
 app.component('boDialog', boDialog)
 app.component('pagination', pagination)
 app.component('svg-icon', SvgIcon);
@@ -40,10 +41,13 @@ app.component('BoMain', BoMain)
 app.component('BoMain4DynamicList', BoMain4DynamicList)
 
 import {getDicts} from "@/api/system/dict/data.js";
+import {checkPermi, checkRole} from "@/utils/permission";
 // 将 dayjs 挂载到全局属性
 app.config.globalProperties.$dayjs = dayjs;
 app.config.globalProperties.$net = net;
 app.config.globalProperties.getDicts = getDicts
+app.config.globalProperties.$checkPermi = checkPermi
+app.config.globalProperties.$checkRole = checkRole
 app.use(router)
 app.use(store)
 // 如果需要使用插件，可以在这里注册

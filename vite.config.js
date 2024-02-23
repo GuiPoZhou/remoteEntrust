@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path';
 import commonjs from '@rollup/plugin-commonjs';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 // https://vitejs.dev/config/
 export default defineConfig({
     // 基础路径配置
@@ -55,12 +56,13 @@ export default defineConfig({
           enforce: 'pre',
           transform(src, id) {
               if (/\.(scss|sass)$/i.test(id)) {
-                  return require('sass').renderSync({ file: id }).css;
+                  return require('sass').renderSync({file: id}).css;
               }
               return src;
           },
       },
       vue(),
+      vueJsx(),
       AutoImport({
           resolvers: [ElementPlusResolver()],
           imports: [

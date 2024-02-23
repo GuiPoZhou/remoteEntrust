@@ -24,9 +24,9 @@ function startLogoutTimer() {
   if (token) {
       // 开始一个新的计时器，在一小时后执行注销函数
       logoutTimerId = setTimeout(() => {
-        logout()
-      },  60 * 60 *1000) // 60分钟 * 60秒 * 1000毫秒 = 1小时
-    }
+          logout()
+      }, 60 * 100) // 60分钟 * 60秒 * 1000毫秒 = 1小时
+  }
 }
 
 function stopLogoutTimer() {
@@ -34,13 +34,13 @@ function stopLogoutTimer() {
 }
 
 function logout() {
-  ElMessageBox.alert('因长时间未操作，请重新登录', '注意', {
-      confirmButtonText: '确定',
-      callback: action => {
-          removeToken()
-          location.href = '/index'
-      }
-  });
-  // 执行注销操作，例如清除 Token 并跳转到登录页
-  // 这里可以自定义你的注销逻辑
+    ElMessageBox({
+        title: '注意',
+        message: '因长时间未操作，请重新登录',
+    }).then(_ => {
+        removeToken()
+        location.href = '/index'
+    })
+    // 执行注销操作，例如清除 Token 并跳转到登录页
+    // 这里可以自定义你的注销逻辑
 }

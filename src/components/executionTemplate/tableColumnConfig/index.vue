@@ -1512,7 +1512,7 @@ function cancelMain() {
 }
 
 function cancelRelation() {
-  this.showRelation = false;
+  showRelation.value = false;
 }
 
 function processAllColumns() {
@@ -1796,7 +1796,7 @@ function initSearchLogic(row) {
 }
 
 function showAggregateForm() {
-  showAggregateConfig.value = !showAggregateConfig.value;
+  showAggregateConfig.value = true;
 }
 
 function submitAggregateConfig() {
