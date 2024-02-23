@@ -1,6 +1,7 @@
 <template>
   <el-dialog
       :before-close="close"
+      v-model="visible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :visible.sync="visible"
@@ -28,7 +29,7 @@
       <el-form-item>
         <el-button
             icon="el-icon-search"
-            size="mini"
+            size="small"
             type="primary"
             @click="handleQuery"
         >搜索
@@ -42,11 +43,11 @@
         <el-table-column label="类别名称" prop="detectName" width="180"/>
         <el-table-column label="上级类别名称" prop="parentName"/>
         <el-table-column fixed="right" label="操作">
-          <template slot-scope="scope">
+          <template #default="scope">
             <el-button
                 :disabled="scope.row.disabled"
                 round
-                size="mini"
+                size="small"
                 type="primary"
                 @click="handleClick(scope.row)"
             >选择
@@ -67,93 +68,85 @@
       </div>
     </el-form>
 
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="close">取消</el-button>
-    </div>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="close">取消</el-button>
+      </div>
+    </template>
+
   </el-dialog>
 </template>
 
-<script>
+<script setup>
 import {getCategoryList} from "@/api/envCheckScheme/config";
 
-export default {
-  data() {
-    return {
-      tableCurrentPagination: {
-        hidden: false,
-        pageNum: 1,
-        pageSizes: [10, 20, 30, 40, 50],
-        pageSize: 10,
-      },
-      total: 0,
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        detectName: null,
-      },
-      // 参数表格数据
-      tableData: [],
-      //选择的类别名称
-      selectDetectName: "",
-    };
+let tableCurrentPagination = reactive({
+  hidden: false,
+  pageNum: 1,
+  pageSizes: [10, 20, 30, 40, 50],
+  pageSize: 10,
+})
+let total = ref(0)
+let queryParams = reactive({
+  pageNum: 1,
+  pageSize: 10,
+  detectName: null,
+})
+let tableData = ref([])
+
+let selectDetectName = ref('')
+
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false,
   },
-  props: {
-    visible: {
-      type: Boolean,
-      default: false,
-    },
-    ids: {
-      type: Array,
-      default: () => []
+  ids: {
+    type: Array,
+    default: () => []
+  }
+})
+
+let visible = ref(props.visible)
+let ids = ref(props.ids)
+
+const emit = defineEmits(['cancel', 'update:visible', 'handleClick'])
+
+function handleQuery() {
+  queryParams.pageNum = 1
+  getTablelist()
+}
+
+//获取检测类别
+function getTablelist() {
+  getCategoryList(queryParams).then(res => {
+    if (ids.value) {
+      for (let i in res.data.list) {
+        res.data.list[i].disabled = !!ids.value.indexOf(res.data.list[i].id !== -1);
+      }
     }
-  },
-  methods: {
-    /** input框搜索操作 */
-    handleQuery() {
-      // console.log('根据类别名称进行查询')
-      this.queryParams.pageNum = 1;
-      this.getTablelist();
-    },
-    //获取检测类别列表
-    getTablelist() {
-      getCategoryList(this.queryParams).then((response) => {
-        console.log('response.data.list', response.data.list)
-        console.log(this.ids)
-        if (this.ids) {
-          for (var i in response.data.list) {
-            if (this.ids.indexOf(response.data.list[i].id) != -1) {
-              response.data.list[i].disabled = true
-            } else {
-              response.data.list[i].disabled = false
-            }
-          }
-        }
-        this.tableData = response.data.list;
-        this.total = response.data.total;
-        this.loading = false;
-      });
-    },
-    //取消按钮操作
-    close() {
-      this.$emit("cancel")
-      this.$emit("update:visible", false);
-    },
-    //选择按钮操作
-    handleClick(row) {
-      this.$emit("handleClick", row);
-      this.close();
-    },
-  },
-  computed: {},
-  created() {
-    this.getTablelist();
-  },
-  mounted() {
-    this.tableCurrentPagination = this.pagination || {
-      pageSize: this.tableCurrentPagination.total,
-      pageNum: 1,
-    };
-  },
-};
+    tableData.value = res.data.list;
+    total.value = res.data.total;
+  })
+}
+
+function close() {
+  emit('cancel')
+  emit('update:visible', false)
+}
+
+function handleClick(row) {
+  emit('handleClick', row)
+  close()
+}
+
+onBeforeMount(() => {
+  getTablelist()
+})
+onMounted(() => {
+  tableCurrentPagination = pagination || {
+    pageSize: tableCurrentPagination.total,
+    pageNum: 1
+  }
+})
 </script>
