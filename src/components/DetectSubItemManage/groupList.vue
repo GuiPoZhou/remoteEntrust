@@ -3,7 +3,7 @@
     <el-aside width="300px">
       <el-form ref="form" :model="form" label-width="80px" @submit.native.prevent>
         <el-form-item label="类别名称" prop="detectName">
-          <el-input v-model="groupName" style="width: 150px" @keydown.enter.native="getGroupList"></el-input>
+          <el-input v-model="groupName" style="width: 150px" @keydown.enter.native="getGroupListQuery"></el-input>
         </el-form-item>
       </el-form>
       <el-table
@@ -187,7 +187,7 @@ function initGroupList(detectType, recordType) {
   getGroupList()
 }
 
-function getGroupList() {
+function getGroupListQuery() {
   let param = {}
   param.groupName = groupName.value
   getGroupList(param, detectCategory.value).then((response) => {

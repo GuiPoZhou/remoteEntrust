@@ -40,6 +40,27 @@ export function mbu_downloadExcel(fileName: string, isDoneDelte: boolean = true)
     window.location.href = `${window.globalEnv.VUE_APP_BASE_API}/common/downloadExcel?fileName=${encodeURIComponent(fileName)}&delete=${isDoneDelte}&Authorization=${getToken()}&MenuId=${MenuId}`;
 }
 
+export function downloadBase64Image(base64Data, fileName) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(convertBase64ToBlob(base64Data));
+    a.download = fileName;
+    a.click();
+}
+
+function convertBase64ToBlob(base64Data) {
+    var parts = base64Data.split(';base64,');
+    var contentType = parts[0].split(':')[1];
+    var raw = window.atob(parts[1]);
+    var rawLength = raw.length;
+    var uInt8Array = new Uint8Array(rawLength);
+
+    for (var i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], {type: contentType});
+}
+
 export function mbu_downloadFile(fileName: string, isDoneDelte: boolean = true): void {
     if (MenuId === null) {
         throw new Error("MenuId not found in local storage");

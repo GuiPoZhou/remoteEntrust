@@ -6,19 +6,19 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="项目名称">
-                <el-input v-model="queryParams.itemName" clearable @clear="getItemList"
-                          @keyup.enter.native="getItemList"></el-input>
+                <el-input v-model="queryParams.itemName" clearable @clear="getItemListQuery"
+                          @keyup.enter.native="getItemListQuery"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="方法编号">
-                <el-input v-model="queryParams.methodCode" clearable @clear="getItemList"
-                          @keyup.enter.native="getItemList"></el-input>
+                <el-input v-model="queryParams.methodCode" clearable @clear="getItemListQuery"
+                          @keyup.enter.native="getItemListQuery"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="现场检测">
-                <el-select v-model="queryParams.isScene" clearable @change="getItemList">
+                <el-select v-model="queryParams.isScene" clearable @change="getItemListQuery">
                   <el-option label="否" value="false"></el-option>
                   <el-option label="是" value="true"></el-option>
                 </el-select>
@@ -159,14 +159,14 @@ watch(searchScope, (val) => {
     delete queryParams.commonMethod
   }
   if (showActiveName.value == 'first') {
-    getItemList()
+    getItemListQuery()
   } else {
     e_searchItemByMostName()
   }
 })
 watch(showActiveName, (val) => {
   if (val == 'first') {
-    getItemList()
+    getItemListQuery()
   } else if (val == 'second' && searchItemNames.value) {
     e_searchItemByMostName()
   }
@@ -186,7 +186,7 @@ function paginationChange() {
   if (showActiveName.value === 'second') {
     e_searchItemByMostName()
   } else {
-    getItemList()
+    getItemListQuery()
   }
 }
 
@@ -197,7 +197,7 @@ function paginationChange() {
       */
 async function e_searchItemByMostName() {
   if (!searchItemNames.value) {
-    getItemList()
+    getItemListQuery()
     return
   }
   queryParams.itemMethodNames = searchItemNames.value
@@ -265,10 +265,10 @@ function e_changeShow(e) {
       *@description:切换查询范围
       */
 function e_changeSearchScope() {
-  getItemList()
+  getItemListQuery()
 }
 
-function getItemList() {
+function getItemListQuery() {
   if (paramObj.contactId) {
     queryParams.contactId = paramObj.contactId
     queryParams.customerId = paramObj.customerId
@@ -332,7 +332,7 @@ async function initItemList(detectType, recordType) {
     queryParams.recordType = recordType
     vm.$forceUpdate()
   })
-  await getItemList()
+  await getItemListQuery()
 }
 
 /**
@@ -346,7 +346,7 @@ async function useDetectSearch(detectType, recordType) {
     queryParams.recordType = recordType
     vm.$forceUpdate()
   })
-  await getItemList()
+  await getItemListQuery()
 }
 
 function checkSelect(row) {

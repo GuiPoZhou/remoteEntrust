@@ -53,8 +53,8 @@
   </BoDialog>
 </template>
 <script setup>
-import itemList from './itemList'
-import groupList from './groupList'
+import itemList from './itemList.vue'
+import groupList from './groupList.vue'
 import {useStore} from "vuex";
 
 const emit = defineEmits(['saveItem', 'cancel'])

@@ -34,10 +34,11 @@
     </listContainer>
 
   </div>
+  <masterBanUtil ref="utilRef"/>
 </template>
 <script setup>
 import {ElMessageBox, ElMessage} from "element-plus";
-// import {getPluginsForButtons} from "@/mixins/masterbanUtil.js";
+import masterBanUtil from "@/mixins/masterbanUtil.vue";
 import listContainer from '@/components/executionTemplate/tableColumnConfig/listContainer.vue'
 import addEntrustDialog from './addEntrustDialog.vue'
 import {cloneTask, recallTask} from '@/api/index/index.js'
@@ -53,10 +54,13 @@ onBeforeMount(() => {
   let query = route.query
   console.log(route.query, 'route')
   businessConfigId.value = query.itemId.toString() + 3333
-  // getPluginsForButtons('remoteBtn', (e) => {
-  //   console.log('插件按钮', e)
-  //   Object.assign(pluginsInfo,e)
-  // })
+  nextTick(() => {
+    vm.$refs.utilRef.getPluginsForButtons('remoteBtn', (e) => {
+      console.log('插件按钮', e)
+      Object.assign(pluginsInfo, e)
+    })
+  })
+
 })
 let itemId = ref(route.query)
 watch(itemId, (val) => {
