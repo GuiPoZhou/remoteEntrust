@@ -1,7 +1,7 @@
 <template>
   <div class="buttonEdit">
     <div class="be-right">
-      <el-form ref="signleParams" :model="signleParams" class="demo-ruleForm" label-width="130px">
+      <el-form ref="signleParamsRef" :model="signleParams" class="demo-ruleForm" label-width="130px">
         <el-form-item
             :rules="[{ required: true, message: '此项若为空请在json编辑器中进行维护(且唯一)', trigger: 'blur' }]"
             label="单项唯一值"
@@ -35,62 +35,60 @@
     </div>
   </div>
 </template>
-<script>
-import Vue from 'vue'
+<script lang="ts" setup>
+import {reactive, ref, getCurrentInstance} from "vue";
 
-export default {
-  data() {
-    return {
-      signleParams: {
-        events: ''
-      },
-      options: {
-        language: 'javascript'
-      },
+const vm = getCurrentInstance()?.proxy as any
+const emit = defineEmits(['close', 'save'])
+let signleParams = reactive({
+  anchorPoint: '',
+  type: '',
+  events: ''
+})
+let options = reactive({
+  language: 'javascript'
+})
+
+function e_save() {
+  vm.$refs.signleParamsRef.validate(v => {
+    if (v) {
+      emit('save', signleParams)
     }
-  },
-  methods: {
-    e_save() {
-      this.$refs.signleParams.validate(v => {
-        if (v) {
-          this.$emit('save', this.signleParams)
-        }
-      })
-    },
-    appendParams(params) {
+  })
+}
 
-      this.signleParams = JSON.parse(JSON.stringify(params))
-      if (!this.signleParams.events) {
-        this.signleParams.events = "console.log('选择')"
-      }
-    },
-    e_close() {
-      this.$emit('close')
-    },
-    e_editEvents() {
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events})
-    },
-    handleEditorInput(value) {
-      this.$set(this.signleParams, 'events', this.formatCode(value))
-      this.$forceUpdate()
-    },
-    formatCode(code) {
-      // 去除开头和结尾的空白字符
-      code = code.trim();
+function appendParams(params) {
 
-      // 在大括号前后添加空格
-      code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
-
-      // 在逗号前后添加空格
-      code = code.replace(/,(\S)/g, ', $1');
-
-      // 返回格式化后的代码
-      return code;
-    },
-  },
-  created() {
-
+  signleParams = JSON.parse(JSON.stringify(params))
+  if (!signleParams.events) {
+    signleParams.events = "console.log('选择')"
   }
+}
+
+function e_close() {
+  emit('close')
+}
+
+function e_editEvents() {
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events})
+}
+
+function handleEditorInput(value) {
+  signleParams.events = formatCode(value)
+}
+
+function formatCode(code) {
+  // 去除开头和结尾的空白字符
+  code = code.trim();
+
+  // 在大括号前后添加空格
+  code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
+
+  // 在逗号前后添加空格
+  code = code.replace(/,(\S)/g, ', $1');
+
+  // 返回格式化后的代码
+  return code;
 }
 </script>
 <style lang="less" scoped>

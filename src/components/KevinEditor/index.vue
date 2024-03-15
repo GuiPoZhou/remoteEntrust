@@ -114,6 +114,12 @@ function insert(text) {
     }
   ]);
 }
+defineExpose({
+  initEditor,
+  changeEditor,
+  layout,
+  insert,
+})
 </script>
 <script>
 export default {

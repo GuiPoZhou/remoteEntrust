@@ -1,62 +1,86 @@
 <template>
   <div class="codeEdit">
-    <codemirror
-        ref="jsonEditor"
+    <Codemirror
+        ref="cmRef"
         :options="cmOptions"
-        :value="codeSnippets"
-        style="height:100%;margin-right: 10px;font-size: 12px"
+        v-model:value="codeSnippets"
+        border
+        height="400"
+        width="600"
         @change="e_inputCode"
-    ></codemirror>
+        @input="onInput"
+        @ready="onReady"
+    >
+    </Codemirror>
   </div>
 </template>
-<script>
-import {codemirror} from "vue-codemirror-lite";
+<script lang="ts" setup>
+import {ref, onMounted, onUnmounted, watch} from "vue"
+import "codemirror/mode/javascript/javascript.js"
+import Codemirror from "codemirror-editor-vue3"
+import type {CmComponentRef} from "codemirror-editor-vue3"
+import type {EditorConfiguration} from "codemirror"
 
-export default {
-  components: {
-    codemirror
-  },
-  data() {
-    return {
-      cmOptions: {
-        tabSize: 4,
-        mode: 'javascript',
-        extraKeys: {'Ctrl-Space': 'autocomplete'},
-        theme: 'base16-dark',  // 主题
-        lineNumbers: true,  // 是否显示行数
-        line: true,
-        viewportMargin: Infinity,  // 处理高度自适应时搭配使用
-        highlightDifferences: true,
-        autofocus: false,
-        indentUnit: 2,
-        smartIndent: true,
-        readOnly: false,  // 只读
-        showCursorWhenSelecting: true,
-        listLabel: '',
-        editCodeParams: {},
-
-      },
-      codeSnippets: ""
-
-    }
-  },
-  props: {
-    codeInfo: Object
-  },
-  watch: {
-    codeInfo(val) {
-      if (val) {
-        this.codeSnippets = (JSON.stringify(JSON.parse(JSON.stringify(val)), null, 2))
-      }
-    }
-  },
-  methods: {
-    e_inputCode() {
-      let codeObj = eval('(' + this.codeSnippets + ')')
-      this.$emit('input', codeObj)
-    }
+const emit = defineEmits(['input'])
+const prop = defineProps({
+  codeInfo: Object
+})
+let codeInfo = ref(prop.codeInfo)
+watch(codeInfo.value, (newValue) => {
+  if (newValue) {
+    codeSnippets.value = (JSON.stringify(JSON.parse(JSON.stringify(newValue)), null, 2))
   }
+})
+const cmRef = ref<CmComponentRef>()
+const cmOptions: EditorConfiguration = {
+  mode: "text/javascript",
+  tabSize: 4,
+  extraKeys: {'Ctrl-Space': 'autocomplete'},
+  theme: 'base16-dark',  // 主题
+  lineNumbers: true,  // 是否显示行数
+  line: true,
+  viewportMargin: Infinity,  // 处理高度自适应时搭配使用
+  highlightDifferences: true,
+  autofocus: false,
+  indentUnit: 2,
+  smartIndent: true,
+  readOnly: false,  // 只读
+  showCursorWhenSelecting: true,
+  listLabel: '',
+  editCodeParams: {},
 }
+let codeSnippets = ref('')
+
+const onInput = (val) => {
+  console.log(val)
+}
+
+const onReady = (cm) => {
+  console.log(cm.focus())
+}
+
+function e_inputCode(val: string) {
+  let codeObj = eval('(' + val + ')')
+  emit('input', codeObj)
+}
+
+onMounted(() => {
+  setTimeout(() => {
+    cmRef.value?.refresh()
+  }, 1000)
+
+  setTimeout(() => {
+    cmRef.value?.resize(300, 200)
+  }, 2000)
+
+  setTimeout(() => {
+    cmRef.value?.cminstance.isClean()
+  }, 3000)
+})
+
+onUnmounted(() => {
+  cmRef.value?.destroy()
+})
 </script>
 <style lang="less" scoped>
 .codeEdit {

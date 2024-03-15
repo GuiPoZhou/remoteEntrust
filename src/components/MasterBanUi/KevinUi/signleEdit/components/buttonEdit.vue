@@ -1,7 +1,7 @@
 <template>
   <div class="buttonEdit">
     <div class="be-right">
-      <el-form ref="signleParams" :model="signleParams" class="demo-ruleForm" label-width="100px">
+      <el-form ref="signleParamsRef" :model="signleParams" class="demo-ruleForm" label-width="100px">
         <el-form-item
             :rules="[{ required: true, message: '此项若为空请在json编辑器中进行维护(且唯一)', trigger: 'blur' }]"
             label="单项唯一值"
@@ -52,74 +52,80 @@
     </div>
   </div>
 </template>
-<script>
-import Vue from 'vue'
+<script lang="ts" setup>
+import {getCurrentInstance, ref, reactive} from "vue";
 
-export default {
-  data() {
-    return {
-      signleParams: {},
-      options: {
-        language: 'javascript'
-      },
-      editType: '',
+const vm = getCurrentInstance()?.proxy as any
+const emit = defineEmits(['save', 'close'])
+let signleParams = reactive({
+  events: '',
+  callbackEvents: '',
+  anchorPoint: '',
+  label: '',
+  size: '',
+  type: '',
+})
+let options = reactive({
+  language: 'javascript'
+})
+let editType = ref('')
+
+function e_save() {
+  vm.$refs.signleParamsRef.validate(v => {
+    if (v) {
+      emit('save', signleParams)
     }
-  },
-  methods: {
-    e_save() {
-      this.$refs.signleParams.validate(v => {
-        if (v) {
-          this.$emit('save', this.signleParams)
-        }
-      })
-    },
-    appendParams(params) {
-      this.signleParams = JSON.parse(JSON.stringify(params))
-      if (!this.signleParams.events) {
-        this.signleParams.events = "console.log('按钮点击')"
-      }
-      if (!this.signleParams.callbackEvents) {
-        this.signleParams.callbackEvents = "console.log('按钮回调事件')"
-      }
-    },
-    e_close() {
-      this.$emit('close')
-    },
-    e_editEvents() {
-      this.editType = "btnClick"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events})
-    },
-    e_editCallBackEvents() {
-      this.editType = "btnCallBack"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.callbackEvents})
-    },
-    handleEditorInput(value) {
-      if (this.editType == 'btnClick') {
-        this.signleParams.events = this.formatCode(value)
-      } else if (this.editType == 'btnCallBack') {
-        this.signleParams.callbackEvents = this.formatCode(value)
-      }
+  })
+}
 
-    },
-    formatCode(code) {
-      // 去除开头和结尾的空白字符
-      code = code.trim();
-
-      // 在大括号前后添加空格
-      code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
-
-      // 在逗号前后添加空格
-      code = code.replace(/,(\S)/g, ', $1');
-
-      // 返回格式化后的代码
-      return code;
-    },
-  },
-  created() {
-
+function appendParams(params) {
+  signleParams = JSON.parse(JSON.stringify(params))
+  if (!signleParams.events) {
+    signleParams.events = "console.log('按钮点击')"
+  }
+  if (!signleParams.callbackEvents) {
+    signleParams.callbackEvents = "console.log('按钮回调事件')"
   }
 }
+
+function e_close() {
+  emit('close')
+}
+
+function e_editEvents() {
+  editType.value = "btnClick"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events})
+}
+
+function e_editCallBackEvents() {
+  editType.value = "btnCallBack"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.callbackEvents})
+}
+
+function handleEditorInput(value) {
+  if (editType.value == 'btnClick') {
+    signleParams.events = formatCode(value)
+  } else if (editType.value == 'btnCallBack') {
+    signleParams.callbackEvents = formatCode(value)
+  }
+
+}
+
+function formatCode(code) {
+  // 去除开头和结尾的空白字符
+  code = code.trim();
+
+  // 在大括号前后添加空格
+  code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
+
+  // 在逗号前后添加空格
+  code = code.replace(/,(\S)/g, ', $1');
+
+  // 返回格式化后的代码
+  return code;
+}
 </script>
+
 <style lang="less" scoped>
 .buttonEdit {
   width: 100%;

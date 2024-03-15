@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="signleParams" :model="signleParams" class="demo-ruleForm" label-width="120px">
+  <el-form ref="signleParamsRef" :model="signleParams" class="demo-ruleForm" label-width="120px">
     <el-row style="padding: 2rem;">
       <el-col :span="10">
         <el-row>
@@ -29,28 +29,31 @@
     </el-row>
   </el-form>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      signleParams: {}
+<script lang="ts" setup>
+import {reactive, ref, getCurrentInstance} from "vue";
+
+const vm = getCurrentInstance()?.proxy as any
+const emit = defineEmits(['close', 'save'])
+
+let signleParams = reactive({
+  anchorPoint: '',
+  label: ''
+})
+
+function e_save() {
+  vm.$refs.signleParamsRef.validate(v => {
+    if (v) {
+      emit('save', signleParams)
     }
-  },
-  methods: {
-    e_save() {
-      this.$refs.signleParams.validate(v => {
-        if (v) {
-          this.$emit('save', this.signleParams)
-        }
-      })
-    },
-    appendParams(params) {
-      console.log('params', params)
-      this.signleParams = JSON.parse(JSON.stringify(params))
-    },
-    e_close() {
-      this.$emit('close')
-    }
-  }
+  })
+}
+
+function appendParams(params) {
+  console.log('params', params)
+  signleParams = JSON.parse(JSON.stringify(params))
+}
+
+function e_close() {
+  emit('close')
 }
 </script>

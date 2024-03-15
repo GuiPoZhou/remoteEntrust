@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="signleParams" :model="signleParams" class="demo-ruleForm" label-width="120px">
+  <el-form ref="signleParamsRef" :model="signleParams" class="demo-ruleForm" label-width="120px">
     <el-row style="padding: 2rem;">
       <el-col :span="10">
         <el-row>
@@ -61,82 +61,82 @@
     </el-row>
   </el-form>
 </template>
-<script>
-import Vue from 'vue'
+<script lang="ts" setup>
+import {ref, reactive, getCurrentInstance} from 'vue'
 
-export default {
-  data() {
-    return {
-      signleParams: {
-        events: {
-          select: '',
-          fetchSuggestions: '',
-          blur: '',
-          focus: '',
-        }
-      },
-      editType: ''
-    }
-  },
-  methods: {
-    e_editFetchScript() {
-      this.editType = "fetchScript"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.fetchSuggestions})
-    },
-    e_editSelectScript() {
-      this.editType = "selectScript"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.select})
-    },
-    e_editBlurScript() {
-      this.editType = "blurScript"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.blur})
-    },
-    e_editFocusScript() {
-      this.editType = "focusScript"
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.focus})
-    },
-    handleEditorInput(code) {
-      if (this.editType == 'fetchScript') {
-        this.signleParams.events.fetchSuggestions = this.formatCode(code)
-      } else if (this.editType == 'selectScript') {
-        this.signleParams.events.select = this.formatCode(code)
-      } else if (this.editType == 'blurScript') {
-        this.signleParams.events.blur = this.formatCode(code)
-      } else if (this.editType == 'focusScript') {
-        this.signleParams.events.focus = this.formatCode(code)
-      }
-    },
-    e_save() {
-      console.log(this.signleParams, '312')
-      this.$refs.signleParams.validate(v => {
-        if (v) {
-          this.$emit('save', this.signleParams)
-        }
-      })
-    },
-    appendParams(params) {
-      console.log('params', params)
-      this.signleParams = JSON.parse(JSON.stringify(params))
-    },
-    e_close() {
-      this.$emit('close')
-    },
-    formatCode(code) {
-      // 去除开头和结尾的空白字符
-      code = code.trim();
-
-      // 在大括号前后添加空格
-      code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
-
-      // 在逗号前后添加空格
-      code = code.replace(/,(\S)/g, ', $1');
-
-      // 返回格式化后的代码
-      return code;
-    },
-  },
-  created() {
-
+const vm = getCurrentInstance()?.proxy as any
+const emit = defineEmits(['close', 'save'])
+let signleParams = reactive({
+  events: {
+    select: '',
+    fetchSuggestions: '',
+    blur: '',
+    focus: '',
   }
+})
+let editType = ref('')
+
+function e_editFetchScript() {
+  editType.value = "fetchScript"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.fetchSuggestions})
+}
+
+function e_editSelectScript() {
+  editType.value = "selectScript"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.select})
+}
+
+function e_editBlurScript() {
+  editType.value = "blurScript"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.blur})
+}
+
+function e_editFocusScript() {
+  editType.value = "focusScript"
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.focus})
+}
+
+function handleEditorInput(code) {
+  if (editType.value == 'fetchScript') {
+    signleParams.events.fetchSuggestions = formatCode(code)
+  } else if (editType.value == 'selectScript') {
+    signleParams.events.select = formatCode(code)
+  } else if (editType.value == 'blurScript') {
+    signleParams.events.blur = formatCode(code)
+  } else if (editType.value == 'focusScript') {
+    signleParams.events.focus = formatCode(code)
+  }
+}
+
+function e_save() {
+  console.log(signleParams, '312')
+  vm.$refs.signleParamsRef.validate(v => {
+    if (v) {
+      emit('save', signleParams)
+    }
+  })
+}
+
+function appendParams(params) {
+  console.log('params', params)
+  signleParams = JSON.parse(JSON.stringify(params))
+}
+
+function e_close() {
+  emit('close')
+}
+
+function formatCode(code) {
+  // 去除开头和结尾的空白字符
+  code = code.trim();
+
+  // 在大括号前后添加空格
+  code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
+
+  // 在逗号前后添加空格
+  code = code.replace(/,(\S)/g, ', $1');
+
+  // 返回格式化后的代码
+  return code;
 }
 </script>

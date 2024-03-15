@@ -1,7 +1,7 @@
 <template>
   <div class="buttonEdit">
     <div class="be-right">
-      <el-form ref="signleParams" :model="signleParams" class="demo-ruleForm" label-width="120px">
+      <el-form ref="signleParamsRef" :model="signleParams" class="demo-ruleForm" label-width="120px">
         <el-form-item label="单项唯一值" prop="anchorPoint">
           <el-input v-model="signleParams.anchorPoint" disabled></el-input>
         </el-form-item>
@@ -41,77 +41,82 @@
     </div>
   </div>
 </template>
-<script>
-import Vue from 'vue'
+<script lang="ts" setup>
+import {ref, reactive, getCurrentInstance} from 'vue'
 
-export default {
-  data() {
-    return {
-      signleParams: {},
-      options: {
-        language: 'javascript'
-      },
-      editTarget: ''
-    }
-  },
-  methods: {
-    e_editInputEnterEvents() {
-      this.editTarget = 'inputEnterCode'
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.enter})
-    },
-    e_editInputBlurEvents() {
-      this.editTarget = 'inputBlurCode'
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events.blur})
-    },
-    e_save() {
-      this.$refs.signleParams.validate(v => {
-        if (v) {
-          this.$emit('save', this.signleParams)
-        }
-      })
-    },
-    appendParams(params) {
-      console.log('params', params)
-      if (!params.events) {
-        params.events = {
-          blur: '',
-          enter: ''
-        }
-      }
-      this.signleParams = JSON.parse(JSON.stringify(params))
-    },
-    e_close() {
-      this.$emit('close')
-    },
-    e_editEvents() {
-      this.$refs.KevinEditor.changeEditor({value: this.signleParams.events})
-    },
-    handleEditorInput(value) {
-      if (this.editTarget == 'inputBlurCode') {
-        this.signleParams.events.blur = this.formatCode(value)
-      } else if (this.editTarget == 'inputEnterCode') {
-        this.signleParams.events.enter = this.formatCode(value)
-      }
-      this.$forceUpdate()
-
-    },
-    formatCode(code) {
-      // 去除开头和结尾的空白字符
-      code = code.trim();
-
-      // 在大括号前后添加空格
-      code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
-
-      // 在逗号前后添加空格
-      code = code.replace(/,(\S)/g, ', $1');
-
-      // 返回格式化后的代码
-      return code;
-    },
-  },
-  created() {
-
+const vm = getCurrentInstance()?.proxy as any
+const emit = defineEmits(['save', 'close'])
+let signleParams = reactive({
+  anchorPoint: '',
+  label: '',
+  events: {
+    enter: '',
+    blur: '',
   }
+})
+let options = reactive({
+  language: 'javascript'
+})
+let editTarget = ref('')
+
+function e_editInputEnterEvents() {
+  editTarget.value = 'inputEnterCode'
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.enter})
+}
+
+function e_editInputBlurEvents() {
+  editTarget.value = 'inputBlurCode'
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events.blur})
+}
+
+function e_save() {
+  vm.$refs.signleParamsRef.validate(v => {
+    if (v) {
+      emit('save', signleParams)
+    }
+  })
+}
+
+function appendParams(params) {
+  console.log('params', params)
+  if (!params.events) {
+    params.events = {
+      blur: '',
+      enter: ''
+    }
+  }
+  signleParams = JSON.parse(JSON.stringify(params))
+}
+
+function e_close() {
+  emit('close')
+}
+
+function e_editEvents() {
+  vm.$refs.KevinEditor.changeEditor({value: signleParams.events})
+}
+
+function handleEditorInput(value) {
+  if (editTarget.value == 'inputBlurCode') {
+    signleParams.events.blur = formatCode(value)
+  } else if (editTarget.value == 'inputEnterCode') {
+    signleParams.events.enter = formatCode(value)
+  }
+
+}
+
+function formatCode(code) {
+  // 去除开头和结尾的空白字符
+  code = code.trim();
+
+  // 在大括号前后添加空格
+  code = code.replace(/\s*{\s*/g, ' { ').replace(/\s*}\s*/g, ' } ');
+
+  // 在逗号前后添加空格
+  code = code.replace(/,(\S)/g, ', $1');
+
+  // 返回格式化后的代码
+  return code;
 }
 </script>
 <style lang="less" scoped>
