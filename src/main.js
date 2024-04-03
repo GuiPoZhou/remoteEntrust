@@ -24,7 +24,7 @@ app.use(ElementPlus, {
 })
 import 'dayjs/locale/zh-cn'
 import pagination from '@/components/Pagination/index.vue'
-import boDialog from "@components/BoContainer/boDialog.vue";
+import boDialog from "@/components/BoContainer/boDialog.vue";
 import RightToolbar from "@/components/RightToolbar/index.vue"
 import BoContainer from '@/components/BoContainer/boContainer.vue'
 import BoMain from '@/components/BoContainer/boMain.vue'

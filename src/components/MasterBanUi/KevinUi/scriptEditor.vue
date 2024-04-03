@@ -162,7 +162,7 @@ function formatCode(code) {
 }
 
 function handleCollapseChange(activeNamesR) {
-  if (activeNames.length > 0) {
+  if (activeNames.value.length > 0) {
     activeNames.value = activeNamesR.slice(-1); // 只保留最后一个打开的项
   }
 }

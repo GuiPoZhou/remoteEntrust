@@ -26,7 +26,7 @@ const prop = defineProps({
   codeInfo: Object
 })
 let codeInfo = ref(prop.codeInfo)
-watch(codeInfo.value, (newValue) => {
+watch(codeInfo, (newValue) => {
   if (newValue) {
     codeSnippets.value = (JSON.stringify(JSON.parse(JSON.stringify(newValue)), null, 2))
   }
@@ -38,16 +38,12 @@ const cmOptions: EditorConfiguration = {
   extraKeys: {'Ctrl-Space': 'autocomplete'},
   theme: 'base16-dark',  // 主题
   lineNumbers: true,  // 是否显示行数
-  line: true,
   viewportMargin: Infinity,  // 处理高度自适应时搭配使用
-  highlightDifferences: true,
   autofocus: false,
   indentUnit: 2,
   smartIndent: true,
   readOnly: false,  // 只读
   showCursorWhenSelecting: true,
-  listLabel: '',
-  editCodeParams: {},
 }
 let codeSnippets = ref('')
 
