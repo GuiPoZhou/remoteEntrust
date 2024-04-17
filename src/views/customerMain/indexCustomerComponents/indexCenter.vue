@@ -64,19 +64,21 @@
                 <el-table-column align="center" fixed="right" label="操作" width="150">
                   <template v-slot="scope">
                     <el-button v-if="scope.row.status === 1 || scope.row.status == 6"
-                               size="small" type="text" @click="handleEdit(scope.row,'edit')">编辑
+                               size="small" text type="primary" @click="handleEdit(scope.row,'edit')">编辑
                     </el-button>
-                    <el-button size="small" type="text" @click="handleEdit(scope.row,'detail')">查看</el-button>
-                    <el-button size="small" type="text" @click="handleCopy(scope.row)">复制</el-button>
-                    <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handleDetele(scope.row)">
+                    <el-button size="small" text type="primary" @click="handleEdit(scope.row,'detail')">查看</el-button>
+                    <el-button size="small" text type="primary" @click="handleCopy(scope.row)">复制</el-button>
+                    <el-button v-if="scope.row.status === 1" size="small" text type="primary"
+                               @click="handleDetele(scope.row)">
                       删除
                     </el-button>
-                    <!--            <el-button @click="handleRecall(scope.row)" type="text" size="small">撤回</el-button>-->
-                    <el-button v-if="scope.row.status === 1" size="small" type="text" @click="handlepush(scope.row)">
+                    <!--            <el-button @click="handleRecall(scope.row)" text type="primary" size="small">撤回</el-button>-->
+                    <el-button v-if="scope.row.status === 1" size="small" text type="primary"
+                               @click="handlepush(scope.row)">
                       推送
                     </el-button>
 
-                    <!--            <el-button @click="handleEvaluate(scope.row)" type="text" size="small">评价</el-button>-->
+                    <!--            <el-button @click="handleEvaluate(scope.row)" text type="primary" size="small">评价</el-button>-->
                   </template>
                 </el-table-column>
               </el-table>

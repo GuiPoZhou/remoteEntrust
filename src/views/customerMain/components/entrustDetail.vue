@@ -562,19 +562,19 @@
               <template v-slot="scope">
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="editSample(scope.row.idCode)"
                 >修改
                 </el-button>
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="deleteSample(scope.row.idCode)"
                 >删除
                 </el-button>
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="openCloneSampleDialog(scope.row.idCode)"
                 >复制
                 </el-button>

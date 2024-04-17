@@ -15,7 +15,7 @@
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作">
-          <!--                <el-button type="text">删除</el-button>-->
+          <!--                <el-button text type="primary">删除</el-button>-->
         </el-table-column>
       </el-table>
     </template>

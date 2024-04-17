@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span class="titleLeft">通知报告</span>
-        <el-button style="float: right;padding: 3px 0 0" type="text" @click="checkAll('note')">
+        <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('note')">
           <span class="isMore">更多</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
         </el-button>
@@ -21,7 +21,7 @@
     <el-card class="box-card" style="position: relative">
       <div slot="header" class="clearfix">
         <span class="titleLeft">检测报告</span>
-        <el-button style="float: right;padding: 3px 0 0" type="text" @click="checkAll('detect')">
+        <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('detect')">
           <span class="isMore">更多</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
         </el-button>
@@ -29,7 +29,7 @@
       <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
         <span class="leftText">编号{{ item.reportCode }}的检测报告</span>
         <span class="right-text">
-          <el-button size="small" type="text" @click="download(item)">下载</el-button>
+          <el-button size="small" text type="primary" @click="download(item)">下载</el-button>
         </span>
       </div>
       <p class="totalStyle">

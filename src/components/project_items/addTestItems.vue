@@ -73,7 +73,7 @@
           </el-table-column>
           <el-table-column align="center" label="操作">
             <template #default="scope">
-              <el-button size="small" style="color: #ff5d5d" type="text"
+              <el-button size="small" style="color: #ff5d5d" text type="primary"
                          @click="e_delete(scope.row,scope.$index)">
                 删除
               </el-button>

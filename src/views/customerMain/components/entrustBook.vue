@@ -25,7 +25,7 @@
             <template v-slot="scope">
               <el-button
                   size="small"
-                  type="text"
+                  text type="primary"
                   v-show="scope.row.agreementType == '委托方'"
                   icon="el-icon-edit"
                   @click="handleUpload(scope.row)"
@@ -33,7 +33,7 @@
               </el-button>
               <el-button
                   size="small"
-                  type="text"
+                  text type="primary"
                   v-show="(scope.row.agreement == 2 && scope.row.agreementType == '受理方')||(scope.row.agreement == 1 && scope.row.agreementType == '委托方')||(scope.row.agreement == 3)"
                   icon="el-icon-edit"
                   @click="handleDown(scope.row)"

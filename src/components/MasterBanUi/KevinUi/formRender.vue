@@ -136,7 +136,7 @@ function addCloseIcon(index, params) {
               <i class="el-icon-delete"></i>
             </div>
 
-            {/* <el-button type="text" style="color:red" size="small"
+            {/* <el-button text type="primary" style="color:red" size="small"
                                 onClick={() => this.deleteExtItem(index)}>扩展字段删除
                             </el-button> */}
           </div>
@@ -902,13 +902,13 @@ function renderELUpload(params, index) {
       return (
           <div>
             <span style="padding-right: 20px">{prop.file.name}</span>
-            <el-button type="text" size="small" onClick={() => {
+            <el-button text type="primary" size="small" onClick={() => {
               eval(params.events.downloadFile)
             }}>下载
             </el-button>
             {
               !params.options.hideDelte ?
-                  <el-button v-show={env != 'detail'} style="color:red" type="text" size="small"
+                  <el-button v-show={env != 'detail'} style="color:red" text type="primary" size="small"
                              onClick={() => {
                                eval(params.events.removeUploadFile)
                              }}>删除
@@ -998,7 +998,7 @@ function renderELTreeTable(item, index) {
                 item.tableSlotButtons.map(slotButtonInfo => {
                   if (!slotButtonInfo.isHide) {
                     return (
-                        <el-button type="text"
+                        <el-button text type="primary"
                                    disabled={checkMainTableActionEvents(slotButtonInfo, item, columnInfo, scope)}
                                    onClick={() => {
                                      slotButtonInfo.events ? eval(slotButtonInfo.events) : ''
@@ -1171,7 +1171,7 @@ function renderELTable(item, index) {
                   if (!slotButtonInfo.isHide) {
                     if (!checkMainTableActionEvents(slotButtonInfo, item, columnInfo, scope)) {
                       return (
-                          <el-button type="text"
+                          <el-button text type="primary"
                                      onClick={() => {
                                        slotButtonInfo.events ? eval(slotButtonInfo.events) : ''
                                      }}>{slotButtonInfo.label}</el-button>
@@ -1533,7 +1533,7 @@ function renderELTableChild(item, columnInfo, parentScope) {
                   if (!slotButtonInfo.isHide) {
                     return (
 
-                        <el-button type="text"
+                        <el-button text type="primary"
                                    disabled={checkSubTableActionEvents(slotButtonInfo, item, columnInfo, parentScope, childScope)}
                                    onClick={() => {
                                      slotButtonInfo.events ? eval(slotButtonInfo.events) : ''

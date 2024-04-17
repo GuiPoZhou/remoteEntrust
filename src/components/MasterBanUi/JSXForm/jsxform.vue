@@ -142,9 +142,9 @@ function addCloseIcon(index) {
               trigger="hover"
           >
             <div class="buttonArea">
-              <el-button type="text" style="color:red" size="small" onClick={() => deleteExtItem(index)}>删除
+              <el-button text type="primary" style="color:red" size="small" onClick={() => deleteExtItem(index)}>删除
               </el-button>
-              {/* <el-button type="text" size="small">编辑</el-button> */}
+              {/* <el-button text type="primary" size="small">编辑</el-button> */}
             </div>
             <i
                 slot="reference"
@@ -701,13 +701,13 @@ function renderELUpload(params, index) {
       return (
           <div>
             <span style="padding-right: 20px">{prop.file.name}</span>
-            <el-button type="text" size="small" onClick={() => {
+            <el-button text type="primary" size="small" onClick={() => {
               eval(params.events.downloadFile)
             }}>下载
             </el-button>
             {
               !params.options.hideDelte ?
-                  <el-button v-show={env.value != 'detail'} style="color:red" type="text" size="small"
+                  <el-button v-show={env.value != 'detail'} style="color:red" text type="primary" size="small"
                              onClick={() => {
                                eval(params.events.removeUploadFile)
                              }}>删除

@@ -57,10 +57,10 @@
         <el-table-column label="操作">
           <template v-slot="scope">
             <el-button v-if="scope.row.isWrite == 0 && scope.row.releaseStatus && checkTime(scope.row.templateEndDate)"
-                       type="text"
+                       text type="primary"
                        @click="e_goQuestion(scope.row)">填写
             </el-button>
-            <el-button v-if="scope.row.isWrite == 1" type="text"
+            <el-button v-if="scope.row.isWrite == 1" text type="primary"
                        @click="e_showQuestion(scope.row, 'detail')">查看
             </el-button>
           </template>

@@ -7,7 +7,7 @@
           <p>企业信息</p>
         </div>
         <el-button
-            type="text"
+            text type="primary"
             v-show="buttonShow"
             @click="handleEdit"
             icon="el-icon-edit-outline"

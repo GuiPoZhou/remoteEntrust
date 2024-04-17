@@ -24,7 +24,7 @@
             <template v-slot="scope">
               <el-button
                   size="small"
-                  type="text"
+                  text type="primary"
                   icon="el-icon-edit"
                   @click="handleDown(scope.row)"
               >下载

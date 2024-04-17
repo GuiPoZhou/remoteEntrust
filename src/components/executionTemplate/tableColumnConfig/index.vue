@@ -733,7 +733,7 @@
       </el-row>
       <el-row v-if="selectOptionRow.selectOptionType === 1">
         <el-divider content-position="left">配置下拉选项</el-divider>
-        <el-button type="text" @click="addRow">+ 增加行</el-button>
+        <el-button text type="primary" @click="addRow">+ 增加行</el-button>
         <el-col :span="24">
           <el-table
               :data="selectOptionRow.staticOptions"
@@ -756,7 +756,7 @@
 
             <el-table-column align="center" label="操作" prop="operation">
               <template #default="scope">
-                <el-button size="small" type="text" @click="deleteRow(scope.$index, scope.row)">删除
+                <el-button size="small" text type="primary" @click="deleteRow(scope.$index, scope.row)">删除
                 </el-button>
               </template>
             </el-table-column>

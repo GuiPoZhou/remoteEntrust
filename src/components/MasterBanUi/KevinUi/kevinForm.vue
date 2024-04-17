@@ -235,11 +235,11 @@ function renderPopTable() {
     "action": (scope) => {
       return <el-row>
         <el-col span={24}>
-          <el-button type="text" onClick={() => {
+          <el-button text type="primary" onClick={() => {
             emit('delteBulletBox', scope.$index)
           }}>删除弹框
           </el-button>
-          <el-button type="text" onClick={() => {
+          <el-button text type="primary" onClick={() => {
             e_editBulletBox(scope)
           }}>编辑弹框
           </el-button>

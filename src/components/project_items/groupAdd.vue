@@ -171,7 +171,7 @@
                   :disabled="isdiadble"
                   icon="el-icon-delete"
                   size="small"
-                  type="text"
+                  text type="primary"
                   @click="handleDelete(scope.row, scope)"
               >删除
               </el-button>

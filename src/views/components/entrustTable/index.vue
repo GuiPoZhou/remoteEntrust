@@ -24,7 +24,7 @@
               :span="1.5"
           >
             <el-button
-                :size="v.size"
+                :size="v.size === 'mini' ? 'small' : v.size"
                 :type="v.type"
                 @click="e_slotButtonEvents(v)"
             >{{ v.label }}
@@ -43,7 +43,7 @@
             :key="actionIndex + Math.random()"
             :loading="actionInfo.isLoading"
             size="small"
-            type="text"
+            text type="primary"
             @click="e_actionButtonEventsNew(actionInfo, scope.slotScopt)"
         >{{ actionInfo.label }}
         </el-button>
@@ -83,7 +83,7 @@ let pluginsInfo = reactive({})
 businessConfigId.value = route.query.itemId.toString() + 3333;
 getPluginsForButtons("remoteBtn", (e) => {
   console.log('这是e', e);
-  pluginsInfo = {...e}
+  Object.assign(pluginsInfo, e)
 });
 watch(route, (val) => {
   businessConfigId.value = val.query?.itemId.toString() + 3333;
@@ -108,8 +108,11 @@ onMounted(() => {
   });
 })
 
-let showProgress = ref(false)
-let entrustShow = ref(false)
+defineOptions({
+  showProgress: false,
+  entrustShow: false,
+})
+
 function e_saveReload() {
   entrustShow.value = false
   vm.$refs.listContainerRef.$refs.query.getList();
@@ -181,6 +184,7 @@ function e_slotButtonEvents(v) {
 function e_actionButtonEvents(v, scope) {
   new Function("ctx", "scope", v.clickEvents)(vm, scope);
 }
+
 </script>
 <style scoped>
 .app-container {

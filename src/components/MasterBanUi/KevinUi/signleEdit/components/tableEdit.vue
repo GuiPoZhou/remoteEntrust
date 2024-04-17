@@ -48,7 +48,7 @@
                   </el-table-column>
                   <el-table-column label="操作">
                     <template v-slot="scope">
-                      <el-button v-if="scope.row.slotRenderEvents" type="text"
+                      <el-button v-if="scope.row.slotRenderEvents" text type="primary"
                                  @click="e_editMainTableDataEvents(scope.row.slotRenderEvents, scope.$index)">编辑事件脚本
                       </el-button>
                     </template>
@@ -94,10 +94,10 @@
                   </el-table-column>
                   <el-table-column label="操作">
                     <template v-slot="scope">
-                      <el-button type="text"
+                      <el-button text type="primary"
                                  @click="e_editSubStatusScript(scope.row.actionStatusEvents, scope.$index)">编辑状态脚本
                       </el-button>
-                      <el-button style="color: rebeccapurple;" type="text"
+                      <el-button style="color: rebeccapurple;" text type="primary"
                                  @click="e_editSubTableEvents(scope.row.events, scope.$index)">编辑事件脚本
                       </el-button>
                     </template>

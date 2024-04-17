@@ -350,14 +350,14 @@
               <template v-slot="scope">
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleEdit(scope.row)"
                     v-show="distinguishCode == 'noConfirm'"
                 >修改
                 </el-button>
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     v-show="distinguishCode == 'confirmed'"
                     @click="handleEdit(scope.row)"
                 >查看

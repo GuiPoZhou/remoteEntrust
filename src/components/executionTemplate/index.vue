@@ -82,20 +82,20 @@
             <el-button
                 icon="el-icon-edit"
                 size="small"
-                type="text"
+                text type="primary"
                 @click="handleUpdate(scope.row)"
             >修改
             </el-button>
             <!--            <el-button-->
             <!--              size="small"-->
-            <!--              type="text"-->
+            <!--              text type="primary"-->
             <!--              icon="el-icon-edit"-->
             <!--              @click="loadPage(scope.row)"-->
             <!--            >加载页面</el-button>-->
             <el-button
                 icon="el-icon-delete"
                 size="small"
-                type="text"
+                text type="primary"
                 @click="handleDelete(scope.row)"
             >删除
             </el-button>

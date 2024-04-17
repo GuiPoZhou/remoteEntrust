@@ -16,7 +16,7 @@
             </el-table-column>
             <el-table-column label="操作">
               <template v-slot="scope">
-                <el-button type="text" @click="e_editClickEvents(scope)">编辑脚本</el-button>
+                <el-button text type="primary" @click="e_editClickEvents(scope)">编辑脚本</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -31,7 +31,7 @@
             </el-table-column>
             <el-table-column label="操作">
               <template v-slot="scope">
-                <el-button type="text" @click="e_editOpenEvents(scope)">编辑脚本</el-button>
+                <el-button text type="primary" @click="e_editOpenEvents(scope)">编辑脚本</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -54,7 +54,7 @@
             </el-table-column>
             <el-table-column label="操作">
               <template v-slot="scope">
-                <el-button type="text" @click="e_editBodyButtonScript(scope)">编辑脚本</el-button>
+                <el-button text type="primary" @click="e_editBodyButtonScript(scope)">编辑脚本</el-button>
               </template>
             </el-table-column>
           </el-table>

@@ -87,7 +87,7 @@
                   <el-table-column align="center" label="子项目" property="" show-overflow-tooltip>
                     <template v-slot="scope">
                       <el-button v-if="scope.row.voListZ.length > 0" size="small"
-                                 type="text"
+                                 text type="primary"
                                  @click="handleItem(scope.row.voListZ)">{{ scope.row.chilitemName }}
                       </el-button>
                     </template>
@@ -137,7 +137,7 @@
                   <el-button
                       v-if="!scope.row.entrustCode && openType !=='view'"
                       size="small"
-                      type="text"
+                      text type="primary"
                       @click.native.prevent="
                             editRow(scope.row, scope.$index, planIndex,plan.planInfoList)
                           "
@@ -149,7 +149,7 @@
                   <el-button v-for="(actionInfo,actionIndex) in projectSlotButtonList.actionButtons"
                              v-if="!scope.row.entrustCode && openType !=='view'"
                              :key="actionIndex"
-                             size="small" type="text"
+                             size="small" text type="primary"
                              @click="e_actionButtonEvents(actionInfo,scope.row, scope.$index, planIndex,plan.planInfoList)">
                     {{ actionInfo.label }}
                   </el-button>
@@ -158,7 +158,7 @@
                     v-if="!scope.row.entrustCode && openType !=='view'"
                     icon="el-icon-delete"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click.native.prevent="
                             deleteRow(scope.$index, planIndex)
                           "
@@ -169,7 +169,7 @@
                     v-if="!scope.row.entrustCode && openType !=='view'"
                     icon="icon iconfont iconbsl-icon-fuzhi"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click.native.prevent="
                             copyRow(scope.$index, planIndex,plan.planInfoList)
                           "
@@ -180,7 +180,7 @@
                     v-if="scope.row.entrustCode ||  openType =='view'"
                     icon="icon iconfont iconbsl-icon-fuzhi"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click.native.prevent="
                                     editRow(scope.row, scope.$index, planIndex,plan.planInfoList, 'detail')
                           "

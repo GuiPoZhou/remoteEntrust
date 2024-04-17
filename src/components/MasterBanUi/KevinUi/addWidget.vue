@@ -169,7 +169,7 @@
                 label="操作"
             >
               <template v-slot="scope">
-                <el-button type="text" @click="e_deleteColumnslist(scope.$index)">删除</el-button>
+                <el-button text type="primary" @click="e_deleteColumnslist(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -224,7 +224,7 @@
             <el-table-column
                 align="center" label="操作">
               <template v-slot="scope">
-                <el-button type="text" @click="e_deleteSlotsButton(scope.$index)">删除</el-button>
+                <el-button text type="primary" @click="e_deleteSlotsButton(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -296,7 +296,7 @@
                   label="操作"
               >
                 <template v-slot="scope">
-                  <el-button type="text" @click="e_deleteChildColumnslist(scope.$index)">删除
+                  <el-button text type="primary" @click="e_deleteChildColumnslist(scope.$index)">删除
                   </el-button>
                 </template>
               </el-table-column>
@@ -379,7 +379,7 @@
                 label="操作"
             >
               <template v-slot="scope">
-                <el-button type="text" @click="e_delteButton(scope.$index)">删除</el-button>
+                <el-button text type="primary" @click="e_delteButton(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -460,7 +460,7 @@
                   label="操作"
               >
                 <template v-slot="scope">
-                  <el-button type="text" @click="e_deleteBulletBottomButton(scope.$index)">删除
+                  <el-button text type="primary" @click="e_deleteBulletBottomButton(scope.$index)">删除
                   </el-button>
                 </template>
               </el-table-column>

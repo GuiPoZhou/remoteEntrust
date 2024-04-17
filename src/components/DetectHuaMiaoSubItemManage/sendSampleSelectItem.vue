@@ -91,7 +91,7 @@
           <el-button
               icon="el-icon-delete"
               size="small"
-              type="text"
+              text type="primary"
               @click="deleteItem(scope.$index, scope.row)"
           >删除
           </el-button

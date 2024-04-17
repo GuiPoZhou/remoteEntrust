@@ -37,7 +37,8 @@
             label="操作"
         >
           <template v-slot="scope">
-            <el-button v-if="checkKey(scope.row.keyName)" type="text" @click="e_selFormItem(scope.row)">选择</el-button>
+            <el-button v-if="checkKey(scope.row.keyName)" text type="primary" @click="e_selFormItem(scope.row)">选择
+            </el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -134,7 +134,7 @@
                 <template v-slot="scope">
                   <el-button
                       size="small"
-                      type="text"
+                      text type="primary"
                       @click.native.prevent="
                       editRow(scope.row, scope.$index, planInfoIndex, planIndex)
                     "
@@ -143,7 +143,7 @@
                   <el-button
                       icon="el-icon-delete"
                       size="small"
-                      type="text"
+                      text type="primary"
                       @click.native.prevent="
                       deleteRow(scope.$index, planInfoIndex, planIndex)
                     "
@@ -152,7 +152,7 @@
                   <el-button
                       icon="icon iconfont iconbsl-icon-fuzhi"
                       size="small"
-                      type="text"
+                      text type="primary"
                       @click.native.prevent="
                       copyRow(scope.$index, planInfoIndex, planIndex)
                     "

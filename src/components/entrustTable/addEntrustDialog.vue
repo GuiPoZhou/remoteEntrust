@@ -24,9 +24,9 @@
 <!--                    </el-table-column>-->
 <!--                    <el-table-column label="操作">-->
 <!--                      <template v-slot="scope">-->
-<!--                        &lt;!&ndash; <el-button type="text" @click="e_delteBulletBox(scope.$index)">删除弹框-->
+<!--                        &lt;!&ndash; <el-button text type="primary" @click="e_delteBulletBox(scope.$index)">删除弹框-->
 <!--                        </el-button> &ndash;&gt;-->
-<!--                        <el-button type="text" @click="e_editBulletBox(scope.row, scope.$index)">-->
+<!--                        <el-button text type="primary" @click="e_editBulletBox(scope.row, scope.$index)">-->
 <!--                          编辑弹框-->
 <!--                        </el-button>-->
 <!--                      </template>-->

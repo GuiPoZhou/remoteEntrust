@@ -41,7 +41,7 @@
               align="center"
               label="操作">
             <template v-slot="scope">
-              <el-button type="text" @click="e_useType(scope.row,scope.$index)">选择</el-button>
+              <el-button text type="primary" @click="e_useType(scope.row,scope.$index)">选择</el-button>
             </template>
           </el-table-column>
         </el-table>

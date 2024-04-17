@@ -279,7 +279,7 @@
                     v-show="scope.row.handler && scope.row.handler.edit"
                     icon="el-icon-edit"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleEdit(scope.row)"
                 >编辑
                 </el-button>
@@ -287,7 +287,7 @@
                     v-show=" scope.row.handler && scope.row.handler.clone"
                     icon="el-icon-document-copy"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleCopy(scope.row)"
                 >复制
                 </el-button>
@@ -295,7 +295,7 @@
                     v-show="scope.row.handler && scope.row.handler.recall"
                     icon="el-icon-refresh-right"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleRecall(scope.row)"
                 >撤回
                 </el-button>
@@ -303,7 +303,7 @@
                     v-show="scope.row.handler && scope.row.handler.delete"
                     icon="el-icon-delete"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleDetele(scope.row)"
                 >删除
                 </el-button>
@@ -315,7 +315,7 @@
                   "
                     icon="el-icon-upload2"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleUploadDownBook(scope.row)"
                 >委托书管理
                 </el-button>
@@ -324,7 +324,7 @@
                     v-show="scope.row.handler && scope.row.handler.downReport"
                     icon="el-icon-download"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleDownReport(scope.row)"
                 >下载报告
                 </el-button>

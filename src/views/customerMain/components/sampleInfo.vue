@@ -324,19 +324,19 @@
               <template v-slot="scope">
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="handleDeleteItem(scope.row)"
                 >删除
                 </el-button>
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="configUp(scope.$index, scope.row)"
                 >上移
                 </el-button>
                 <el-button
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="configDown(scope.$index, scope.row)"
                 >下移
                 </el-button>

@@ -25,21 +25,24 @@
                       stripe @selection-change="handleSelectionChange" @sort-change="sortChange">
               <el-table-column align="center" type="selection" width="55"/>
               <el-table-column align="center" label="序号" type="index" width="50"/>
-              <el-table-column v-for="item in finalTableConfig.allColumns" v-if="!item?.hidden"
-                               :label="item.label"
-                               :prop="!item.aliasName ? item.id : item.aliasName"
-                               :show-overflow-tooltip="true" :sortable="item.sort ? 'custom' : false"
-                               :width="item.width">
-                <template #default="scope">
-                  <slot v-if="!item.aliasName || item.aliasName === ''" :name="'tableColumn.' + item.id"
-                        :slot-scopt="scope.row">
-                    {{ scope.row[item.id] }}
-                  </slot>
-                  <slot :name="'tableColumn.' + item.aliasName" :slot-scopt="scope.row">
-                    {{ scope.row[item.aliasName] }}
-                  </slot>
-                </template>
-              </el-table-column>
+              <template v-for="item in finalTableConfig.allColumns">
+                <el-table-column v-if="!item?.hidden"
+                                 :label="item.label"
+                                 :prop="!item.aliasName ? item.id : item.aliasName"
+                                 :show-overflow-tooltip="true" :sortable="item.sort ? 'custom' : false"
+                                 :width="item.width">
+                  <template #default="scope">
+                    <slot v-if="!item.aliasName || item.aliasName === ''" :name="'tableColumn.' + item.id"
+                          :slot-scopt="scope.row">
+                      {{ scope.row[item.id] }}
+                    </slot>
+                    <slot :name="'tableColumn.' + item.aliasName" :slot-scopt="scope.row">
+                      {{ scope.row[item.aliasName] }}
+                    </slot>
+                  </template>
+                </el-table-column>
+              </template>
+
               <el-table-column v-if="showAction" :label="'操作'" :width="showActionWidth" align="center" fixed="right">
                 <template #default="scope">
                   <slot :slot-scopt="scope" name="action"/>

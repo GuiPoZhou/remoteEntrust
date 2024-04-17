@@ -11534,7 +11534,7 @@
         <span class="formbox-title">欢迎登录</span>
         <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
           <el-form-item label="账号登录" prop="username">
-            <el-input v-model="loginForm.username" auto-complete="off" placeholder="请输入账号" type="text">
+            <el-input v-model="loginForm.username" auto-complete="off" placeholder="请输入账号" text type="primary">
               <!--                                <img-->
               <!--                                    src="/src/assets/images/zhanghao.png"-->
               <!--                                    slot="prefix"-->

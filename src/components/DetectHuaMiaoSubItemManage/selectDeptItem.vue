@@ -45,14 +45,14 @@
                       slot="reference"
                       icon="el-icon-delete"
                       size="small"
-                      type="text"
+                      text
                   >删除
                   </el-button>
                 </el-popconfirm>
                 <el-button
                     icon="icon iconfont iconbsl-icon-fuzhi"
                     size="small"
-                    type="text"
+                    text type="primary"
                     @click="e_copyDepth(scope.row)"
                 >复制
                 </el-button>
@@ -124,7 +124,7 @@
                         slot="reference"
                         icon="el-icon-delete"
                         size="small"
-                        type="text"
+                        text type="primary"
                     >删除
                     </el-button>
                   </el-popconfirm>

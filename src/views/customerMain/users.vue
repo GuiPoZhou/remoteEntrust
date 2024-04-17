@@ -49,14 +49,14 @@
                   v-show="scope.row.status == 0"
                   icon="el-icon-edit"
                   size="small"
-                  type="text"
+                  text type="primary"
                   @click="handleEdit(scope.row)"
               >编辑
               </el-button>
               <el-button
                   icon="el-icon-delete"
                   size="small"
-                  type="text"
+                  text type="primary"
                   @click="handleDelete(scope.row)"
               >删除
               </el-button>
@@ -64,7 +64,7 @@
                   v-show="scope.row.status == 0"
                   icon="el-icon-refresh"
                   size="small"
-                  type="text"
+                  text type="primary"
                   @click="handleReset(scope.row)"
               >重置密码
               </el-button>

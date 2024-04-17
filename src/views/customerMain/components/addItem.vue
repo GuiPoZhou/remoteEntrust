@@ -72,7 +72,7 @@
         <template v-slot="scope">
           <el-button
               size="small"
-              type="text"
+              text type="primary"
               icon="el-icon-delete"
               @click="deleteItem(scope.$index, scope.row)"
           >删除

@@ -15,7 +15,8 @@
     <el-card class="box-card statics">
       <div slot="header" class="clearfix">
         <span>满意度调查</span>
-        <el-button class="timeText" size="small" style="float: right;color: #1e1e1e" type="text" @click="checkAll">
+        <el-button class="timeText" size="small" style="float: right;color: #1e1e1e" text type="primary"
+                   @click="checkAll">
           <span class="isMore">历史记录</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
         </el-button>

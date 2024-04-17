@@ -40,7 +40,8 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
           <template v-slot="scope">
-            <el-button icon="el-icon-delete" size="small" type="text" @click="deleteItem(scope.$index, scope.row)">删除
+            <el-button icon="el-icon-delete" size="small" text type="primary"
+                       @click="deleteItem(scope.$index, scope.row)">删除
             </el-button>
           </template>
         </el-table-column>

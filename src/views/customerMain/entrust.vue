@@ -26,8 +26,8 @@
               </el-button>
             </template>
             <template slot="action" v-slot="scope">
-              <!--              <el-button @click="editRow('edit',scope.slotScopt.row)" type="text" size="small">编辑</el-button>-->
-              <el-button v-if="scope.slotScopt.row.status === 0" size="small" type="text"
+              <!--              <el-button @click="editRow('edit',scope.slotScopt.row)" text type="primary" size="small">编辑</el-button>-->
+              <el-button v-if="scope.slotScopt.row.status === 0" size="small" text type="primary"
                          @click="handlepush(scope.slotScopt.row)">推送
               </el-button>
             </template>
