@@ -31,6 +31,13 @@ import BoMain from '@/components/BoContainer/boMain.vue'
 import BoMain4DynamicList from '@/components/BoContainer/boMain4DynamicList.vue'
 import MasterBanUi from '@/components/MasterBanUi/index.js'
 
+
+// import KevinEngine from 'kevin-engine'
+// import 'kevin-engine/kevin-engine.css'
+// app.use(KevinEngine)
+
+
+
 app.use(MasterBanUi)
 app.component('boDialog', boDialog)
 app.component('pagination', pagination)
