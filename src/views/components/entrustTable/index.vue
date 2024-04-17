@@ -6,13 +6,13 @@
         :runType="2"
         @handleSelectionChange="handleSelectionChange"
     >
-      <template v-slot="row" #tableColumn.status>
+      <template #tableColumn.status="row">
         {{ checkStatus(row.slotScopt.status) }}
       </template>
-      <template v-slot="row" #tableColumn.extSampleSource>
+      <template #tableColumn.extSampleSource="row">
         {{ checkSource(row.slotScopt) }}
       </template>
-      <template v-slot="row" #tableColumn.sampleProductType>
+      <template #tableColumn.sampleProductType="row">
         {{ checkSampleProductType(row.slotScopt) }}
       </template>
       <template #bobutton>
@@ -32,7 +32,7 @@
           </el-col>
         </el-row>
       </template>
-      <template v-slot="scope" #action>
+      <template #action="scope">
         <el-button
             v-for="(actionInfo, actionIndex) in pluginsInfo.mainTableButtons"
             v-show="
@@ -82,6 +82,7 @@ let pluginsInfo = reactive({})
 
 businessConfigId.value = route.query.itemId.toString() + 3333;
 getPluginsForButtons("remoteBtn", (e) => {
+  console.log('这是e', e);
   pluginsInfo = {...e}
 });
 watch(route, (val) => {
@@ -107,7 +108,7 @@ onMounted(() => {
   });
 })
 
-
+let showProgress = ref(false)
 let entrustShow = ref(false)
 function e_saveReload() {
   entrustShow.value = false

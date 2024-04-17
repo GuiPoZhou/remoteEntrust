@@ -110,15 +110,17 @@ const {
     default: 1,
   }
 })
-let finalTableConfig = reactive({})
+let finalTableConfig = reactive({
+  allColumns: []
+})
 let total = ref(0)
 let loading = ref(false)
-let dynamicList = ref(null)
+let dynamicList = ref([])
 let pageTitle = ref(null)
 let orderCondition = ref([])
 let selection = ref(null)
 let showTableColumnConfig = ref(false)
-let defaultSort = ref(null)
+let defaultSort = ref({})
 let queryData = reactive({})
 let pageLimit = ref(10)
 let configId = ref(null)
@@ -128,9 +130,11 @@ watch(businessConfigIdRef, (val) => {
       console.log(val, 'id变了')
       orderCondition.value.splice(0);
       getTableListConfig(businessConfigId).then(res => {
+        console.log(res)
         if (res && res.data) {
           configId.value = res.data.id;
           Object.assign(finalTableConfig, res.data.listConfig)
+          console.log('finaltABLE', finalTableConfig)
           let defaultSortList = finalTableConfig.allColumns.filter(item => item.sort && item.defaultSort);
           defaultSortList.sort((a, b) => {
             return a.defaultSortNum - b.defaultSortNum

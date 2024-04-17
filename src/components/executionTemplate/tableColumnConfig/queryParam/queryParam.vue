@@ -86,7 +86,7 @@
           :visible.sync="showMorePanel"
           :wrapperClosable="false"
           close-on-press-escape
-          custom-class="customerdraw"
+          class="customerdraw"
           destroy-on-close
           direction="rtl"
           size="40%"
@@ -342,7 +342,7 @@ const {finalTableConfig, businessConfigId} = defineProps({
 const businessConfigIdRef = ref(businessConfigId)
 let queryParams = reactive({})
 let defaultQueryParams = reactive({})
-let cacheRemoteDataSource = reactive({})
+let cacheRemoteDataSource = ref([])
 let pickerOptions = reactive({
   disabledDate(time) {
     return time.getTime() > Date.now();
@@ -673,9 +673,9 @@ function loadRemoteDataSource(item) {
   if (
       item.searchType === 2 &&
       item.selectOptionType === 2 &&
-      (!cacheRemoteDataSource ||
-          !cacheRemoteDataSource[item.dynamicUrl] ||
-          cacheRemoteDataSource[item.dynamicUrl].length < 1)
+      (!cacheRemoteDataSource.value ||
+          !cacheRemoteDataSource.value[item.dynamicUrl] ||
+          cacheRemoteDataSource.value[item.dynamicUrl].length < 1)
   ) {
     getDynamicData(item.dynamicUrl).then((res) => {
       let dataSource = [];
@@ -688,7 +688,7 @@ function loadRemoteDataSource(item) {
           });
         });
       }
-      cacheRemoteDataSource[item.dynamicUrl] = dataSource
+      cacheRemoteDataSource.value[item.dynamicUrl] = dataSource
     });
   } else if (item.searchType === 7 || item.selectOptionType === 3) {
     getBusinessData(item.bindDataSourceId).then((res) => {
@@ -713,7 +713,7 @@ function loadRemoteDataSource(item) {
             label: tempOptions[item.dataSourceLabel],
           });
         }
-        cacheRemoteDataSource[item.bindDataSourceId] = dataSource
+        cacheRemoteDataSource.value[item.bindDataSourceId] = dataSource
       }
     });
   }
