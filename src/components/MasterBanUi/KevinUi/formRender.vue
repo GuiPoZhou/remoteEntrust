@@ -136,7 +136,7 @@ function addCloseIcon(index, params) {
               <i class="el-icon-delete"></i>
             </div>
 
-            {/* <el-button type="text" style="color:red" size="mini"
+            {/* <el-button type="text" style="color:red" size="small"
                                 onClick={() => this.deleteExtItem(index)}>扩展字段删除
                             </el-button> */}
           </div>
@@ -1362,7 +1362,7 @@ function renderKevinTableTags(columnInfo, scope, item) {
           columnInfo.options.buttons.map(buttonInfo => {
             if (item.tableEnv != 'detail') {
               return (
-                  <el-button type={buttonInfo.type ? buttonInfo.type : 'primary'} size="mini" onClick={() => {
+                  <el-button type={buttonInfo.type ? buttonInfo.type : 'primary'} size="small" onClick={() => {
                     buttonInfo.events ? eval(buttonInfo.events) : ''
                   }}>{buttonInfo.label}</el-button>
               )

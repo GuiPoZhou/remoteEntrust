@@ -11,6 +11,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
+    "types": [
+      "@types/node"
+    ],
     // 根据需求决定是否开启严格的 any 类型检查
     "baseUrl": "./",
     "paths": {

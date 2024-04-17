@@ -43,7 +43,7 @@
               <el-table-column align="center" label="方法编号" prop="itemCode" show-overflow-tooltip/>
               <el-table-column align="center" label="方法名称" prop="subname" show-overflow-tooltip/>
               <el-table-column align="center" label="执行标准" prop="productionName">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <div v-for="item in scope.row.itemLimitList" class="classFor">
                     <el-tooltip :content="echoData(item.standardType, standardTypeList)" class="item" effect="dark"
                                 placement="top-start">
@@ -53,7 +53,7 @@
                 </template>
               </el-table-column>
               <el-table-column align="center" label="执行标准号" prop="standardCode">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <div v-for="item in scope.row.itemLimitList" class="classFor">
                     <el-tooltip :content="item.standardCode" class="item" effect="dark" placement="top-start">
                       <div>{{ item.standardCode }}</div>
@@ -62,7 +62,7 @@
                 </template>
               </el-table-column>
               <el-table-column align="center" label="执行标准名称" prop="standardName">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <div v-for="item in scope.row.itemLimitList" class="classFor">
                     <el-tooltip :content="item.standardName" class="item" effect="dark" placement="top-start">
                       <div>{{ item.standardName }}</div>
@@ -71,7 +71,7 @@
                 </template>
               </el-table-column>
               <el-table-column align="center" label="判定标准要求" prop="limitDesc">
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <div v-for="item in scope.row.itemLimitList" class="classFor">
                     <el-tooltip :content="item.limitDesc" class="item" effect="dark" placement="top-start">
                       <div>{{ item.limitDesc }}</div>

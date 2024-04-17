@@ -4,8 +4,8 @@
     <indexCustomerNav/>
     <el-tabs
         v-model="activeIndex"
-        :tab-position="tabPosition"
         class="containerInfo"
+        :tab-position="tabPosition"
         type="card"
         @tab-click="handleClick"
     >
@@ -17,14 +17,14 @@
       <el-tab-pane label="委托信息" name="entrustInfo">
         <div v-show="showSearch" class="a-c-top">
           <el-form
-              v-show="showSearch"
               ref="tasks"
               :inline="true"
               :model="tasks"
-              :rules="rules"
-              class="tasks"
               label-width="140px"
               @submit.native.prevent
+              v-show="showSearch"
+              :rules="rules"
+              class="tasks"
           >
             <div class="tipMessage" style="margin-bottom: 20px">
               <p>基本信息</p>
@@ -32,8 +32,8 @@
             <el-form-item label="委托日期:">
               <el-input
                   v-model="extDataObj.commissionedDate"
-                  disabled
                   style="width: 200px"
+                  disabled
               >
               </el-input>
             </el-form-item>
@@ -79,10 +79,10 @@
                   <el-option label="其他" value="z2"></el-option>
                 </el-select>
                 <el-input
+                    style="width: 180px"
                     v-model="extDataObj.addressosaz"
                     clearable
                     placeholder="其他报告抬头"
-                    style="width: 180px"
                 >
                 </el-input>
               </div>
@@ -104,10 +104,10 @@
                   <el-option label="其他" value="yj"></el-option>
                 </el-select>
                 <el-input
+                    style="width: 180px"
                     v-model="extDataObj.address"
                     clearable
                     placeholder="其他邮寄地址"
-                    style="width: 180px"
                 >
                 </el-input>
               </div>
@@ -139,10 +139,10 @@
                 <el-option label="其他" value="qt"></el-option>
               </el-select>
               <el-input
+                  style="width: 180px"
                   v-model="extDataObj.service_Type"
                   clearable
                   placeholder="其他服务时限"
-                  style="width: 180px"
               >
               </el-input>
             </el-form-item>
@@ -159,10 +159,10 @@
                 <el-radio label="cp">判断(产品)标准</el-radio>
               </el-radio-group>
               <el-input
+                  style="width: 180px; margin-left: 10px"
                   v-model="extDataObj.basisStandar"
                   clearable
                   placeholder="请输入标准"
-                  style="width: 180px; margin-left: 10px"
               ></el-input>
             </el-form-item>
             <el-divider></el-divider>
@@ -179,11 +179,11 @@
               </el-radio-group>
               <el-input-number
                   v-model="extDataObj.geshiNum"
+                  controls-position="right"
+                  @change="handleChange"
                   :max="100"
                   :min="1"
                   :step-strictly="true"
-                  controls-position="right"
-                  @change="handleChange"
               ></el-input-number>
             </el-form-item>
             <el-form-item label="报告类别:" prop="Reportcatalog">
@@ -213,10 +213,10 @@
                   <el-option label="其他" value="b5"></el-option>
                 </el-select>
                 <el-input
+                    style="width: 180px"
                     v-model="extDataObj.send"
                     clearable
                     placeholder="其他报告发送方式"
-                    style="width: 180px"
                 >
                 </el-input>
               </div>
@@ -237,10 +237,10 @@
                 <el-radio label="c4">从预付款扣</el-radio>
               </el-radio-group>
               <el-input
+                  style="width: 180px; margin-left: 10px"
                   v-model="extDataObj.Paycost"
                   clearable
                   placeholder="请输入协议编号"
-                  style="width: 180px; margin-left: 10px"
               ></el-input>
             </el-form-item>
 
@@ -251,10 +251,10 @@
                   <el-option label="其他" value="d2"></el-option>
                 </el-select>
                 <el-input
+                    style="width: 180px"
                     v-model="extDataObj.invoice"
                     clearable
                     placeholder="必须与付款方一致"
-                    style="width: 180px"
                 >
                 </el-input>
               </div>
@@ -270,10 +270,10 @@
                   ></el-option>
                 </el-select>
                 <el-input
+                    style="width: 180px"
                     v-model="extDataObj.categorys"
                     clearable
                     placeholder="请输入税号"
-                    style="width: 180px"
                 >
                 </el-input>
               </div>
@@ -287,11 +287,11 @@
             </el-form-item>
             <el-form-item label="备注:" style="margin-left: 180px">
               <el-input
+                  style="width: 380px"
+                  type="textarea"
                   v-model="extDataObj.taskBeizhu"
                   :autosize="{ minRows: 2, maxRows: 4 }"
                   clearable
-                  style="width: 380px"
-                  type="textarea"
               >
               </el-input>
             </el-form-item>
@@ -315,9 +315,9 @@
             </el-col>
           </el-row>
           <el-table
-              ref="multipleTable"
               :data="tableData"
               @selection-change="handleSelectionChange"
+              ref="multipleTable"
           >
             <el-table-column align="center" type="selection" width="55"/>
             <el-table-column label="序号" type="index" width="55"/>
@@ -329,8 +329,8 @@
             <el-table-column label="样品量" prop="dataCount" width="150px">
             </el-table-column>
             <el-table-column
-                label="检测项目数量"
                 prop="itemCount"
+                label="检测项目数量"
                 width="150px"
             >
               <template scope="scope">
@@ -347,18 +347,18 @@
               </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button
-                    v-show="distinguishCode == 'noConfirm'"
                     size="small"
                     type="text"
                     @click="handleEdit(scope.row)"
+                    v-show="distinguishCode == 'noConfirm'"
                 >修改
                 </el-button>
                 <el-button
-                    v-show="distinguishCode == 'confirmed'"
                     size="small"
                     type="text"
+                    v-show="distinguishCode == 'confirmed'"
                     @click="handleEdit(scope.row)"
                 >查看
                 </el-button>
@@ -678,12 +678,11 @@ export default {
 </script>
 <style lang="less" scoped>
 // 按钮
-:deep(.btns) {
+/deep/ .btns {
   height: 66px;
   background-color: white;
   display: flex;
   justify-content: flex-end;
-
   button {
     width: 98px;
     height: 34px;
@@ -693,23 +692,21 @@ export default {
     // opacity: 1;
     border-radius: 4px;
   }
-
   button:nth-of-type(3) {
     margin-right: 44px;
   }
 }
 
-:deep(.containerInfo) {
+/deep/ .containerInfo {
   margin: 15px auto; /*上下距离为0px，左右距离自动*/
   width: 73.4%;
 }
 
-:deep(.tipMessage) {
+/deep/ .tipMessage {
   width: 100%;
   height: 60px;
   background: #f8f9fb;
   margin-top: 10px;
-
   p {
     margin-left: 10px;
     font-size: 18px;
@@ -718,9 +715,8 @@ export default {
     color: #475166;
   }
 }
-
 //tab切换样式
-:deep(#tab-entrustInfo) {
+/deep/ #tab-entrustInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -731,7 +727,7 @@ export default {
   // color: #8F9BB3;
 }
 
-:deep(#tab-sampleInfo) {
+/deep/ #tab-sampleInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -741,26 +737,25 @@ export default {
   text-align: center;
   // color: #8F9BB3;
 }
-
 // 表单
-:deep(.tasks ) {
+/deep/ .tasks {
   // width: 80px;
   // height: 22px;
   // font-size: 16px;
   // font-weight: 400;
   // line-height: 16px;
   // color: #8f9bb3;
-  :deep(p) {
+  /deep/ p {
     font-weight: 600;
   }
 
-  :deep(.inputText) {
+  /deep/ .inputText {
     display: flex;
     justify-content: flex-start;
   }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 </style>

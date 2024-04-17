@@ -5,13 +5,13 @@
       <el-date-picker
           v-model="createTime"
           class="date-picker"
-          clearable
-          format="yyyy-MM-dd"
-          placeholder="选择日期"
           size="small"
           style="width: 150px;height: 21px"
           type="date"
+          clearable
           value-format="yyyy-MM-dd"
+          format="yyyy-MM-dd"
+          placeholder="选择日期"
           @change="changeTime">
       </el-date-picker>
     </div>
@@ -53,11 +53,9 @@ function getStatic(prarms) {
     }
   });
 }
-
 function changeTime(t) {
   getStatic({createTime: t})
 }
-
 function getPie() {
   piePlot = new Pie('container', {
     height: 170,
@@ -85,7 +83,6 @@ function getPie() {
   });
   piePlot.render()
 }
-
 onMounted(() => {
   getStatic(createTime.value)
 })

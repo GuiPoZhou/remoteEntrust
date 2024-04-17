@@ -1,6 +1,6 @@
 <template>
   <ml-dialog ref="BoDislog" :dia-log-show="showlog" dia-log-title="引入字段" dia-log-width="50%" @close="e_close">
-    <template slot="bologbody">
+    <template #bologbody>
       <el-table
           ref="formJSONTable"
           :data="formJSON"
@@ -28,7 +28,7 @@
             label="所占行"
             prop="col"
         >
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-input-number v-model="scope.row.col" :max="24" :min="1" size="small"></el-input-number>
           </template>
         </el-table-column>
@@ -36,86 +36,84 @@
             align="center"
             label="操作"
         >
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-button v-if="checkKey(scope.row.keyName)" type="text" @click="e_selFormItem(scope.row)">选择</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <template slot="bologfooter">
+    <template #bologfooter>
       <el-button size="small" @click="e_close">关闭</el-button>
     </template>
   </ml-dialog>
 </template>
-<script>
-export default {
-  name: "addFormItem",
-  data() {
-    return {
-      showlog: false,
-      formJSON: [],
-      currentlist: [],
-      // 已支持的form类型
-      configFormType: ['input', 'textarea', 'checkbox', 'radio', 'time', 'date', 'select', 'number'],
-      paramsTypeList: [
-        {
-          label: '固定字段',
-          value: 'fixed'
-        },
-        {
-          label: '扩展字段',
-          value: 'ext'
-        }
-      ]
-    }
+<script setup>
+import {ElMessage} from 'element-plus'
+
+const vm = getCurrentInstance.proxy()
+defineComponent({
+  name: "addFormItem"
+})
+let showlog = ref(false)
+let formJSON = ref([])
+let currentlist = ref([])
+let configFormType = ref(['input', 'textarea', 'checkbox', 'radio', 'time', 'date', 'select', 'number'])
+let paramsTypeList = ref([
+  {
+    label: '固定字段',
+    value: 'fixed'
   },
+  {
+    label: '扩展字段',
+    value: 'ext'
+  }
+])
+const emit = defineEmits(['close', 'selFormItem'])
 
-  methods: {
-    e_changeParamsType(e, index) {
-      let obj = this.formJSON[index]
-      obj.paramsType = e
-      this.$set(this.formJSON, index, obj)
-      this.$nextTick(() => {
-        this.$refs.formJSONTable.doLayout()
-        console.log(this.formJSON)
-      })
+function e_changeParamsType(e, index) {
+  let obj = formJSON.value[index]
+  obj.paramsType = e
+  formJSON.value[index] = obj
+  nextTick(() => {
+    vm.$refs.formJSONTable.doLayout()
+    console.log(formJSON.value)
+  })
 
-    },
-    init(list, currentlist) {
-      this.formJSON = JSON.parse(JSON.stringify(list))
-      this.showlog = true
-      this.$refs.BoDislog.isFullScreen = false
-      this.currentlist = currentlist
+}
 
-    },
-    checkKey(prop) {
-      let propList = this.currentlist.map(item => {
-        return item.prop
-      })
-      if (propList.indexOf(prop) == -1) {
-        return true
-      } else {
-        return false
-      }
-    },
-    e_close() {
-      this.$emit('close')
-    },
-    e_selFormItem(row) {
-      if (this.configFormType.indexOf(row.type) == -1) {
-        this.$message.warning('暂不支持该类型')
-        return
-      }
-      let obj = {
-        label: row.label,
-        prop: row.keyName,
-        type: 'ext',
-        col: row.col,
-        component: row.type,
-        options: row.options
-      }
-      this.$emit('selFormItem', obj)
-    }
-  },
+function init(list, e) {
+  formJSON.value = JSON.parse(JSON.stringify(list))
+  showlog.value = true
+  vm.$refs.BoDislog.isFullScreen = false
+  currentlist.value = e
+
+}
+
+function checkKey(prop) {
+  let propList = currentlist.value.map(item => {
+    return item.prop
+  })
+  return propList.indexOf(prop) === -1;
+}
+
+function e_close() {
+  emit('close')
+}
+
+function e_selFormItem(row) {
+  if (configFormType.value.indexOf(row.type) === -1) {
+    ElMessage.warning('暂不支持该类型')
+    return
+  }
+  let obj = {
+    label: row.label,
+    prop: row.keyName,
+    type: 'ext',
+    col: row.col,
+    component: row.type,
+    options: row.options
+  }
+  emit('selFormItem', obj)
 }
 </script>
+

@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-dialog
         :before-close="close"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
         :visible.sync="copyAddItemShow"
         center
-        title="复制添加项目"
         @open="open"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        title="复制添加项目"
     >
       <!-- 统一样式 - 查询区域 -->
       <div class="a-c-top">
@@ -21,19 +21,19 @@
           <!-- 搜索栏 -->
           <el-form-item label="委托编号">
             <el-input
+                @keyup.enter.native="handleQuery"
                 v-model="queryData.taskIdCode"
                 clearable
                 placeholder="请输入搜索"
-                @keyup.enter.native="handleQuery"
             >
             </el-input>
           </el-form-item>
           <el-form-item label="样品名称">
             <el-input
+                @keyup.enter.native="handleQuery"
                 v-model="queryData.productionName"
                 clearable
                 placeholder="请输入搜索"
-                @keyup.enter.native="handleQuery"
             >
             </el-input>
           </el-form-item>
@@ -65,9 +65,9 @@
           <div class="a-c-t-btnarea">
             <el-form-item>
               <el-button
+                  type="cyan"
                   icon="el-icon-search"
                   size="small"
-                  type="cyan"
                   @click="handleQuery"
               >搜索
               </el-button>
@@ -86,8 +86,8 @@
           <el-table-column label="" width="40">
             <template scope="scope">
               <el-radio
-                  v-model="currentRow"
                   :label="scope.row.idCode"
+                  v-model="currentRow"
                   style="color: #fff; padding-left: 10px; margin-right: -25px"
               ></el-radio>
             </template>
@@ -99,7 +99,7 @@
             label="序号"
           /> -->
           <el-table-column align="center" label="序号" type="index" width="55">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <span>{{ (queryData.pageNum - 1) * queryData.pageSize + scope.$index + 1 }}</span>
             </template>
           </el-table-column>
@@ -128,9 +128,9 @@
       <!-- 分页 -->
       <pagination
           v-show="total > 0"
-          :limit.sync="queryData.pageSize"
           :page.sync="queryData.pageNum"
           :total="total"
+          :limit.sync="queryData.pageSize"
           @pagination="init()"
       />
     </el-dialog>
@@ -279,7 +279,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-:deep(.dialog-footer) {
+/deep/ .dialog-footer {
   // background-color: pink;
   display: flex;
   align-items: center;
@@ -287,19 +287,19 @@ export default {
   line-height: 16px;
   font-size: 16px;
 
-  :deep(.left) {
+  /deep/ .left {
     border-right: 2px solid rgb(156, 153, 153);
     padding-right: 10px;
 
-    :deep(span) {
+    /deep/ span {
       color: blue;
     }
   }
 
-  :deep(.right) {
+  /deep/ .right {
     display: flex;
 
-    :deep(span) {
+    /deep/ span {
       display: block;
       margin-right: 10px;
     }
@@ -309,7 +309,7 @@ export default {
   }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 </style>

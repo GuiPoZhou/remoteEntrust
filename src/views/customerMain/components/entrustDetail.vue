@@ -3,10 +3,10 @@
     <el-tabs
         ref="appContainer"
         v-model="activeIndex"
-        :tab-position="tabPosition"
-        class="containerInfo"
         type="card"
+        :tab-position="tabPosition"
         @tab-click="handleClick"
+        class="containerInfo"
     >
       <div :style="{ width: clientWidth + 'px' }" class="btns">
         <el-button type="" @click="backTo">返回</el-button>
@@ -22,16 +22,16 @@
       <el-tab-pane label="委托信息" name="entrustInfo">
         <div class="a-c-top" style="margin-top:70px">
           <el-form
+              :prop="tasks"
+              label-position="right"
               ref="tasks"
               :inline="true"
               :model="tasks"
-              :prop="tasks"
-              :rules="rules"
-              class="demo-form-inline"
-              label-position="right"
               label-width="140px"
               style="height: 680px"
+              :rules="rules"
               @submit.native.prevent
+              class="demo-form-inline"
           >
             <div class="tipMessage" style="margin-bottom: 20px">
               <p>基本信息</p>
@@ -41,8 +41,8 @@
                 <el-form-item class="rule-input" label="委托日期:">
                   <el-date-picker
                       v-model="tasks.extDataObj.commissionedDate"
-                      :disabled="onlySee"
                       placeholder="选择日期时间"
+                      :disabled="onlySee"
                       prop="commissionedDate"
                       style="width: 200px"
                       type="datetime">
@@ -55,156 +55,156 @@
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="委托单位名称:"
+                    class="rule-input"
                     prop="customerName"
                 >
                   <el-input
                       v-model="tasks.customerName"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="委托单位地址:"
+                    class="rule-input"
                     prop="customerAddress"
                 >
                   <el-input
                       v-model="tasks.customerAddress"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="联系人:"
+                    class="rule-input"
                     prop="customerContact"
                 >
                   <el-input
                       v-model="tasks.customerContact"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="电话:"
+                    class="rule-input"
                     prop="customerTel"
                 >
                   <el-input
                       v-model="tasks.customerTel"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="邮箱:"
+                    class="rule-input"
                     prop="customerEmail"
                 >
                   <el-input
                       v-model="tasks.customerEmail"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="报告邮寄地址："
+                    class="rule-input"
                     prop="extData.sendMessage"
                 >
                   <el-input
                       v-model="tasks.extDataObj.sendMessage"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="项目所属分支："
+                    class="rule-input"
                     prop="extDataObj.branch"
                 >
                   <el-input
                       v-model="tasks.extDataObj.branch"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="检测类型："
+                    class="rule-input"
                     prop="extDataObj.testType"
                 >
                   <el-input
                       v-model="tasks.extDataObj.testType"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="生产企业名称："
+                    class="rule-input"
                     prop="extDataObj.manufacturerName"
                 >
                   <el-input
                       v-model="tasks.extDataObj.manufacturerName"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="生产企业联系电话："
+                    class="rule-input"
                     prop="extDataObj.manufacturerTel"
                 >
                   <el-input
                       v-model="tasks.extDataObj.manufacturerTel"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="交费单位信息："
+                    class="rule-input"
                     prop="extDataObj.unitInformation"
                 >
                   <el-input
                       v-model="tasks.extDataObj.unitInformation"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="检验要求："
+                    class="rule-input"
                     prop="extDataObj.testResultsFor"
                 >
                   <el-radio-group
                       v-model="tasks.extDataObj.testResultsFor"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                     <el-radio label="cjsj">出具数值结果</el-radio>
                     <el-radio label="cjpd">出具判定报告（判定依据）</el-radio>
@@ -214,78 +214,78 @@
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="检验周期："
+                    class="rule-input"
                     prop="extDataObj.testCycle"
                 >
                   <el-input
                       v-model="tasks.extDataObj.testCycle"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="报告份数："
+                    class="rule-input"
                     prop="extDataObj.reportNumber"
                 >
                   <el-input-number
                       v-model="tasks.extDataObj.reportNumber"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input-number>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="交付方式："
+                    class="rule-input"
                     prop="extDataObj.deliveryMethod"
                 >
                   <el-input
                       v-model="tasks.extDataObj.deliveryMethod"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="样品处理："
+                    class="rule-input"
                     prop="extDataObj.sampleHandle"
                 >
                   <el-input
                       v-model="tasks.extDataObj.sampleHandle"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-col>
                 <el-form-item
-                    class="rule-input"
                     label="缴费情况："
+                    class="rule-input"
                     prop="extDataObj.payment"
                 >
                   <el-input
                       v-model="tasks.extDataObj.payment"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="其他约定说明："
+                    class="rule-input"
                     prop="extDataObj.otherInstructions"
                 >
                   <el-input
                       v-model="tasks.extDataObj.otherInstructions"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
@@ -293,8 +293,8 @@
               <el-col :span="24">
                 <el-form-item
 
-                    class="rule-input"
                     label="是否开票："
+                    class="rule-input"
                     prop="extDataObj.isInvoicing"
                 >
                   <el-radio-group v-model="tasks.extDataObj.isInvoicing" :disabled="onlySee">
@@ -305,27 +305,27 @@
                 <el-form-item
                     class="rule-input"
                     label="开票类型："
-                    prop="extDataObj.invoicingType"
                     style="margin-left: 98px"
+                    prop="extDataObj.invoicingType"
                 >
                   <el-input
                       v-model="tasks.extDataObj.invoicingType"
-                      :disabled="onlySee || tasks.extDataObj.isInvoicing === '否'"
                       clearable
+                      :disabled="onlySee || tasks.extDataObj.isInvoicing === '否'"
                   >
                   </el-input>
                 </el-form-item>
               </el-col>
               <el-form-item
                   v-if="false"
-                  class="rule-input"
                   label="检测用途:"
+                  class="rule-input"
                   prop="testPurpose"
               >
                 <el-radio-group
                     v-model="tasks.extDataObj.testPurpose"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                     @change="qtchange"
                 >
                   <el-col>
@@ -347,14 +347,14 @@
 
               <el-form-item
                   v-if="false"
-                  class="rule-input"
                   label="检测结果要求:"
+                  class="rule-input"
                   prop="testResultsFor "
               >
                 <el-radio-group
                     v-model="tasks.extDataObj.testResultsFor"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                 >
                   <el-radio label="cjsj">出具数值结果</el-radio>
                   <el-radio label="cjpd">出具判定报告（判定依据）</el-radio>
@@ -363,14 +363,14 @@
               </el-form-item>
               <el-col v-if="false">
                 <el-form-item
-                    class="rule-input"
                     label="报告形式:"
+                    class="rule-input"
                     prop="reportForm"
                 >
                   <el-radio-group
                       v-model="tasks.extDataObj.reportForm"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                     <el-radio label="zw">中文报告</el-radio>
                     <el-radio label="zyw">中英文报告</el-radio>
@@ -380,14 +380,14 @@
               </el-col>
               <el-col v-if="false">
                 <el-form-item
-                    class="rule-input"
                     label="报告领取方式:"
+                    class="rule-input"
                     prop="reportGetWay"
                 >
                   <el-radio-group
                       v-model="tasks.extDataObj.reportGetWay"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                       @change="costomchange"
                   >
                     <el-radio label="zq">自取</el-radio>
@@ -398,38 +398,38 @@
 
               <div v-if="show">
                 <el-form-item
-                    class="rule-input"
                     label="邮寄电话:"
+                    class="rule-input"
                     prop="mailTel"
                 >
                   <el-input
                       v-model="tasks.extDataObj.mailTel"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="检测费:"
+                    class="rule-input"
                     prop="testFee"
                 >
                   <el-input
                       v-model="tasks.extDataObj.testFee"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
                 <el-form-item
-                    class="rule-input"
                     label="邮寄地址:"
+                    class="rule-input"
                     prop="taskPostCode"
                 >
                   <el-input
                       v-model="tasks.extDataObj.taskPostCode"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
@@ -446,14 +446,14 @@
                 <!--                  </el-input>-->
                 <!--                </el-form-item>-->
                 <el-form-item
-                    class="rule-input"
                     label="邮寄联系人:"
+                    class="rule-input"
                     prop="mailContact"
                 >
                   <el-input
                       v-model="tasks.extDataObj.mailContact"
-                      :disabled="onlySee"
                       clearable
+                      :disabled="onlySee"
                   >
                   </el-input>
                 </el-form-item>
@@ -468,10 +468,10 @@
             <el-col :span="1.5">
               <el-button
                   v-show="!onlySee"
-                  icon="el-icon-plus"
                   size="small"
-                  type="primary"
+                  icon="el-icon-plus"
                   @click="addSample"
+                  type="primary"
               >
                 新增样品
               </el-button>
@@ -485,7 +485,7 @@
             <!--              align="center"-->
             <!--              label="序号"-->
             <!--            >-->
-            <!--              <template slot-scope="scope">-->
+            <!--              <template v-slot="scope">-->
             <!--                <span>{{-->
             <!--                  (queryData.pageNum - 1) * queryData.pageSize +-->
             <!--                    scope.$index +-->
@@ -508,8 +508,8 @@
               </template>
             </el-table-column>
             <el-table-column
-                label="样品状态"
                 prop="extData.sampleForm1"
+                label="样品状态"
                 width="150px"
             >
               <template v-slot="scope">
@@ -559,7 +559,7 @@
               </template>
             </el-table-column>
             <el-table-column v-if="!onlySee" fixed="right" label="操作" style="width: 100px">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button
                     size="small"
                     type="text"
@@ -593,8 +593,8 @@
       </el-tab-pane>
     </el-tabs>
     <selectItem
-        :itemRowData="itemRowData"
         :selectItemShow.sync="selectItemShow"
+        :itemRowData="itemRowData"
         @init="init"
     />
     <el-dialog :visible.sync="cloneSampleVisible" title="复制样品" width="25%">
@@ -604,9 +604,9 @@
         >
         <el-input-number
             v-model="cloneSampleCount"
+            :step-strictly="true"
             :max="100"
             :min="1"
-            :step-strictly="true"
             label="复制份数"
         ></el-input-number>
       </div>
@@ -631,7 +631,6 @@ import {
 } from "@/api/entrust/entrustConfirm";
 import indexCustomerNav from "../indexCustomerNav";
 import selectItem from "./selectItem";
-
 export default {
   name: "entrustDetail",
   components: {
@@ -1214,14 +1213,13 @@ export default {
 </script>
 <style lang="less" scoped>
 // 按钮
-:deep(.btns) {
+/deep/ .btns {
   height: 66px;
   background-color: white;
   display: flex;
   justify-content: flex-end;
   position: fixed;
   z-index: 111;
-
   button {
     width: 98px;
     height: 34px;
@@ -1229,24 +1227,22 @@ export default {
     margin-left: 16px;
     border-radius: 4px;
   }
-
   button:nth-of-type(3) {
     margin-right: 44px;
   }
 }
 
-:deep(.containerInfo) {
+/deep/ .containerInfo {
   margin: 15px auto; /*上下距离为0px，左右距离自动*/
   width: 73.2%;
   margin-bottom: 80px;
 }
 
-:deep(.tipMessage) {
+/deep/ .tipMessage {
   width: 100%;
   height: 60px;
   background: #f8f9fb;
   margin-top: 10px;
-
   p {
     margin-left: 10px;
     font-size: 18px;
@@ -1255,9 +1251,8 @@ export default {
     color: #475166;
   }
 }
-
 //tab切换样式
-:deep(#tab-entrustInfo) {
+/deep/ #tab-entrustInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -1268,7 +1263,7 @@ export default {
   // color: #8F9BB3;
 }
 
-:deep(#tab-sampleInfo) {
+/deep/ #tab-sampleInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -1278,19 +1273,22 @@ export default {
   text-align: center;
 }
 
-:deep(.active-input) {
+/deep/ .active-input {
   width: 80px;
 }
-
 // 表单
-:deep(.tasks) {
-  :deep(p) {
+/deep/ .tasks {
+  /deep/ p {
     font-weight: 600;
   }
 
+  /deep/ .inputText {
+    // display: flex;
+    // justify-content: flex-start;
+  }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 
@@ -1299,12 +1297,10 @@ export default {
   line-height: 30px;
   height: 28px;
 }
-
 .basicInfo {
   //height: 500px;
   //height: auto;
 }
-
 @media (max-width: 1366px) {
   .el-radio-group {
     display: flex;

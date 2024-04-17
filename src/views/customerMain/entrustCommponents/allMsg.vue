@@ -1,7 +1,8 @@
 <script setup>
 import noteDialog from "@/views/components/noteDialog/index.vue";
 import {getCurrentInstance, nextTick, reactive, ref} from 'vue'
-import {mbu_downloadPageOffice} from '@/mixins/mixinMethod.ts'
+import dayjs from "dayjs";
+
 const vm = getCurrentInstance()['proxy']
 let reportList = ref([])
 let queryParams = reactive({
@@ -49,12 +50,11 @@ const changePage = (val) => {
   queryParams.pageNum = val.page
   getList()
 }
-
 function download(item) {
   console.log(window.localStorage.getItem('menuId'))
   vm.$net('/v1/entrustRemoteAgreement/selectReportCode', 'get', item).then(res => {
     if (res.code === 200) {
-      mbu_downloadPageOffice(res.msg)
+      vm.mbu_downloadPageOffice(res.msg)
     }
   })
 }
@@ -74,7 +74,7 @@ function download(item) {
           <el-row class="rowStyle" @click.native="noteDetail(item)">
             <span>{{ index + 1 }}.</span>
             <span>{{ item.noticeTitle + '的通知' }}</span>
-            <span class="timeText">{{ $dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
+            <span class="timeText">{{ dayjs(item.createTime).format('YYYY-MM-DD') }}</span>
           </el-row>
         </template>
         <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
@@ -100,12 +100,10 @@ function download(item) {
     display: inline-block;
     font-size: 14px;
   }
-
   .rowStyle {
     padding: 4px 0;
     cursor: pointer;
   }
-
   .timeText {
     font-size: 12px;
     color: #909399;

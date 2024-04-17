@@ -18,35 +18,35 @@
     </el-form>
 
     <el-table
+        :data="itemTableData"
+        border
         ref="itemTable"
         v-loading="loading"
-        :cell-style="{ padding: '2px' }"
-        :data="itemTableData"
-        :row-style="{ height: '20px' }"
-        border
-        element-loading-background="rgba(0, 0, 0, 0.8)"
         element-loading-spinner="el-icon-loading"
-        element-loading-text="拼命加载中"
+        :cell-style="{ padding: '2px' }"
+        :row-style="{ height: '20px' }"
         height="200"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-text="拼命加载中"
         style="width: 100%"
         @select="parseSelectedItems()"
         @select-all="parseSelectedItems()"
     >
       <el-table-column type="selection" width="50"></el-table-column>
       <el-table-column
-          :show-overflow-tooltip="true"
-          label="项目名称"
           prop="itemName"
+          label="项目名称"
+          :show-overflow-tooltip="true"
       />
       <el-table-column
-          :show-overflow-tooltip="true"
-          label="英文名称"
           prop="englishName"
+          label="英文名称"
+          :show-overflow-tooltip="true"
       />
       <el-table-column
-          :show-overflow-tooltip="true"
           label="方法编号"
           prop="methodStandardCode"
+          :show-overflow-tooltip="true"
       />
       <el-table-column
           :show-overflow-tooltip="true"
@@ -54,9 +54,9 @@
           prop="methodStandardName"
       />
       <el-table-column
-          :show-overflow-tooltip="true"
           label="所需样品量"
           prop="sampleSize"
+          :show-overflow-tooltip="true"
       />
       <!--<el-table-column-->
       <!--prop="detectionLimit"-->
@@ -68,7 +68,7 @@
       <!--label="检出限单位"-->
       <!--:show-overflow-tooltip="true"-->
       <!--&gt;-->
-      <!--<template slot-scope="scope">-->
+      <!--<template v-slot="scope">-->
       <!--<span v-html="scope.row.detectionLimitUnit">{{scope.row.detectionLimitUnit}}</span>-->
       <!--</template>-->
       <!--</el-table-column>-->
@@ -81,9 +81,9 @@
     </el-table>
     <pagination
         v-show="total > 0"
+        :total="total"
         :limit.sync="queryParams.pageSize"
         :page.sync="queryParams.pageNum"
-        :total="total"
         @pagination="getItemList"
     />
   </div>
@@ -91,7 +91,6 @@
 
 <script>
 import {queryItemList} from "@/api/entrust/entrustConfirm";
-
 export default {
   name: "itemList",
   data() {
@@ -176,11 +175,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-:deep(.el-form) {
+/deep/ .el-form {
   display: flex;
   justify-content: flex-start;
 
-  :deep(.el-form-item) {
+  /deep/ .el-form-item {
     display: flex;
     margin-right: 10px;
   }

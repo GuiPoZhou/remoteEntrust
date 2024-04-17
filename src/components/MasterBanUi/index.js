@@ -1,5 +1,5 @@
 // 引入分页组件文件
-// import mlForm from './JSXForm/jsxform.vue'
+import mlForm from './JSXForm/jsxform.vue'
 import mlEdit from './JSXForm/editFormItem.vue'
 import mlCode from './JSXForm/codeIcon.vue'
 import mlEditor from './JSXForm/codeEditor.vue'

@@ -24,7 +24,6 @@ const vm = instance['proxy']
 .box-card {
   background: #f6f6f8;
   border-radius: 4px;
-
   .flexStyle {
     display: flex;
     align-items: center;

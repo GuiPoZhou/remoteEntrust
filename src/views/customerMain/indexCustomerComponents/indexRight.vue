@@ -46,7 +46,6 @@ import right from '@/views/customerMain/indexCustomerComponents/topComponent/rig
 import dayjs from 'dayjs'
 import {ref, reactive, getCurrentInstance} from 'vue'
 import questionnaires from '@/components/questionnaire/index.vue'
-import {mbu_downloadPageOffice} from "@/mixins/mixinMethod.ts";
 
 const instance = getCurrentInstance()
 var showquestionnaire = ref(false)
@@ -60,7 +59,6 @@ const currentDate = dayjs();
 const startDate = currentDate.startOf('month').format('YYYY-MM-DD');
 const endDate = currentDate.endOf('month').format('YYYY-MM-DD');
 const dateRange = ref('');
-
 function jump2Page(pageValue) {
   if (pageValue == "user") {
     this.$router.push({
@@ -78,7 +76,6 @@ function jump2Page(pageValue) {
     });
   }
 }
-
 //验证
 function searchCode() {
   console.log(reportCode)
@@ -89,12 +86,11 @@ function searchCode() {
         confirmButtonText: '下载',
         cancelButtonText: '取消'
       }).then(_ => {
-        mbu_downloadPageOffice(res.data.pdfUrl)
+        vm.mbu_downloadPageOffice(res.data.pdfUrl)
       }).catch()
     }
   })
 }
-
 // 检测报告
 let detectReport = ref([
   {label: 'R230527001', id: 1, time: dayjs().format('MM-DD')},
@@ -109,14 +105,12 @@ let detectReport = ref([
 const addEntrust = (path) => {
   vm.$router.push({path})
 }
-
 // 查看全部报告
 function checkAll() {
   vm.$router.push({
     name: 'allReport'
   })
 }
-
 function download(item) {
   console.log(window.localStorage.getItem('menuId'))
   vm.$net('/v1/entrustRemoteAgreement/selectReportCode', 'get', item).then(res => {
@@ -141,7 +135,6 @@ const getNewSatisfactionSurvey = () => {
   })
 }
 getNewSatisfactionSurvey()
-
 function e_doquestionnaire() {
   if (questionnaireInfo.value.isWrite == 1) {
     vm.$message.info('已填写过，无需重复填写')
@@ -160,11 +153,9 @@ function e_doquestionnaire() {
     vm.$refs.questionnaire.init(questionnaireInfo.value)
   })
 }
-
 function e_closequestionnaire() {
   showquestionnaire.value = false
 }
-
 function e_saveQuestionaire() {
   showquestionnaire.value = false
 }
@@ -214,7 +205,6 @@ function e_saveQuestionaire() {
   margin-top: 5%;
   margin-left: 5%;
   padding-top: 5%;
-
   p {
     text-align: left;
     margin: 0 auto;

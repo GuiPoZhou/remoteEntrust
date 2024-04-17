@@ -65,7 +65,7 @@
             </el-row>
           </el-form>
           <el-divider content-position="left">Table列管理（即可从上方列表选择添加，也可手动添加）</el-divider>
-          <el-button size="mini" style="margin: 20px 0" type="success" @click="e_addNewColumn">添加新列
+          <el-button size="small" style="margin: 20px 0" type="success" @click="e_addNewColumn">添加新列
           </el-button>
           <el-table
               :data="newTableInfo.tableColumns"
@@ -76,7 +76,7 @@
                 label="列名(label)"
                 prop="label"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.label"></el-input>
               </template>
             </el-table-column>
@@ -85,7 +85,7 @@
                 label="键名(prop)"
                 prop="prop"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.prop"></el-input>
               </template>
             </el-table-column>
@@ -94,7 +94,7 @@
                 label="可输入插槽类型(editType)"
                 prop="editType"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-select v-model="scope.row.editType" clearable>
                   <el-option label="span" value="span"></el-option>
                   <el-option label="el-input" value="el-input"></el-option>
@@ -108,7 +108,7 @@
                 label="ElLink事件脚本(linkEvents)"
                 prop="linkEvents"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.linkEvents" type="textarea"></el-input>
               </template>
             </el-table-column>
@@ -117,7 +117,7 @@
                 label="插槽事件脚本(slotRenderEvents)"
                 prop="slotRenderEvents"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.slotRenderEvents" type="textarea"></el-input>
               </template>
             </el-table-column>
@@ -126,7 +126,7 @@
                 label="键插槽标识(slotName)"
                 prop="slotName"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.slotName"></el-input>
               </template>
             </el-table-column>
@@ -135,7 +135,7 @@
                 label="列类型(type)"
                 prop="type"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.type"></el-input>
               </template>
             </el-table-column>
@@ -144,7 +144,7 @@
                 label="列对齐方式(align)"
                 prop="align"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-select v-model="scope.row.align">
                   <el-option label="left" value="left"></el-option>
                   <el-option label="center" value="center"></el-option>
@@ -157,7 +157,7 @@
                 label="值类型（固定/扩展）(valueType)"
                 prop="valueType"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-select v-model="scope.row.valueType">
                   <el-option label="fixed" value="fixed"></el-option>
                   <el-option label="ext" value="ext"></el-option>
@@ -168,13 +168,13 @@
                 align="center"
                 label="操作"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button type="text" @click="e_deleteColumnslist(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
           <el-divider content-position="left">Table操作列功能按钮添加</el-divider>
-          <el-button size="mini" style="margin: 20px 0" type="success" @click="e_addNewSlotsButton">
+          <el-button size="small" style="margin: 20px 0" type="success" @click="e_addNewSlotsButton">
             添加功能按钮
           </el-button>
 
@@ -187,7 +187,7 @@
                 label="功能名称"
                 prop="label"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.label"></el-input>
               </template>
             </el-table-column>
@@ -196,7 +196,7 @@
                 label="是否隐藏"
                 prop="isHide"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-radio-group v-model="scope.row.isHide">
                   <el-radio :label="true">是</el-radio>
                   <el-radio :label="false">否</el-radio>
@@ -208,7 +208,7 @@
                 label="功能脚本"
                 prop="events"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.events" type="textarea"></el-input>
               </template>
             </el-table-column>
@@ -217,20 +217,20 @@
                 label="列类型"
                 prop="type"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.type"></el-input>
               </template>
             </el-table-column>
             <el-table-column
                 align="center" label="操作">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button type="text" @click="e_deleteSlotsButton(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
           <div v-if="newTableInfo.haveChild">
             <el-divider content-position="left">Table子表列定义</el-divider>
-            <el-button size="mini" style="margin: 20px 0" type="success" @click="e_addChildTableColumns">
+            <el-button size="small" style="margin: 20px 0" type="success" @click="e_addChildTableColumns">
               添加子表新列
             </el-button>
             <el-table
@@ -242,7 +242,7 @@
                   label="列名(label)"
                   prop="label"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-input v-model="scope.row.label"></el-input>
                 </template>
               </el-table-column>
@@ -251,7 +251,7 @@
                   label="键名(prop)"
                   prop="prop"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-input v-model="scope.row.prop"></el-input>
                 </template>
               </el-table-column>
@@ -261,7 +261,7 @@
                   label="键插槽标识(slotName)"
                   prop="slotName"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-input v-model="scope.row.slotName"></el-input>
                 </template>
               </el-table-column>
@@ -271,7 +271,7 @@
                   label="列对齐方式(align)"
                   prop="align"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-select v-model="scope.row.align">
                     <el-option label="left" value="left"></el-option>
                     <el-option label="center" value="center"></el-option>
@@ -284,7 +284,7 @@
                   label="值类型（固定/扩展）(valueType)"
                   prop="valueType"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-select v-model="scope.row.valueType">
                     <el-option label="fixed" value="fixed"></el-option>
                     <el-option label="ext" value="ext"></el-option>
@@ -295,7 +295,7 @@
                   align="center"
                   label="操作"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-button type="text" @click="e_deleteChildColumnslist(scope.$index)">删除
                   </el-button>
                 </template>
@@ -304,7 +304,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="新增按钮" name="button">
-          <el-button size="mini" type="primary" @click="e_addNewButton">新增按钮</el-button>
+          <el-button size="small" type="primary" @click="e_addNewButton">新增按钮</el-button>
           <el-table
               :data="buttonInfo.formList"
               style="width: 100%">
@@ -313,7 +313,7 @@
                 label="按钮名称(label)"
                 prop="label"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.label"></el-input>
               </template>
             </el-table-column>
@@ -322,7 +322,7 @@
                 label="按钮标识(anchorPoint)"
                 prop="label"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.anchorPoint"></el-input>
               </template>
             </el-table-column>
@@ -331,7 +331,7 @@
                 label="主题类型(type)"
                 prop="type"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-select v-model="scope.row.type">
                   <el-option label="默认" value="-"></el-option>
                   <el-option label="primary" value="primary"></el-option>
@@ -347,7 +347,7 @@
                 label="按钮尺寸"
                 prop="size"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-select v-model="scope.row.size">
                   <el-option label="默认" value="-"></el-option>
                   <el-option label="medium" value="medium"></el-option>
@@ -361,7 +361,7 @@
                 label="按钮唯一标签"
                 prop="anchorPoint"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.anchorPoint"></el-input>
               </template>
             </el-table-column>
@@ -370,7 +370,7 @@
                 label="按钮事件脚本"
                 prop="events"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-input v-model="scope.row.events" type="textarea"></el-input>
               </template>
             </el-table-column>
@@ -378,7 +378,7 @@
                 align="center"
                 label="操作"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button type="text" @click="e_delteButton(scope.$index)">删除</el-button>
               </template>
             </el-table-column>
@@ -412,7 +412,7 @@
                   label="按钮名称(label)"
                   prop="label"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-input v-model="scope.row.label"></el-input>
                 </template>
               </el-table-column>
@@ -421,7 +421,7 @@
                   label="主题类型(type)"
                   prop="type"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-select v-model="scope.row.type">
                     <el-option label="默认" value="-"></el-option>
                     <el-option label="primary" value="primary"></el-option>
@@ -437,7 +437,7 @@
                   label="按钮尺寸"
                   prop="size"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-select v-model="scope.row.size">
                     <el-option label="默认" value="-"></el-option>
                     <el-option label="medium" value="medium"></el-option>
@@ -451,7 +451,7 @@
                   label="按钮事件脚本"
                   prop="events"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-input v-model="scope.row.events" type="textarea"></el-input>
                 </template>
               </el-table-column>
@@ -459,7 +459,7 @@
                   align="center"
                   label="操作"
               >
-                <template slot-scope="scope">
+                <template v-slot="scope">
                   <el-button type="text" @click="e_deleteBulletBottomButton(scope.$index)">删除
                   </el-button>
                 </template>

@@ -5,8 +5,8 @@
 
         class="el-menu-demo"
         mode="horizontal"
-        router
         @select="handleSelect"
+        router
     >
       <el-menu-item index="/indexCustomer">
         <template slot="title">
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-:deep(.el-main) {
+/deep/ .el-main {
   padding: 0px;
 }
 </style>

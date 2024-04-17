@@ -38,7 +38,6 @@ import dayjs from "dayjs";
 import {ref, reactive, getCurrentInstance, onMounted, nextTick, onBeforeUnmount} from 'vue'
 import rightBtn from '@/assets/logos/btn_chevron_right@2x.png'
 import reportDialog from './reportDialog.vue'
-
 const instance = getCurrentInstance()
 // 获取 vue 实例相当于 this
 const vm = instance['proxy']

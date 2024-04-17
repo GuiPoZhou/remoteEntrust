@@ -69,7 +69,7 @@
         <el-table-column align="center" label="子业务名称" prop="subBusinessName"/>
         <el-table-column align="center" label="子业务落库表名" prop="tableName"/>
         <el-table-column align="center" label="运行状态" prop="status" width="80px">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2"
                        @change="handleStatusChange(scope.row)"></el-switch>
           </template>
@@ -78,7 +78,7 @@
         <el-table-column align="center" label="修改人" prop="updateUser" width="80px"/>
         <el-table-column align="center" label="修改时间" prop="updateTime"/>
         <el-table-column align="center" class-name="small-padding fixed-width" label="操作">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-button
                 icon="el-icon-edit"
                 size="small"

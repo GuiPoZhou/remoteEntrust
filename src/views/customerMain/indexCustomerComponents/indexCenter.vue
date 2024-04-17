@@ -14,24 +14,24 @@
             </el-col>
             <el-col :span="24">
               <el-table
+                  :data="tableData"
                   ref="multipleTable"
                   :cell-style="cellStyle"
-                  :data="tableData"
                   border
                   max-height="525"
                   style="width: 100%"
               >
                 <el-table-column
                     :show-overflow-tooltip="true"
-                    align="center"
                     label="委托编号"
+                    align="center"
                     prop="entrustCode"
                 >
                 </el-table-column>
                 <el-table-column
                     :show-overflow-tooltip="true"
-                    align="center"
                     label="业务类型"
+                    align="center"
                     prop="entrustCode"
                 >
                   <template v-slot="scope">
@@ -61,22 +61,6 @@
                     {{ statusCheck(scope.row) }}
                   </template>
                 </el-table-column>
-                <!--        <el-table-column-->
-                <!--          prop="agreement"-->
-                <!--          label="报检书状态"-->
-                <!--          align="center"-->
-                <!--        >-->
-                <!--          <template v-slot="scope">-->
-                <!--            {{agreementCheck(scope.row.agreement)}}-->
-                <!--          </template>-->
-                <!--        </el-table-column>-->
-
-                <!--        <el-table-column-->
-                <!--          prop="detectCost"-->
-                <!--          label="报检金额"-->
-                <!--          align="center"-->
-                <!--        >-->
-                <!--        </el-table-column>-->
                 <el-table-column align="center" fixed="right" label="操作" width="150">
                   <template v-slot="scope">
                     <el-button v-if="scope.row.status === 1 || scope.row.status == 6"
@@ -110,8 +94,8 @@
       </el-row>
     </div>
     <addEntrustDialog
-        v-if="entrustShow"
         ref="entrustDialogRef"
+        v-if="entrustShow"
         :businessConfigId="businessConfigId"
         @close="entrustShow = false"
         @saveReload="e_saveReload"
@@ -122,7 +106,7 @@
 <script setup>
 import {ref, reactive, getCurrentInstance, onMounted} from 'vue'
 import {cloneTask, recallTask} from '@/api/index'
-import {deleteTask} from '@/api/entrust/entrustConfirm.js'
+import {deleteTask} from '@/api/entrust/entrustConfirm'
 import addEntrustDialog from '@/views/customerMain/entrustCommponents/addEntrustDialog.vue'
 import indexCenterTop from './indexCenterTop.vue'
 const instance = getCurrentInstance()
@@ -131,7 +115,6 @@ const vm = instance['proxy']
 
 const {tableData, total, queryData} = defineProps(['tableData', 'total', 'queryData'])
 const emit = defineEmits(['init', 'evaluate', 'changePage'])
-
 //跳转
 function jump2List() {
   vm.$router.push(
@@ -140,7 +123,6 @@ function jump2List() {
       }
   )
 }
-
 let status = [
   {label: '待确认', value: null},
   {label: '暂存', value: 0},
@@ -159,7 +141,6 @@ let status = [
 function statusCheck(row) {
   return status.filter(item => item.value == row.status)[0]?.label
 }
-
 const agreement = [
   {label: '未上传', value: 0},
   {label: '报检方上传', value: 1},
@@ -202,7 +183,6 @@ const checkEntrustDept = (row) => {
     return extData.principalDept
   }
 }
-
 //加急状态颜色
 function cellStyle(row, column, rowIndex, columnIndex) {
   if (row.column.label === "加急状态") {
@@ -221,7 +201,6 @@ function cellStyle(row, column, rowIndex, columnIndex) {
     return `color:${color}`;
   }
 }
-
 // 报检编号详情
 function detailEntrust(row) {
   if (!row || !row.idCode) return;
@@ -233,7 +212,6 @@ function detailEntrust(row) {
 
 let entrustShow = ref(false)
 let businessConfigId = ref(0)
-
 //编辑
 function handleEdit(row, type) {
   console.log(row)
@@ -242,17 +220,13 @@ function handleEdit(row, type) {
     vm.$refs.entrustDialogRef.editInit(row.entrustType, row, type)
   })
 }
-
 let businessConfigIdQuery = ref(null)
-
 function changePage(e) {
   emit('changePage', e)
 }
-
 const e_saveReload = () => {
   emit('init')
 }
-
 //复制
 function handleCopy(row) {
   vm.$confirm(`确认复制委托[编号:${row.entrustCode}]？`, "提示", {
@@ -275,12 +249,10 @@ function handleCopy(row) {
       .catch(function () {
       });
 }
-
 //评价
 function handleEvaluate(row) {
   emit('evaluate', row)
 }
-
 //撤回
 function handleRecall(row) {
   if (!row || !row.idCode) return;
@@ -303,7 +275,6 @@ function handleRecall(row) {
       .catch(function () {
       });
 }
-
 //删除
 function handleDetele(row) {
   vm.$confirm(`确认删除委托[编号:${row.entrustCode}]？`, "提示", {
@@ -329,15 +300,12 @@ function handleDetele(row) {
   display: flex;
   justify-content: space-between;
 }
-
 .later-entrust {
   height: 260px;
 }
-
 .boTable {
   width: 100%;
 }
-
 .a-c-bottom {
   width: 100%;
 }

@@ -1,8 +1,8 @@
 <template>
   <bo-dialog
       :diaLogShow="diaLogShow"
-      :isFullScreen="false"
       diaLogTitle="通知详情"
+      :isFullScreen="false"
       diaLogWidth="35%"
       @close="closeDialog"
   >
@@ -78,12 +78,10 @@ defineExpose({init, form})
   margin: 0 auto;
   margin-top: 5rem;
 }
-
 .timeStyle {
   font-size: 12px;
   color: #999;
 }
-
 .contentStyle {
   text-align: left;
   width: 80%;

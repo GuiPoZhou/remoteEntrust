@@ -48,6 +48,7 @@ app.config.globalProperties.$net = net;
 app.config.globalProperties.getDicts = getDicts
 app.config.globalProperties.$checkPermi = checkPermi
 app.config.globalProperties.$checkRole = checkRole
+app.config.globalProperties.$BASE_API = window.globalEnv.VUE_APP_BASE_API
 app.use(router)
 app.use(store)
 // 如果需要使用插件，可以在这里注册

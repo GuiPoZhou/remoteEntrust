@@ -4,8 +4,9 @@
 <script lang="ts" setup>
 import {ref, reactive, getCurrentInstance, onMounted, onBeforeMount} from 'vue'
 import {net} from "@/api/requestList.js"
+import {checkPermi} from '@/permission.js'
 
-const vm = getCurrentInstance().proxy
+const vm = getCurrentInstance()?.proxy
 
 let microProjectEntry: string = ref('')
 let microElnEntry: string = ref('')
@@ -20,7 +21,7 @@ onBeforeMount(() => {
  * @date 2023/3/28
  * @des 快速查询目标节点
  */
-function getKevinFormNode(tree: Array, treeChildrenName: String | Number, sourceAttributeName: String | Number, sourceAttributeValue: String | Number) {
+function getKevinFormNode(tree: Array<any>, treeChildrenName: String | Number, sourceAttributeName: String | Number, sourceAttributeValue: String | Number) {
   let targetAttribute = {}
   if (Array.isArray(tree) && tree.length > 0) {
     tree.some(node => {
@@ -53,10 +54,10 @@ function getPluginsForButtons(businessName, callback) {
       let businessCode = {}
 
       mainHomeButtons = info.mainHomeButtons.filter(item => {
-        return vm.$checkPermi([item.perm]) || !item.perm
+        return checkPermi([item.perm]) || !item.perm
       })
       mainTableButtons = info.mainTableButtons.filter(item => {
-        return vm.$checkPermi([item.perm]) || !item.perm
+        return checkPermi([item.perm]) || !item.perm
       })
       mainDialogBottomButtons = info.mainDialogBottomButtons
       mainTableSlotRender = info.mainTableSlotRender || []

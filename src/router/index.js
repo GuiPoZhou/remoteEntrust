@@ -20,7 +20,7 @@ export const constantRoutes = [
   {
     path: '/newEntrust',
     name: 'newEntrust',
-    component: () => import('@/views/customerMain/index.vue'),
+      component: () => import('@/views/topNav.vue'),
     hidden: true,
     children: [
       {
@@ -28,17 +28,11 @@ export const constantRoutes = [
         component: (resolve) => import('@/views/customerMain.vue'),
         children: [
           {
-            path: '',
+              path: '/remote/customerMain',
             name: 'indexCustomer',
             component: (resolve) => import('@/views/customerMain/indexCustomer.vue'),
           }
         ]
-      },
-      {
-        path: '/remote/company',
-        name: 'company',
-        component: (resolve) => import('@/views/customerMain/company.vue'),
-        meta: {title: '企业信息', icon: 'dashboard', noCache: true, affix: true},
       },
       {
         path: '/allMsg',

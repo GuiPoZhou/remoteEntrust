@@ -3,14 +3,14 @@
     <template slot="bologbody">
       <el-table :data="list" style="width: 100%">
         <el-table-column align="center" label="表单标题" prop="label">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-input v-model="scope.row.label"></el-input>
           </template>
         </el-table-column>
         <el-table-column align="center" label="表单key" prop="prop">
         </el-table-column>
         <el-table-column align="center" label="所占行" prop="col">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-input-number v-model="scope.row.col" :max="24" :min="1" size="small"></el-input-number>
           </template>
         </el-table-column>

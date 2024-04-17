@@ -1,20 +1,20 @@
 <template>
   <el-dialog
-      :before-close="close"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
       :title="title"
       :visible.sync="addUserShow"
       center
-      width="60%"
+      :before-close="close"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
       @open="initDialog"
+      width="60%"
   >
     <div class="a-c-top">
       <!-- 表单 -->
       <el-form
-          ref="userInfo"
           :inline="true"
           :model="userInfo"
+          ref="userInfo"
           :rules="rules"
           class="demo-form-inline"
           label-width="120px"
@@ -22,15 +22,15 @@
         <el-form-item label="登录账号:" prop="userName">
           <el-input
               v-model.trim="userInfo.userName"
-              :disabled="userId != 0"
               clearable
+              :disabled="userId != 0"
           ></el-input>
         </el-form-item>
         <el-form-item label="登录密码:" prop="password">
           <el-input
               v-model.trim="userInfo.password"
-              :disabled="userId != 0"
               show-password
+              :disabled="userId != 0"
           ></el-input>
         </el-form-item>
         <el-form-item label="员工姓名:" prop="nickName">
@@ -51,17 +51,17 @@
         </el-form-item>
         <el-form-item label="所属公司:" prop="companyName">
           <el-input
+              style="width:200px"
               v-model.trim="userInfo.companyName"
               :disabled="true"
-              style="width:200px"
           ></el-input>
         </el-form-item>
         <el-form-item label="数据权限:" prop="roleId">
           <el-select
               v-model="userInfo.roleId"
-              :disabled="userInfo.manageFlag == 'Y'"
               placeholder="请选择"
               style="width: 200px"
+              :disabled="userInfo.manageFlag == 'Y'"
           >
             <el-option
                 v-for="dict in roleOptions"
@@ -78,10 +78,10 @@
     </div>
     <div slot="footer" class="dialog-footer">
       <el-button
-          center
-          style=" background: #f05656; border:none"
           type="primary"
           @click="submitForm()"
+          center
+          style=" background: #f05656; border:none"
       >保存
       </el-button
       >
@@ -100,7 +100,6 @@ import {
   queryUserDetail,
   saveUser
 } from "@/api/index/index";
-
 export default {
   name: "addUser",
   components: {},
@@ -297,7 +296,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-:deep(.el-dialog) {
+/deep/ .el-dialog {
   width: 46.9%;
   // height: 560px;
   background: #ffffff;

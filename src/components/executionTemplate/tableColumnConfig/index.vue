@@ -57,7 +57,7 @@
             </el-table-column>
             <!--                        <el-table-column label="属性来源" prop="label" width="80"-->
             <!--                                         v-if="$store.state.user.roles.includes('admin')">-->
-            <!--                            <template slot-scope="scope">-->
+            <!--                            <template v-slot="scope">-->
             <!--                                {{ scope.row.sourceType === 1 ? '主表' : scope.row.sourceType === 2 ? '关联表' : '聚合属性' }}-->
             <!--                            </template>-->
             <!--                        </el-table-column>-->

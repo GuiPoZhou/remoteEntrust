@@ -29,7 +29,7 @@
           <el-table-column
               align="center"
               label="操作">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="text" @click="e_useType(scope.row,scope.$index)">选择</el-button>
             </template>
           </el-table-column>
@@ -126,7 +126,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="less">
 .useDetect {
   .el-table .warning-row {
     background: #66b1ff;

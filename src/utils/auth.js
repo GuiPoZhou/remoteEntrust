@@ -25,7 +25,7 @@ function startLogoutTimer() {
       // 开始一个新的计时器，在一小时后执行注销函数
       logoutTimerId = setTimeout(() => {
           logout()
-      }, 60 * 100) // 60分钟 * 60秒 * 1000毫秒 = 1小时
+      }, 60 * 1000 * 60) // 60分钟 * 60秒 * 1000毫秒 = 1小时
   }
 }
 
@@ -34,7 +34,7 @@ function stopLogoutTimer() {
 }
 
 function logout() {
-    ElMessageBox({
+    ElMessageBox.alert({
         title: '注意',
         message: '因长时间未操作，请重新登录',
     }).then(_ => {

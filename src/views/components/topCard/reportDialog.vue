@@ -1,10 +1,10 @@
 <template>
   <el-dialog v-if="showLog"
              :append-to-body="true"
-             :modal-append-to-body="true"
-             :visible.sync="showLog"
              title="消息提示"
              width="30%"
+             :modal-append-to-body="true"
+             :visible.sync="showLog"
              @close="close"
   >
     <div class="centerBox isMore">
@@ -19,7 +19,6 @@
 
 <script setup>
 import {ref, reactive, toRefs, getCurrentInstance} from 'vue'
-
 const emit = defineEmits(['close'])
 const instance = getCurrentInstance()
 // 获取vue实例相当于this

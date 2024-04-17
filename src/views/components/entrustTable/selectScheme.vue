@@ -19,8 +19,8 @@
     </BoDialog>
     <!--    方案详情-->
     <acceptance
-        v-if="showAcceptance"
         ref="acceptance"
+        v-if="showAcceptance"
         :widgetId="schemeWidgetId"
         @close="showAcceptance = false"
     />

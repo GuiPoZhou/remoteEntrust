@@ -7,11 +7,11 @@
           <p>企业信息</p>
         </div>
         <el-button
+            type="text"
             v-show="buttonShow"
+            @click="handleEdit"
             icon="el-icon-edit-outline"
             size="small"
-            type="text"
-            @click="handleEdit"
         >
           修改
         </el-button>
@@ -22,12 +22,12 @@
       </div>
       <div v-show="formShow" class="container">
         <el-form
-            ref="setForm"
             :inline="true"
             :model="setForm"
+            label-width="160px"
+            ref="setForm"
             :rules="rules"
             class="demo-form-inline"
-            label-width="160px"
         >
           <el-form-item class="item" label="登录账号:" prop="passName">
             <el-input
@@ -109,8 +109,8 @@
             ></el-input>
           </el-form-item>
           <el-form-item
-              class="item"
               label="统一社会信用代码:"
+              class="item"
               prop="uscc"
           >
             <el-input
@@ -123,9 +123,9 @@
       </div>
       <div v-show="!formShow" class="container edit-container">
         <el-form
-            ref="setForm"
             :inline="true"
             :model="setForm"
+            ref="setForm"
             :rules="rules"
             class="demo-form-inline"
             label-width="140px"
@@ -139,9 +139,9 @@
             <el-col :span="8">
               <el-form-item label="登录密码:" prop="passWord">
                 <el-input
+                    style="width:92.5%"
                     v-model.trim="setForm.passWord"
                     show-password
-                    style="width:92.5%"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -199,8 +199,10 @@
         </el-form>
         <div style="display: flex; justify-content: center;">
           <el-button
+              type="primary"
               center
               size="small"
+              @click="handleSave"
               style="
               width: 102px;
               height: 36px;
@@ -208,8 +210,6 @@
               border: none;
               margin-bottom: 10px;
             "
-              type="primary"
-              @click="handleSave"
           >
             保存
           </el-button>
@@ -222,7 +222,6 @@
 <script>
 import {queryCompanyInfo, saveCompany} from "@/api/index/index";
 import indexCustomerNav from "./indexCustomerNav.vue";
-
 export default {
   name: "Index",
   components: {indexCustomerNav},
@@ -346,17 +345,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-:deep(.app-container) {
+/deep/ .app-container {
   background-color: #f6f6f8;
 }
 
-:deep(.header-tip) {
+/deep/ .header-tip {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 44px;
   margin-top: 32px;
-
   .tip {
     display: flex;
     justify-content: flex-start;
@@ -369,7 +367,6 @@ export default {
       line-height: 25px;
       color: #3d4966;
     }
-
     div {
       width: 4px;
       height: 18px;
@@ -378,27 +375,26 @@ export default {
       margin-right: 10px;
     }
   }
-
   button {
     margin-right: 44px;
   }
 }
 
-:deep(.container) {
+/deep/ .container {
   width: 80.1%;
   height: 100%;
   background: #ffffff;
   margin: 0 auto;
 }
 
-:deep(.edit-container) {
+/deep/ .edit-container {
   width: 95%;
   height: 100%;
   background: #ffffff;
   // margin: 0 auto 5px;
 }
 
-:deep(.rule-input) {
+/deep/ .rule-input {
   .el-input__inner {
     border: 0;
     background-color: white;
@@ -409,7 +405,7 @@ export default {
   }
 }
 
-:deep(.item .el-form-item__label) {
+/deep/ .item .el-form-item__label {
   font-size: 16px;
   font-weight: 400;
   color: #8f9bb3;

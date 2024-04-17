@@ -3,12 +3,12 @@
 
     <el-dialog
         :before-close="close"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
         :visible.sync="entrustBookShow"
         center
-        title="委托书管理"
         @open="open"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        title="委托书管理"
     >
       <a class="agreement-download" @click="downloadAgreementSource()">委托书源文件下载</a>
       <!-- 统一样式 - 主列表区域 -->
@@ -22,20 +22,20 @@
           <el-table-column label="创建/更新时间" prop="updateTime">
           </el-table-column>
           <el-table-column fixed="right" label="操作">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button
-                  v-show="scope.row.agreementType == '委托方'"
-                  icon="el-icon-edit"
                   size="small"
                   type="text"
+                  v-show="scope.row.agreementType == '委托方'"
+                  icon="el-icon-edit"
                   @click="handleUpload(scope.row)"
               >上传
               </el-button>
               <el-button
-                  v-show="(scope.row.agreement == 2 && scope.row.agreementType == '受理方')||(scope.row.agreement == 1 && scope.row.agreementType == '委托方')||(scope.row.agreement == 3)"
-                  icon="el-icon-edit"
                   size="small"
                   type="text"
+                  v-show="(scope.row.agreement == 2 && scope.row.agreementType == '受理方')||(scope.row.agreement == 1 && scope.row.agreementType == '委托方')||(scope.row.agreement == 3)"
+                  icon="el-icon-edit"
                   @click="handleDown(scope.row)"
               >下载
               </el-button>
@@ -56,17 +56,17 @@
       <!--/>-->
     </el-dialog>
     <upload
-        ref="upload"
         :rowData='rowData'
         :upload="upload"
         :visible.sync="upload.open"
+        ref="upload"
         @afterImport="init"
     />
   </div>
 </template>
 <script>
 import upload from "./upload.vue";
-import {downloadAgreementList, downloadAgreement, uploadAgreement} from "@/api/entrust/entrustConfirm";
+import {downloadAgreementList, downloadAgreement, uploadAgreement} from "@/api/entrust/entrustConfirm.js";
 
 export default {
   name: "noConfirm",
@@ -187,7 +187,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-:deep(.dialog-footer) {
+/deep/ .dialog-footer {
   // background-color: pink;
   display: flex;
   align-items: center;
@@ -195,19 +195,19 @@ export default {
   line-height: 16px;
   font-size: 16px;
 
-  :deep(.left) {
+  /deep/ .left {
     border-right: 2px solid rgb(156, 153, 153);
     padding-right: 10px;
 
-    :deep(span) {
+    /deep/ span {
       color: blue;
     }
   }
 
-  :deep(.right) {
+  /deep/ .right {
     display: flex;
 
-    :deep(span) {
+    /deep/ span {
       display: block;
       margin-right: 10px;
     }
@@ -217,7 +217,7 @@ export default {
   }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 </style>

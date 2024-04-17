@@ -8,15 +8,17 @@
       <div class="centerStyle">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
           <el-menu-item index="1" @click="backIndex">首页</el-menu-item>
-          <el-sub-menu index="2">
-            <template #title>委托报检</template>
-            <el-menu-item v-for="item in store.state.menu.menus" :key="item.id"
+          <el-submenu index="2">
+            <template slot="title">委托报检</template>
+            <el-menu-item v-for="item in $store.state.menu.menus" :key="item.id"
                           :index="item.id.toString()"
                           align="center"
             >
               {{ item.configName }}
             </el-menu-item>
-          </el-sub-menu>
+          </el-submenu>
+          <el-menu-item v-if="false" index="3">审核管理</el-menu-item>
+          <!--            <el-menu-item index="4" >企业管理</el-menu-item>-->
         </el-menu>
       </div>
       <div class="rightStyle">
@@ -27,22 +29,18 @@
             placement:="bottom-end"
             trigger="click"
         >
-            <span class="el-dropdown-link">
-             {{ store.state.user.user.nickName }}
-            <el-icon class="el-icon--right">
-              <arrow-down/>
-           </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <router-link to="/remote/company">
-                <el-dropdown-item>个人信息</el-dropdown-item>
-              </router-link>
-              <el-dropdown-item divided @click.native="logout">
-                <span>退出登录</span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
+          <div class="avatar-wrapper">
+            {{ $store.state.user.user.nickName }}
+            <i class="el-icon-caret-bottom"/>
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <!--              <router-link to="/remote/company">-->
+            <!--                <el-dropdown-item>个人信息</el-dropdown-item>-->
+            <!--              </router-link>-->
+            <el-dropdown-item divided @click.native="logout">
+              <span>退出登录</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
         </el-dropdown>
       </div>
 
@@ -63,13 +61,7 @@ export default {
 </script>
 <script setup>
 import {ref, reactive, getCurrentInstance, watch} from 'vue'
-import {useStore} from "vuex";
-import {useRouter, useRoute} from "vue-router";
-import {ArrowDown} from '@element-plus/icons-vue'
 
-const store = useStore()
-const route = useRoute()
-const router = useRouter()
 const instance = getCurrentInstance()
 // 获取vue实例相当于this
 const vm = instance['proxy']
@@ -84,20 +76,21 @@ function logout() {
     cancelButtonText: "取消",
     type: "warning",
   }).then(() => {
-    store.dispatch("LogOut").then(() => {
-      location.href = "/";
+    vm.$store.dispatch("LogOut").then(() => {
+      location.href = 'http://mis.topscomm.net:8931/cas/logout?service=http%3A%2F%2Fmis.topscomm.net%3A8931%2Fcas%2Flogin%3Fservice%3Dhttp%253A%252F%252F172.20.5.160%253A6001%252Fremote%252FcustomerMain%26createToken%3Dfalse'
+
     });
   });
 }
 
 vm.$net('/template/execution/run/getBusinessConfig/ENTRUSTMENT_AGREEMENT_PRE', 'get').then(re => {
-  if (store.state.menu.menus.length === 0) {
+  if (vm.$store.state.menu.menus.length === 0) {
     console.log(re, 're')
-    store.commit('set_menu', re.data)
+    vm.$store.commit('set_menu', re.data)
   }
 
 })
-watch(() => route.query, (val) => {
+watch(() => vm.$route.query, (val) => {
   if (val.itemId) {
     activeIndex.value = val.itemId.toString()
   }
@@ -106,15 +99,15 @@ watch(() => route.query, (val) => {
 function handleSelect(index) {
   console.log(index)
   if (index == 1) {
-    router.push({
-      name: 'indexCustomer'
+    vm.$router.push({
+      path: '/'
     })
   } else if (index == 4) {
-    router.push({
+    vm.$router.push({
       path: '/remote/company'
     })
   } else {
-    router.push({
+    vm.$router.push({
       path: '/bottomT',
       name: 'bottomT',
       query: {  // 传递路由参数

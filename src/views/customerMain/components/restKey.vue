@@ -176,17 +176,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-:deep(.app-container) {
+/deep/ .app-container {
   background-color: #f6f6f8;
 }
 
-:deep(.header-tip) {
+/deep/ .header-tip {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-left: 44px;
   margin-top: 32px;
-
   .tip {
     display: flex;
     justify-content: flex-start;
@@ -199,7 +198,6 @@ export default {
       line-height: 25px;
       color: #3d4966;
     }
-
     div {
       width: 4px;
       height: 18px;
@@ -208,27 +206,26 @@ export default {
       margin-right: 10px;
     }
   }
-
   button {
     margin-right: 44px;
   }
 }
 
-:deep(.container) {
+/deep/ .container {
   width: 50%;
   height: 100%;
   background: #ffffff;
   margin: 0 auto;
 }
 
-:deep(.edit-container) {
+/deep/ .edit-container {
   width: 80.1%;
   height: 100%;
   background: #ffffff;
   margin: 0 auto 5px;
 }
 
-:deep(.rule-input) {
+/deep/ .rule-input {
   .el-input__inner {
     border: 0;
     background-color: white;
@@ -239,7 +236,7 @@ export default {
   }
 }
 
-:deep(.item) .el-form-item__label {
+/deep/ .item .el-form-item__label {
   font-size: 16px;
   font-weight: 400;
   color: #8f9bb3;

@@ -12,9 +12,9 @@
       </el-table>
       <pagination
           v-show="total > 0"
+          :total="total"
           :limit.sync="queryParams.pageSize"
           :page.sync="queryParams.pageNum"
-          :total="total"
           @pagination="e_changePage"
       />
     </div>

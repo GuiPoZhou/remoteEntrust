@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-tabs
         v-model="activeIndex"
-        :tab-position="tabPosition"
         class="containerInfo"
+        :tab-position="tabPosition"
         type="card"
         @tab-click="handleClick"
     >
@@ -21,10 +21,10 @@
               ref="tasks"
               :inline="true"
               :model="tasks"
-              :rules="rules"
-              class="tasks"
               label-width="240px"
+              :rules="rules"
               style="height: 500px"
+              class="tasks"
               @submit.native.prevent
           >
             <div class="tipMessage"><p>样品信息</p></div>
@@ -42,16 +42,16 @@
               <el-form-item label="样品批号：">
                 <el-input
                     v-model="extDataObj.batchNumber"
-                    :disabled="onlySee"
                     style="width: 200px"
+                    :disabled="onlySee"
                 >
                 </el-input>
               </el-form-item>
               <el-form-item label="样品数量：">
                 <el-input-number
                     v-model="extDataObj.sampleQuantity"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                 ></el-input-number>
               </el-form-item>
             </el-col>
@@ -59,16 +59,16 @@
               <el-form-item label="样品状态：">
                 <el-input
                     v-model="extDataObj.sampleForm1"
-                    :disabled="onlySee"
                     style="width: 200px"
+                    :disabled="onlySee"
                 >
                 </el-input>
               </el-form-item>
               <el-form-item label="样品等级：">
                 <el-input
                     v-model="extDataObj.qualityGrade"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -76,19 +76,19 @@
               <el-form-item label="规格型号：">
                 <el-input
                     v-model="extDataObj.specifications"
-                    :disabled="onlySee"
                     style="width: 200px"
+                    :disabled="onlySee"
                 >
                 </el-input>
               </el-form-item>
               <el-form-item label="生产日期：">
                 <el-date-picker
-                    v-model="extDataObj.sampleSJGDate"
                     :disabled="onlySee"
-                    clearable
                     format="yyyy-MM-dd"
                     style="width: 94%"
                     type="date"
+                    v-model="extDataObj.sampleSJGDate"
+                    clearable
                     value-format="yyyy-MM-dd"
                 ></el-date-picker>
               </el-form-item>
@@ -97,16 +97,16 @@
               <el-form-item label="样品形态:" prop="sampleForm">
                 <el-input
                     v-model="tasks.sampleForm"
-                    :disabled="onlySee"
                     style="width: 200px"
+                    :disabled="onlySee"
                 >
                 </el-input>
               </el-form-item>
               <el-form-item label="数量/重量:" prop="numberWeight">
                 <el-input
                     v-model="tasks.numberWeight"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -114,8 +114,8 @@
               <el-form-item label="样品商标:">
                 <el-input
                     v-model="extDataObj.trademark"
-                    :disabled="onlySee"
                     clearable
+                    :disabled="onlySee"
                 ></el-input>
               </el-form-item>
 
@@ -286,9 +286,9 @@
             </el-col>
           </el-row>
           <el-table
-              ref="multipleTable"
               :data="tableData"
               @selection-change="handleSelectionChange"
+              ref="multipleTable"
           >
             <el-table-column align="center" type="selection" width="55"/>
             <el-table-column label="序号" type="index" width="55"/>
@@ -301,14 +301,14 @@
             <el-table-column :show-overflow-tooltip="true" label="方法名称" prop="methodStandardName">
             </el-table-column>
             <el-table-column
-                :show-overflow-tooltip="true"
                 label="所需样品量"
                 prop="sampleSize"
+                :show-overflow-tooltip="true"
             />
             <!--<el-table-column prop="detectionLimit" label="方法检出限">-->
             <!--</el-table-column>-->
             <!--<el-table-column prop="unit" label="检出限单位">-->
-            <!--<template slot-scope="scope">-->
+            <!--<template v-slot="scope">-->
             <!--<span v-html="scope.row.detectionLimitUnit">{{-->
             <!--scope.row.detectionLimitUnit-->
             <!--}}</span>-->
@@ -316,12 +316,12 @@
             <!--</el-table-column>-->
             <!--<el-table-column prop="stroma" label="基质"> </el-table-column>-->
             <el-table-column
-                v-if="!onlySee"
                 fixed="right"
                 label="操作"
                 width="130"
+                v-if="!onlySee"
             >
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button
                     size="small"
                     type="text"
@@ -355,10 +355,10 @@
       </el-tab-pane>
     </el-tabs>
     <addItem
-        v-if="addItemShow"
         ref="addItem"
         :sampleIdCode="tasks.idCode"
         :taskIdCode="taskIdCode"
+        v-if="addItemShow"
         @close="addItemShow = false"
         @saveItem="saveItem"
     />
@@ -854,12 +854,11 @@ export default {
 </script>
 <style lang="less" scoped>
 // 按钮
-:deep(.btns) {
+/deep/ .btns {
   height: 66px;
   background-color: white;
   display: flex;
   justify-content: flex-end;
-
   button {
     width: 98px;
     height: 34px;
@@ -867,25 +866,23 @@ export default {
     margin-left: 16px;
     border-radius: 4px;
   }
-
   button:nth-of-type(2) {
     margin-right: 44px;
   }
 }
 
-:deep(.containerInfo) {
+/deep/ .containerInfo {
   margin: 15px auto; /*上下距离为0px，左右距离自动*/
   width: 73.2%;
   margin-bottom: 80px;
 }
 
-:deep(.tipMessage) {
+/deep/ .tipMessage {
   width: 100%;
   height: 60px;
   background: #f8f9fb;
   // margin-top: 10px;
   margin-bottom: 20px;
-
   p {
     margin-left: 10px;
     font-size: 18px;
@@ -894,29 +891,28 @@ export default {
     color: #475166;
   }
 }
-
 // 表单
-:deep(.tasks) {
-  :deep(p) {
+/deep/ .tasks {
+  /deep/ p {
     font-weight: 600;
   }
 
-  :deep(.inputText) {
+  /deep/ .inputText {
     // display: flex;
     // justify-content: flex-start;
   }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 
-:deep(.spec) .el-radio {
+/deep/ .spec .el-radio {
   margin-bottom: 10px;
 }
 
 //tab切换样式
-:deep(#tab-sampleInfo) {
+/deep/ #tab-sampleInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -927,7 +923,7 @@ export default {
   // color: #8F9BB3;
 }
 
-:deep(#tab-itemInfo) {
+/deep/ #tab-itemInfo {
   background: #ffffff;
   width: 206px;
   height: 70px;
@@ -936,7 +932,6 @@ export default {
   line-height: 70px;
   text-align: center;
 }
-
 .radioarea {
   display: flex;
   flex-direction: row;

@@ -31,7 +31,7 @@
               label="所占行"
               prop="col"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-input-number v-model="scope.row.col" :max="24" :min="1" size="small"></el-input-number>
             </template>
           </el-table-column>
@@ -39,7 +39,7 @@
               align="center"
               label="操作"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button v-if="checkKey(scope.row.keyName)" type="text" @click="e_selFormItem(scope.row)">
                 选择
               </el-button>
@@ -77,7 +77,7 @@
               label="所占行"
               prop="col"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-input-number v-model="scope.row.col" :max="24" :min="1" size="small"></el-input-number>
             </template>
           </el-table-column>
@@ -85,7 +85,7 @@
               align="center"
               label="操作"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button v-if="checkKey(scope.row.keyName)" type="text" @click="e_selFormItem(scope.row)">
                 选择
               </el-button>
@@ -123,7 +123,7 @@
               label="所占行"
               prop="col"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-input-number v-model="scope.row.col" :max="24" :min="1" size="small"></el-input-number>
             </template>
           </el-table-column>
@@ -131,7 +131,7 @@
               align="center"
               label="操作"
           >
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button v-if="checkKey(scope.row.keyName)" type="text" @click="e_selFormItem(scope.row)">
                 选择
               </el-button>

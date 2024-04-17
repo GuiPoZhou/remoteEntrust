@@ -88,6 +88,7 @@ const handleLogin =  () => {
         })
       }).catch(() => {
         loading.value = false;
+        getCode()
       }).finally(_ => {
         loading.value = false
       })

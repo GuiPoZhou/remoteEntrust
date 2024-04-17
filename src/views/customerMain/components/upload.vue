@@ -2,17 +2,17 @@
   <el-dialog
       :title="upload.title"
       :visible.sync="upload.open"
-      append-to-body
       width="400px"
+      append-to-body
       @open="open"
   >
     <el-upload
         ref="upload"
-        :auto-upload="false"
         :limit="1"
-        :on-change="handleChange"
         accept=""
+        :auto-upload="false"
         action=""
+        :on-change="handleChange"
         drag
     >
       <i class="el-icon-upload"></i>

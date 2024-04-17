@@ -5,18 +5,18 @@
         <el-input v-model="name" placeholder="请输入分组名称" @keyup.enter.native="getGroupList"/>
       </el-row>
       <el-table
+          :data="groupTableData"
+          border
           ref="groupTable"
           v-loading="loading"
           :cell-style="{ padding: '5px' }"
-          :data="groupTableData"
-          :row-style="{ height: '20px' }"
-          border
           element-loading-background="rgba(0, 0, 0, 0.8)"
+          style="width: 100%"
+          :row-style="{ height: '20px' }"
+          @row-click="initGroupItemList"
           element-loading-spinner="el-icon-loading"
           element-loading-text="拼命加载中"
           height="230"
-          style="width: 100%"
-          @row-click="initGroupItemList"
       >
         <el-table-column label="分组名称" prop="name"/>
       </el-table>
@@ -24,35 +24,35 @@
     <el-container style="margin-left: 10px">
       <div style="width: 100%">
         <el-table
+            :data="groupItemTableData"
+            border
             ref="groupItemTable"
             v-loading="loading"
-            :cell-style="{ padding: '2px' }"
-            :data="groupItemTableData"
-            :row-style="{ height: '20px' }"
-            border
-            element-loading-background="rgba(0, 0, 0, 0.8)"
             element-loading-spinner="el-icon-loading"
+            :cell-style="{ padding: '2px' }"
+            style="width: 100%"
+            :row-style="{ height: '20px' }"
+            element-loading-background="rgba(0, 0, 0, 0.8)"
             element-loading-text="拼命加载中"
             height="230"
-            style="width: 100%"
             @select="parseSelectedItems()"
             @select-all="parseSelectedItems()"
         >
           <el-table-column type="selection" width="50"></el-table-column>
           <el-table-column
-              :show-overflow-tooltip="true"
               label="项目名称"
               prop="itemName"
+              :show-overflow-tooltip="true"
           />
           <el-table-column
-              :show-overflow-tooltip="true"
-              label="英文名称"
               prop="englishName"
+              label="英文名称"
+              :show-overflow-tooltip="true"
           />
           <el-table-column
-              :show-overflow-tooltip="true"
-              label="方法编号"
               prop="methodStandardCode"
+              label="方法编号"
+              :show-overflow-tooltip="true"
           />
           <el-table-column
               :show-overflow-tooltip="true"
@@ -60,9 +60,9 @@
               prop="methodStandardName"
           />
           <el-table-column
-              :show-overflow-tooltip="true"
               label="所需样品量"
               prop="sampleSize"
+              :show-overflow-tooltip="true"
           />
           <!--<el-table-column-->
           <!--prop="detectionLimit"-->
@@ -70,7 +70,7 @@
           <!--:show-overflow-tooltip="true"-->
           <!--/>-->
           <!--<el-table-column label="检出限单位" :show-overflow-tooltip="true">-->
-          <!--<template slot-scope="scope">-->
+          <!--<template v-slot="scope">-->
           <!--<span v-html="scope.row.detectionLimitUnit">{{-->
           <!--scope.row.detectionLimitUnit-->
           <!--}}</span>-->
@@ -207,7 +207,6 @@ export default {
   padding: 5px !important;
   margin: 0px !important;
 }
-
 /*aside{*/
 /*  padding:10px*/
 /*}*/

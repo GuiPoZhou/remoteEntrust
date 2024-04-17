@@ -22,7 +22,7 @@
                     <el-table-column label="弹框唯一值" prop="anchorPoint">
                     </el-table-column>
                     <el-table-column label="操作">
-                      <template slot-scope="scope">
+                      <template v-slot="scope">
                         <!-- <el-button type="text" @click="e_delteBulletBox(scope.$index)">删除弹框
                         </el-button> -->
                         <el-button type="text" @click="e_editBulletBox(scope.row, scope.$index)">
@@ -66,13 +66,41 @@
                @confirmFormDesgin="definitionFormJSON"
                @save="e_saveLogParams" @saveAddForm="e_saveKevinEdit"
                @saveBulletBoxScript="e_saveBulletBoxScript" @saveSignleEdit="e_saveSignleEdit"/>
+    <!--        选择检测项目-->
+    <selectItem v-if="showselectItem" ref="selectItem" @cancel="showselectItem = false" @saveItem="e_saveItem"/>
+    <!--    检测类型-->
+    <DetectType v-if="showDetectType" :visible.sync="showDetectType" @cancel="closeType"
+                @handleClick="backfillCategory"></DetectType>
+    <!--        添加检测项目-->
+    <AddTestItems v-if="showAddTestItems" ref="AddTestItems" @cancel="showAddTestItems = false"
+                  @reload="addTestItemsReload"/>
+    <selectOther v-show="showOtherItem" ref="selectItem2" @cancel="showOtherItem = false" @saveItem="e_saveItem"/>
+    <!-- 选择人员分页 -->
+    <SelectUserPage v-if="userPageShow" ref="usersPage" :showlog="userPageShow" @cancel="userPageShow = false"
+                    @confirm="e_confirmSelUser"/>
+    <!-- 选择人员 不分页 -->
+    <SelectUserLog v-if="userShow" ref="users" :showlog="userShow" @cancel="userShow = false"
+                   @confirm="e_confirmSelectUser"/>
+    <!--    选择方案-->
+    <selectScheme
+        v-if="showSelectScheme"
+        ref="selectScheme"
+        :entrustPreId="form.id"
+        :schemeWidgetId="schemeWidgetId"
+        @close="showSelectScheme = false"
+        @reload="selectSchemeReload"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import moment from "moment"
-
+import selectItem from '@/components/DetectSubItemManage/selectItem.vue'
+import DetectType from '@/components/project/detectType.vue'
+import SelectUserPage from '@/components/customerService/selectUserPage.vue'
+import selectOther from '@/components/DetectHuaMiaoSubItemManage/selectItem.vue'
+import selectScheme from "./selectScheme.vue";
 export default {
   data() {
     return {
@@ -127,7 +155,13 @@ export default {
   },
   async mounted() {
   },
-  components: {},
+  components: {
+    selectItem,
+    DetectType,
+    SelectUserPage,
+    selectOther,
+    selectScheme,
+  },
   props: {
     itemBindType: Number,
     slotButtonInfo: {

@@ -2,11 +2,11 @@
   <div class="instrumentManage">
     <el-dialog
         :append-to-body="true"
+        :visible.sync="selectItemShow"
+        center
         :close-on-click-modal="false"
         :close-on-press-escape="false"
         :show-close="true"
-        :visible.sync="selectItemShow"
-        center
         title=""
         @close="close"
         @open="open"
@@ -38,7 +38,6 @@
 </template>
 <script>
 import {itemListBySample} from "@/api/entrust/entrustConfirm";
-
 export default {
   name: "",
   components: {},

@@ -2,12 +2,12 @@
   <div class="app-container">
     <el-dialog
         :before-close="close"
-        :close-on-click-modal="false"
-        :close-on-press-escape="false"
         :visible.sync="sampleCategoryShow"
         center
-        title="样品类别"
         @open="open"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        title="样品类别"
     >
       <!-- 统一样式 - 查询区域 -->
       <div class="a-c-top">
@@ -21,19 +21,19 @@
           <!-- 搜索栏 -->
           <el-form-item>
             <el-input
+                @keyup.enter.native="handleQuery"
                 v-model="queryData.keyword"
                 clearable
                 placeholder="请输入关键字搜索"
-                @keyup.enter.native="handleQuery"
             >
             </el-input>
           </el-form-item>
           <div class="a-c-t-btnarea">
             <el-form-item>
               <el-button
+                  type="cyan"
                   icon="el-icon-search"
                   size="small"
-                  type="cyan"
                   @click="handleQuery"
               >搜索
               </el-button>
@@ -48,10 +48,10 @@
           <el-table-column label="" width="40">
             <template scope="scope">
               <el-radio
-                  v-model="currentRow"
                   :label="scope.row.id"
-                  style="color: #fff; padding-left: 10px; margin-right: -25px"
+                  v-model="currentRow"
                   @change.native="getCurrentRow(scope.row)"
+                  style="color: #fff; padding-left: 10px; margin-right: -25px"
               ></el-radio>
             </template>
           </el-table-column>
@@ -69,9 +69,9 @@
       <!-- 分页 -->
       <pagination
           v-show="total > 0"
-          :limit.sync="queryData.pageSize"
           :page.sync="queryData.pageNum"
           :total="total"
+          :limit.sync="queryData.pageSize"
           @pagination="init()"
       />
     </el-dialog>
@@ -172,7 +172,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-:deep(.dialog-footer) {
+/deep/ .dialog-footer {
   // background-color: pink;
   display: flex;
   align-items: center;
@@ -180,19 +180,19 @@ export default {
   line-height: 16px;
   font-size: 16px;
 
-  :deep(.left) {
+  /deep/ .left {
     border-right: 2px solid rgb(156, 153, 153);
     padding-right: 10px;
 
-    :deep(span) {
+    /deep/ span {
       color: blue;
     }
   }
 
-  :deep(.right) {
+  /deep/ .right {
     display: flex;
 
-    :deep(span) {
+    /deep/ span {
       display: block;
       margin-right: 10px;
     }
@@ -202,7 +202,7 @@ export default {
   }
 }
 
-:deep(.el-row-toolbar) {
+/deep/ .el-row-toolbar {
   margin: 5px;
 }
 </style>

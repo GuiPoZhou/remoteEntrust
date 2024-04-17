@@ -44,6 +44,6 @@ const vm = instance['proxy']
 }
 
 .entrust {
-  font-size: 12px;
+  font-size: 20px;
 }
 </style>

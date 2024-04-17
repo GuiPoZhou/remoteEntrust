@@ -1,10 +1,10 @@
 <template>
   <el-dialog
-      :close-on-click-modal="false"
-      :show-close="false"
       :visible.sync="dialogShow"
       title="评价"
       width="20%"
+      :close-on-click-modal="false"
+      :show-close="false"
       @before-close="close"
   >
     <el-row>
@@ -35,11 +35,9 @@ const vm = instance['proxy']
 const {dialogShow, checkRow} = defineProps(['dialogShow', 'checkRow'])
 const emit = defineEmits(['update:dialogShow'])
 let remark = ref('')
-
 function submit() {
 
 }
-
 function close() {
   emit('update:dialogShow', false)
 }

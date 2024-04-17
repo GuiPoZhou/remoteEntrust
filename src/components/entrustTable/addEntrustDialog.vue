@@ -23,7 +23,7 @@
 <!--                    <el-table-column prop="anchorPoint" label="弹框唯一值">-->
 <!--                    </el-table-column>-->
 <!--                    <el-table-column label="操作">-->
-<!--                      <template slot-scope="scope">-->
+<!--                      <template v-slot="scope">-->
 <!--                        &lt;!&ndash; <el-button type="text" @click="e_delteBulletBox(scope.$index)">删除弹框-->
 <!--                        </el-button> &ndash;&gt;-->
 <!--                        <el-button type="text" @click="e_editBulletBox(scope.row, scope.$index)">-->

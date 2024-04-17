@@ -1,49 +1,49 @@
 <!--选择项目-->
 <template>
   <el-dialog
-      :before-close="close"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      :show-close="true"
       :title="'已选择项目（共' + sampleNum + '个）'"
       :visible.sync="addItemShow"
       append-to-body
+      :before-close="close"
+      :close-on-click-modal="false"
       center
+      :close-on-press-escape="false"
+      :show-close="true"
+      @close="close"
       height="700px"
       width="1000px"
-      @close="close"
   >
     <el-table
-        ref="selectedItemTable"
-        :cell-style="{ padding: '2px' }"
         :data="selectedItemTableData"
-        :row-style="{ height: '20px' }"
         border
-        element-loading-background="rgba(0, 0, 0, 0.8)"
+        ref="selectedItemTable"
         element-loading-spinner="el-icon-loading"
-        element-loading-text="拼命加载中"
+        :cell-style="{ padding: '2px' }"
+        :row-style="{ height: '20px' }"
         height="300"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+        element-loading-text="拼命加载中"
         style="width: 100%"
     >
       <el-table-column align="center" label="序号" type="index" width="55">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <span>{{ scope.$index + 1 }}</span>
         </template>
       </el-table-column>
       <el-table-column
-          :show-overflow-tooltip="true"
-          label="项目名称"
           prop="itemName"
+          label="项目名称"
+          :show-overflow-tooltip="true"
       />
       <el-table-column
-          :show-overflow-tooltip="true"
           label="英文名称"
           prop="englishName"
+          :show-overflow-tooltip="true"
       />
       <el-table-column
+          prop="methodStandardCode"
           :show-overflow-tooltip="true"
           label="方法编号"
-          prop="methodStandardCode"
       />
       <el-table-column
           :show-overflow-tooltip="true"
@@ -57,7 +57,7 @@
       />
       <!--<el-table-column prop="detectionLimit" label="方法检出限" />-->
       <!--<el-table-column label="检出限单位" :show-overflow-tooltip="true">-->
-      <!--<template slot-scope="scope">-->
+      <!--<template v-slot="scope">-->
       <!--<span v-html="scope.row.detectionLimitUnit">{{-->
       <!--scope.row.detectionLimitUnit-->
       <!--}}</span>-->
@@ -69,11 +69,11 @@
       <!--:show-overflow-tooltip="true"-->
       <!--/>-->
       <el-table-column fixed="right" label="操作" width="100">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button
-              icon="el-icon-delete"
               size="small"
               type="text"
+              icon="el-icon-delete"
               @click="deleteItem(scope.$index, scope.row)"
           >删除
           </el-button
@@ -86,15 +86,15 @@
       <el-tabs
           :value="selectItemType"
           tab-position="left"
-          type="border-card"
           @tab-click="handleClick"
+          type="border-card"
       >
         <el-tab-pane label="按项目" name="item">
           <itemList
               ref="itemList"
+              @parseSelectedItems="parseSelectedItems"
               :sampleIdCode="sampleIdCode"
               :selectedItems="selectedItemTableData"
-              @parseSelectedItems="parseSelectedItems"
           />
         </el-tab-pane>
 

@@ -76,7 +76,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item>
-            <el-button size="mini" type="success" @click="e_save">保存</el-button>
+            <el-button size="small" type="success" @click="e_save">保存</el-button>
           </el-form-item>
         </el-col>
       </el-row>

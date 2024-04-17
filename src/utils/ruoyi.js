@@ -2,8 +2,7 @@
  * 通用js方法封装处理
  * Copyright (c) 2019 ruoyi
  */
-
-const baseURL = process.env.VUE_APP_BASE_API
+const baseURL = window.globalEnv.VUE_APP_BASE_API
 
 // 日期格式化
 export function parseTime(time, pattern) {

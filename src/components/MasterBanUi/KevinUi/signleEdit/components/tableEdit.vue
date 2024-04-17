@@ -70,7 +70,7 @@
             <el-row>
               <el-col :span="12">
                 <el-divider content-position="left">子表格操作列事件管理</el-divider>
-                <el-button size="mini" style="margin: 5px 0;" type="primary"
+                <el-button size="small" style="margin: 5px 0;" type="primary"
                            @click="e_addSubTableActionButton">新增子表操作列按钮
                 </el-button>
                 <el-table :data="signleParams.childTableSlotButtons" height="400" style="width: 100%">

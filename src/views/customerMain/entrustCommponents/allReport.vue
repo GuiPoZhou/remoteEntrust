@@ -47,7 +47,7 @@
         <el-table-column label="发布时间" prop="releaseDate">
         </el-table-column>
         <el-table-column label="状态" prop="isWrite">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <span v-if="scope.row.isWrite == 0">未完成</span>
             <span v-if="scope.row.isWrite == 1">已完成</span>
           </template>
@@ -55,7 +55,7 @@
         <el-table-column label="类型" prop="releaseScopeName">
         </el-table-column>
         <el-table-column label="操作">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-button v-if="scope.row.isWrite == 0 && scope.row.releaseStatus && checkTime(scope.row.templateEndDate)"
                        type="text"
                        @click="e_goQuestion(scope.row)">填写
@@ -76,7 +76,6 @@
 <script>
 import questionnaires from '@/components/questionnaire/index'
 import pagination from '@/components/Pagination/index'
-
 export default {
   components: {
     questionnaires,

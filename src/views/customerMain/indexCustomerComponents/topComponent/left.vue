@@ -1,12 +1,17 @@
 <template>
   <el-card class="box-card">
-    <template #header>
-      <div class="clearfix">
-        <span class="titleLeft">委托报检</span>
-      </div>
-    </template>
-
+    <div slot="header" class="clearfix">
+      <span class="titleLeft">委托报检</span>
+    </div>
     <div class="cardContent">
+      <!--      <div class="carBox" v-for="item in menus">-->
+      <!--        <el-card @click.native="jumpDialog(item)" class="cardStyle">-->
+      <!--          <div class="container">-->
+      <!--            <img src="@/assets/image/u117.png" class="img-style" alt="">-->
+      <!--            <p class="textStyle">{{item.configName}}</p>-->
+      <!--          </div>-->
+      <!--        </el-card>-->
+      <!--      </div>-->
       <div v-if="menus.length > 4" class="smallBox">
 
         <div v-for="(item,index) in menus" style="">
@@ -78,9 +83,9 @@ const jumpDialog = (item) => {
 }
 
 .titleLeft {
+  flex: 1;
   font-size: 12px;
 }
-
 .cardContent {
 
   .bigCarBox {
@@ -99,14 +104,12 @@ const jumpDialog = (item) => {
       font-size: 12px;
       color: #3D3D3D;
     }
-
     p {
       position: relative;
-      right: 40px;
-      top: 14px;
+      left: 2rem;
+      top: 2rem;
     }
   }
-
   .smallBox {
     height: 100%;
     display: flex;
@@ -122,19 +125,16 @@ const jumpDialog = (item) => {
       margin: 0 1rem;
     }
   }
-
   .smallCarBox {
     width: 80px;
     height: 120px;
     cursor: pointer;
     white-space: nowrap;
-
     .smallCenter {
       white-space: nowrap;
       width: 100%;
       height: 100%;
       background: no-repeat;
-
       .smallCard {
         position: relative;
         left: 0.7rem;
@@ -143,11 +143,9 @@ const jumpDialog = (item) => {
     }
   }
 }
-
 .box-card {
   height: 260px;
 }
-
 .cardStyle {
   //height: 90px;
   //margin-top: -5px;
@@ -157,18 +155,15 @@ const jumpDialog = (item) => {
   //  animation: .5s;
   //}
 }
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .textStyle {
   margin-top: 10px;
 }
-
 .img-style {
   width: 20px;
   height: 20px;
