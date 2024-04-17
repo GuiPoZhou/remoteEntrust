@@ -1,4 +1,4 @@
-<template>
+<template ref="localRef">
   <div class="app-container">
     <listContainer
         ref="listContainerRef"
@@ -64,6 +64,16 @@
     />
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      showProgress: false,
+      entrustShow: false,
+    }
+  }
+}
+</script>
 <script setup>
 import MicroProgress from "@/components/detectionProgress/entruroPgress.vue";
 import listContainer from "@/components/executionTemplate/tableColumnConfig/listContainer.vue";
@@ -108,10 +118,6 @@ onMounted(() => {
   });
 })
 
-defineOptions({
-  showProgress: false,
-  entrustShow: false,
-})
 
 function e_saveReload() {
   entrustShow.value = false
@@ -184,7 +190,6 @@ function e_slotButtonEvents(v) {
 function e_actionButtonEvents(v, scope) {
   new Function("ctx", "scope", v.clickEvents)(vm, scope);
 }
-
 </script>
 <style scoped>
 .app-container {

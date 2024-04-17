@@ -60,7 +60,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import {watch} from "vue";
 import {useStore} from "vuex";
 
