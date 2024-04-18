@@ -228,6 +228,6 @@ function e_saveQuestionaire() {
 
 .imgPosition {
   position: relative;
-  left: 40%;
+  left: 20%;
 }
 </style>

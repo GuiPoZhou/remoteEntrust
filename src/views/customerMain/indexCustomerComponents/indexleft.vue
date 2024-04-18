@@ -1,13 +1,16 @@
 <template>
   <div class="leftStyle">
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span class="titleLeft">通知报告</span>
-        <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('note')">
-          <span class="isMore">更多</span>
-          <el-image :src="rightBtn" class="imgStyle"></el-image>
-        </el-button>
-      </div>
+      <template #header>
+        <div class="clearfix">
+          <span class="titleLeft">通知报告</span>
+          <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('note')">
+            <span class="isMore">更多</span>
+            <el-image :src="rightBtn" class="imgStyle"></el-image>
+          </el-button>
+        </div>
+      </template>
+
       <div class="left-text" style="width: 100%">
         <template v-for="(item, index) in reportList">
           <el-row class="rowStyle" @click.native="noteDetail(item)">
@@ -19,13 +22,16 @@
       </div>
     </el-card>
     <el-card class="box-card" style="position: relative">
-      <div slot="header" class="clearfix">
-        <span class="titleLeft">检测报告</span>
-        <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('detect')">
-          <span class="isMore">更多</span>
-          <el-image :src="rightBtn" class="imgStyle"></el-image>
-        </el-button>
-      </div>
+      <template #header>
+        <div class="clearfix">
+          <span class="titleLeft">检测报告</span>
+          <el-button style="float: right;padding: 3px 0 0" text type="primary" @click="checkAll('detect')">
+            <span class="isMore">更多</span>
+            <el-image :src="rightBtn" class="imgStyle"></el-image>
+          </el-button>
+        </div>
+      </template>
+
       <div v-for="item in detectReport" :key="item.entrustCode" class="text item">
         <span class="leftText">编号{{ item.reportCode }}的检测报告</span>
         <span class="right-text">
@@ -186,6 +192,16 @@ function download(item) {
 }
 .box-card:last-child {
   //height: 350px;
+}
+
+.clearfix {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .titleLeft {
+
+  }
 }
 .totalStyle {
   position: absolute;

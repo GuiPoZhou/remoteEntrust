@@ -1,8 +1,10 @@
 <template>
   <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <span class="titleLeft">委托报检</span>
-    </div>
+    <template #header>
+      <div class="clearfix">
+        <span class="titleLeft">委托报检</span>
+      </div>
+    </template>
     <div class="cardContent">
       <!--      <div class="carBox" v-for="item in menus">-->
       <!--        <el-card @click.native="jumpDialog(item)" class="cardStyle">-->
@@ -21,8 +23,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
       <div v-else>
         <el-row :gutter="10">
@@ -83,7 +83,6 @@ const jumpDialog = (item) => {
 }
 
 .titleLeft {
-  flex: 1;
   font-size: 12px;
 }
 .cardContent {
@@ -106,8 +105,8 @@ const jumpDialog = (item) => {
     }
     p {
       position: relative;
-      left: 2rem;
-      top: 2rem;
+      right: 2rem;
+      top: 1rem;
     }
   }
   .smallBox {
