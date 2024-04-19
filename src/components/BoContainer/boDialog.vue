@@ -11,43 +11,39 @@
         v-model="diaLogShows"
         :width="diaLogWidth"
         class="fox-dialog"
+        :draggable="closeDrag"
         @close="e_dialogClose"
         @open="e_dialogOpen"
     >
-      <div slot="title" class="dialog-title">
-        <span class="topTilte">{{ diaLogTitle }}</span>
-        <div class="topRight">
-          <template v-if="showEditDrag">
-            <!-- 开启拖拽 -->
-            <i
-                v-if="closeDrag"
-                class="el-icon-edit rightIcon"
-                style="font-size: 15px"
-                @click="e_changeDrag(false)"
-            ></i>
-            <i
-                v-if="!closeDrag"
-                class="el-icon-rank rightIcon"
-                style="font-size: 15px"
-                @click="e_changeDrag(true)"
-            ></i>
-          </template>
-          <!-- 最小化 -->
-          <i
-              v-if="isFullScreen"
-              class="el-icon-minus rightIcon"
-              @click="e_changeBox(false)"
-          ></i>
-          <!-- 最大化 -->
-          <i
-              v-if="!isFullScreen"
-              class="el-icon-full-screen rightIcon"
-              @click="e_changeBox(true)"
-          ></i>
-          <!-- 关闭 -->
-          <i class="el-icon-close rightIcon" @click="e_dialogClose"></i>
+      <template #header>
+        <div class="dialog-title">
+          <span class="topTilte">{{ diaLogTitle }}</span>
+          <div class="topRight">
+            <template v-if="showEditDrag">
+              <!--               开启拖拽-->
+              <el-icon v-if="closeDrag" class="rightIcon" @click="e_changeDrag(false)">
+                <Edit/>
+              </el-icon>
+              <el-icon v-if="!closeDrag" class="rightIcon" @click="e_changeDrag(true)">
+                <Rank/>
+              </el-icon>
+            </template>
+            <!-- 最小化 -->
+            <el-icon v-if="isFullScreen" class="rightIcon" @click="e_changeBox(false)">
+              <Minus/>
+            </el-icon>
+            <!-- 最大化 -->
+            <el-icon v-if="!isFullScreen" class="rightIcon" @click="e_changeBox(true)">
+              <FullScreen/>
+            </el-icon>
+            <!-- 关闭 -->
+            <el-icon class="rightIcon" @click="e_dialogClose">
+              <Close/>
+            </el-icon>
+          </div>
         </div>
-      </div>
+      </template>
+
       <!-- 弹框中间内容区域 -->
       <div class="foxlogbody">
         <slot name="bologbody"></slot>
@@ -61,18 +57,20 @@
 </template>
 
 <script lang="ts" setup>
-import {watch} from "vue";
+import {ref, watch} from "vue";
 import {useStore} from "vuex";
+import {Close, Edit, FullScreen, Minus, Rank} from "@element-plus/icons-vue";
 
 const store = useStore();
-let diaLogShows = ref(false)
+
 let closeDrag = ref(false)
-const emit = defineEmits(['close'])
-let {showEditDrag, diaLogWidth, diaLogTitle, diaLogShow, isFullScreen} =
+let diaLogShows = ref(false)
+const emit = defineEmits(['close', 'open'])
+let props =
     defineProps({
       showEditDrag: {
         type: Boolean,
-        default: false
+        default: true
       },
       diaLogWidth: {
         type: String,
@@ -91,9 +89,18 @@ let {showEditDrag, diaLogWidth, diaLogTitle, diaLogShow, isFullScreen} =
         default: true
       }
     })
-watch(diaLogShow, (val: boolean) => {
-  diaLogShows.value = val
-})
+let showEditDrag = ref(props.showEditDrag)
+let diaLogWidth = ref(props.diaLogWidth)
+let diaLogTitle = ref(props.diaLogTitle)
+let isFullScreen = ref(props.isFullScreen)
+watch(props, (val) => {
+      diaLogShows.value = val.diaLogShow
+    },
+    {
+      immediate: true,
+      deep: true
+    }
+)
 const e_changeDrag = (b: boolean) => {
   closeDrag.value = b
 }
@@ -104,7 +111,7 @@ const e_dialogOpen = () => {
   emit("open")
 }
 const e_changeBox = (type) => {
-  isFullScreen = type
+  isFullScreen.value = type
 }
 </script>
 

@@ -23,6 +23,20 @@ export default defineConfig({
                 },
             },
         },
+        commonjsOptions: {
+            include: [
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/customParseFormat.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/localeData.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/advancedFormat.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/weekOfYear.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/weekYear.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/dayOfYear.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/isSameOrAfter.js',
+                'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/isSameOrBefore.js',
+                'node_modules/.pnpm/escape-html@1.0.3/node_modules/escape-html/index.js'
+            ]
+        }
     },
     css: {
         preprocessorOptions: {

@@ -3,7 +3,7 @@
     <ml-dialog ref="mlDialog" :HasPermi="currentEnv == 'add'" :dia-log-show="showlog" :showEditDrag="true" dia-log-title="委托"
                @close="e_close"
                @confirmFormDesgin="definitionFormJSON">
-      <template slot="bologbody">
+      <template #bologbody>
         <el-row v-if="!$store.state.system.closeDrag" style="margin-bottom:10px">
           <el-col :span="24">
             <el-button size="small" type="success" @click="e_addNewTab">新增页签
@@ -94,7 +94,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import moment from "moment"
 import selectItem from '@/components/DetectSubItemManage/selectItem.vue'
 import DetectType from '@/components/project/detectType.vue'
@@ -131,11 +130,6 @@ export default {
         contact: '',
         companyPhone: '',
         extData: {}
-      },
-      partyAInfoGroup: {
-        name: 'partyAInfoGroup',
-        pull: false,
-        put: false
       },
       listParamsList: [],
       bulletBox: [],
@@ -290,40 +284,6 @@ export default {
     addTestItemsReload(itemParams) {
       this.showAddTestItems = false
       eval(this.listParamsList[0].passiveEvents.appendItemTable)
-      // // 将带过来的项目保存一份
-      // let copyData = JSON.parse(JSON.stringify(data))
-      // // 对新增检测项目进行去重
-      // if (this.listData.length != 0) {
-      //     this.listData.map((item2) => {
-      //         copyData.map((item, index) => {
-      //             if (item.mergeId == item2.mergeId) {
-      //                 copyData.splice(index, 1)
-      //             }
-      //         })
-      //     })
-      // }
-      // // 获取没有的项目 倒序
-      // for (let i = this.detectCategoryArr.length - 1; i >= 0; i--) {
-      //     for (let j = 0; j < data.length; j++) {
-      //         if (this.detectCategoryArr[i].mergeId == data[j].mergeId) {
-      //             this.detectCategoryArr.splice(i, 1)
-      //             break
-      //         }
-      //     }
-      // }
-      // // 将没有传过来的项目进行删除
-      // this.detectCategoryArr.map((item) => {
-      //     this.listData.map((item2, index2) => {
-      //         if (item2.mergeId == item.mergeId) {
-      //             this.listData.splice(index2, 1)
-      //         }
-      //     })
-      // })
-      // // 将新增的检测项目添加到项目列表中
-      // copyData.map((item) => {
-      //     this.listData.push(item)
-      // })
-      // this.getSelectedMergeArr(this.listData, this.merge)
     },
     /**
      * @author Coder
@@ -351,80 +311,6 @@ export default {
       })
 
     },
-    //=====================================仅委托🔽==============================================//
-    doSaveByOnlyEntrust(saveFlag) {
-      // 获取样品
-      let sampleList = this.getSampleList()
-      if (sampleList.length == 0) {
-        this.$message.error('请维护样品信息')
-        return
-      }
-      // 获取检测项目
-      let itemList = this.getItemList()
-      let params = {
-        ...this.form,
-        saveFlag,
-        infoGiveList: sampleList,
-        entrustType: this.businessConfigId,
-        sampleSource: 2,
-        itemList: itemList
-      }
-      let url = ''
-      let method = ''
-      if (this.form.id) {
-        url = `/v1/entrustAgreementBind/${this.form.id}`
-        method = 'put'
-      } else {
-        url = `/v1/entrustAgreementBind`
-        method = 'post'
-      }
-      this.$net(url, method, params).then(re => {
-        if (re.code == 200) {
-          this.$message.success('保存成功')
-          this.$emit('saveReload')
-        }
-      })
-    },
-    /**
-     * @author Coder
-     * @date 2023/4/4
-     * @des 获取样品
-     */
-    getSampleList() {
-      //这块临时加入的判断 为了应对天佑德的演示 他们是单委托单样品 这样会导致之前的样品信息无法获取  只能走拆分脚本
-      let baseInfo = this.listParamsList[0]
-      let anchorPointInfo = this.getNode(this.listParamsList, 'formList', 'anchorPoint', 'itemTable')
-
-      let arr = []
-      if (baseInfo.passiveEvents) {
-        arr = [
-          {
-            sampleName: this.form.sampleName,
-            detectType: this.form.detectType,
-            sampleNumber: this.form.sampleNumber,
-            extData: {
-              sendSampleDept: this.form.extData.sendSampleDept,
-              sendSamplePerson: this.form.extData.sendSamplePerson,
-              sendSampleTime: this.form.extData.sendSampleTime,
-              checkBatchNo: this.form.extData.checkBatchNo,
-              erpCode: this.form.extData.erpCode,
-              sampleSpecifications: this.form.extData.sampleSpecifications,
-              alcoholContent: this.form.extData.alcoholContent,
-              serviceType: this.form.extData.serviceType,
-              statisticsClass: this.form.extData.statisticsClass,
-              taskSource: this.form.extData.taskSource,
-              batchCode: this.form.extData.batchCode,
-              sampleRemark: this.form.extData.sampleRemark,
-            },
-            itemList: anchorPointInfo.tableData
-          }
-        ]
-        return arr
-      } else {
-        let anchorPointInfo = this.getNode(this.listParamsList, 'formList', 'anchorPoint', 'sampleInfo')
-        return anchorPointInfo.tableData
-      }
-    },
     /**
      * @author Coder
      * @date 2023/4/4
@@ -434,71 +320,6 @@ export default {
       let anchorPointInfo = this.getNode(this.listParamsList, 'formList', 'anchorPoint', 'detectItemTable')
       return anchorPointInfo.tableData
     },
-    //=====================================仅委托🔼==============================================//
-    //=====================================检测项目挂载到样品🔽==============================================//
-    doSaveByItemInSample(saveFlag) {
-      // 获取样品
-      let sampleList = this.getSampleList()
-      if (sampleList.length == 0) {
-        this.$message.error('请维护样品信息')
-        return
-      }
-      let params = {
-        ...this.form,
-        saveFlag,
-        infoGiveList: sampleList,
-        entrustType: this.businessConfigId,
-        sampleSource: 2,
-      }
-      let url = ''
-      let method = ''
-      if (this.form.id) {
-        url = `/v1/entrustAgreementBindSample/${this.form.id}`
-        method = 'put'
-      } else {
-        url = `/v1/entrustAgreementBindSample`
-        method = 'post'
-      }
-      this.$net(url, method, params).then(re => {
-        if (re.code == 200) {
-          this.$message.success('保存成功')
-          this.$emit('saveReload')
-        }
-      })
-    },
-    //=====================================检测项目挂载到样品🔼==============================================//
-    //=====================================检测项目挂载到子样品🔽==============================================//
-    doSaveByItemBindSubItem(saveFlag) {
-      // 获取样品
-      let sampleList = this.getSampleList()
-      if (sampleList.length == 0) {
-        this.$message.error('请维护样品信息')
-        return
-      }
-      let params = {
-        ...this.form,
-        saveFlag,
-        infoGiveList: sampleList,
-        entrustType: this.businessConfigId,
-        sampleSource: 2,
-      }
-      let url = ''
-      let method = ''
-      if (this.form.id) {
-        url = `/v1/entrustAgreementBindSampleCoding/${this.form.id}`
-        method = 'put'
-      } else {
-        url = `/v1/entrustAgreementBindSampleCoding`
-        method = 'post'
-      }
-      this.$net(url, method, params).then(re => {
-        if (re.code == 200) {
-          this.$message.success('保存成功')
-          this.$emit('saveReload')
-        }
-      })
-    },
-    //=====================================检测项目挂载到子样品🔼==============================================//
     /**
      * @author Coder
      * @date 2023/3/30
@@ -780,12 +601,6 @@ export default {
       }
       this.definitionFormJSON()
     },
-    e_doHide(index) {
-      this.bolckFormParams[index].isHide = true
-    },
-    e_doShow(index) {
-      this.bolckFormParams[index].isHide = false
-    },
     async getFormConfigData() {
       let re = await this.$net(`/formLayout/getFormLayoutConfig?id=${this.businessConfigId}`, 'get')
       // this.listParamsList = re.data.formLayoutConfig.listParamsList || []
@@ -800,32 +615,6 @@ export default {
       this.e_doFormConfigEvents()
       // let targetAttribute = EntrustThis.getNode(EntrustThis.listParamsList, 'formList', 'anchorPoint', 'sampleInfo');
       // targetAttribute.tableData[0].sendSampleCount = 456
-    },
-    e_updateForm(row) {
-    },
-    e_addExtForm(row) {
-      // this.declareParameters(row)
-      this[this.extListLabel].push(row)
-      // this.e_doGetFormOptions()
-    },
-    e_openExtLog(refBack, listlabel) {
-      this.extListLabel = listlabel
-      let refName = `JSXForm-${refBack}`
-      this.$refs[refName].e_ShowAddFormItem()
-    },
-    e_confirmFormDesgin() {
-      this.$store.commit('set_closeDrag', true)
-    },
-    e_codeEditSave({listLabel, codeObj}) {
-      this.showcodeEditor = false
-      this[listLabel] = [...codeObj]
-      // this.definitionFormJSON()
-    },
-    e_confirmeditFormItem({list, backFunLabel}) {
-      var that = this
-      this.showeditFormItem = false
-      var editFunc = new Function('that', 'list', backFunLabel)
-      editFunc(that, list)
     },
     /**
      * @author Coder
@@ -896,41 +685,6 @@ export default {
         }
       })
     },
-    e_button() {
-      let listParamsList = JSON.parse(JSON.stringify(this.listParamsList))
-      listParamsList.forEach(tabInfo => {
-        tabInfo.formList.forEach(blockInfo => {
-          blockInfo.formList.forEach(formInfo => {
-            if (formInfo.component == 'el-table') {
-              formInfo.tableData = []
-            }
-          })
-        })
-      })
-      let params = {
-        id: this.businessConfigId,
-        formData: JSON.stringify({listParamsList: listParamsList, bulletBox: this.bulletBox})
-      }
-      let url = `/app/base/form/update`
-      axios.post(url, params, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "application/json;charset=UTF-8"
-        }
-      }).then(re => {
-        this.$message.success('更新成功')
-        this.$store.commit('set_closeDrag', true)
-
-      })
-    },
-    e_showFormEdit() {
-    },
-    e_showCode() {
-      this.showcodeEditor = true
-      this.$nextTick(() => {
-        this.$refs.codeEditor.init(this.partyAInfoJSON, 'partyAInfoJSON')
-      })
-    },
     e_close() {
       this.$emit('close')
       this.$store.commit('set_closeDrag', true)
@@ -946,33 +700,9 @@ export default {
       this.businessConfigId = type
       await this.getFormConfigData()
       this.showlog = true
-      this.getCustomer()
       this.getDept()
       this.form.extData.entrustDate = moment().format('YYYY-MM-DD')
       this.$forceUpdate()
-    },
-
-    getCustomer() {
-      return
-      this.$net('/v1/entrustRemoteAgreement/customer/' + this.$store.state.user.user.customerId, 'get',).then(res => {
-        if (res.code === 200) {
-          let user = this.$store.state.user.user
-          this.form.detectedDeptName = res.data.customerName  // 送检单位
-          this.form.detectedDeptId = user.customerId // 送检单位Id
-          this.form.customerName = res.data.customerName  // 客户名称
-          this.form.customerId = user.customerId // 客商ID
-          this.form.extData.inspectionPersonal = user.nickName // 送检单位联系人
-          this.form.extData.detectedDeptId = user.customerId
-          this.form.extData.contactSendId = user.userId
-          this.form.contactId = user.userId // 联系人Id
-          this.form.extData.inspectionPhone = user.phone
-          this.form.deptCreditCode = res.data.uscc // 社会编码
-          this.form.contact = user.nickName
-          this.form.companyPhone = user.phone
-          this.form.customerAddress = res.data.customerAddress
-          this.form = JSON.parse(JSON.stringify(this.form))
-        }
-      })
     },
     getDept() {
       this.$net('/v1/entrustRemoteAgreement/dept', 'get', {id: this.$store.state.user.user.userId}).then(res => {

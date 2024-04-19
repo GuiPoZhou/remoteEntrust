@@ -77,7 +77,7 @@ export default {
 <script setup>
 import MicroProgress from "@/components/detectionProgress/entruroPgress.vue";
 import listContainer from "@/components/executionTemplate/tableColumnConfig/listContainer.vue";
-import addEntrustDialog from "./addEntrustDialog.vue";
+import addEntrustDialog from "./addEntrustDialog3.0.vue";
 import {cloneTask, recallTask} from "@/api/index/index.js";
 import {deleteTask} from "@/api/entrust/entrustConfirm.js";
 import {getPluginsForButtons} from "@/utils/index.js"
@@ -87,11 +87,12 @@ const route = useRoute()
 
 const vm = getCurrentInstance().proxy
 
+let addEntrustDialogRef = ref(addEntrustDialog)
 let businessConfigId = ref(null)
 let pluginsInfo = reactive({})
 
 businessConfigId.value = route.query.itemId.toString() + 3333;
-getPluginsForButtons("remoteBtn", (e) => {
+getPluginsForButtons("remoteBtnTest", (e) => {
   console.log('这是e', e);
   Object.assign(pluginsInfo, e)
 });
@@ -180,7 +181,12 @@ function e_actionButtonEventsNew(widgetInfo, scope) {
  * @des 插槽按钮事件
  */
 function e_slotButtonEvents(v) {
-  new Function("ctx", v.events)(vm);
+  vm.entrustShow = true;
+  nextTick(() => {
+    console.log('ref', addEntrustDialogRef.value.setup);
+    addEntrustDialogRef.value.init(businessConfigId.value.slice(0, 4), 'add');
+  });
+  // new Function("ctx","ref", v.events)(vm,de);
 }
 /**
  * @author Coder

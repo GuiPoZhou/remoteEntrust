@@ -2,7 +2,7 @@
   <div>
     <bo-dialog :diaLogShow="dialogVisible" :isFullScreen="true" diaLogTitle="调查问卷" diaLogWidth="30%"
                @close="e_close">
-      <template slot="bologbody">
+      <template #bologbody>
         <div class="questionnairearea">
           <h1>{{ questionnaireInfo.templateName }}</h1>
           <span>有效期至：{{ questionnaireInfo.templateEndDate }}</span>
@@ -29,13 +29,16 @@
           </el-form>
         </div>
       </template>
-      <template slot="bologfooter">
+      <template #bologfooter>
         <el-button v-if="businessEnv == 'add'" size="small" type="primary" @click="e_save">保存</el-button>
         <el-button size="small" @click="e_close">关闭</el-button>
       </template>
     </bo-dialog>
   </div>
 </template>
+<script setup>
+
+</script>
 <script>
 export default {
   name: 'questionnaire',

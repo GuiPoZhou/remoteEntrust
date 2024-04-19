@@ -14,17 +14,25 @@
                        @click="e_confirmFormDesgin">保存表单布局
             </el-button>
             <!-- 开启拖拽 -->
-            <i v-if="closeDrag" class="el-icon-edit rightIcon" style="font-size: 15px"
-               @click="e_changeDrag(false)"></i>
-            <i v-if="!closeDrag" class="el-icon-rank rightIcon" style="font-size: 15px"
-               @click="e_changeDrag(true)"></i>
+            <el-icon v-if="closeDrag" class="rightIcon" @click="e_changeDrag(false)">
+              <Edit/>
+            </el-icon>
+            <el-icon v-if="!closeDrag" class="rightIcon" @click="e_changeDrag(true)">
+              <Rank/>
+            </el-icon>
           </template>
           <!-- 最小化 -->
-          <i v-if="isFullScreen" class="el-icon-minus rightIcon" @click="e_changeBox(false)"></i>
+          <el-icon v-if="isFullScreen" class="rightIcon" @click="e_changeBox(false)">
+            <Minus/>
+          </el-icon>
           <!-- 最大化 -->
-          <i v-if="!isFullScreen" class="el-icon-full-screen rightIcon" @click="e_changeBox(true)"></i>
+          <el-icon v-if="!isFullScreen" class="rightIcon" @click="e_changeBox(true)">
+            <FullScreen/>
+          </el-icon>
           <!-- 关闭 -->
-          <i class="el-icon-close rightIcon" @click="e_dialogClose"></i>
+          <el-icon class="rightIcon" @click="e_dialogClose">
+            <Close/>
+          </el-icon>
         </div>
       </div>
       <!-- 弹框中间内容区域 -->
@@ -41,6 +49,7 @@
 <script setup>
 import {ElMessageBox} from "element-plus";
 import {useStore} from "vuex";
+import {Close, Edit, FullScreen, Minus, Rank} from "@element-plus/icons-vue";
 
 const store = useStore();
 const vm = getCurrentInstance().proxy
