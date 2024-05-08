@@ -77,8 +77,7 @@ function logout() {
     type: "warning",
   }).then(() => {
     vm.$store.dispatch("LogOut").then(() => {
-      location.href = 'http://mis.topscomm.net:8931/cas/logout?service=http%3A%2F%2Fmis.topscomm.net%3A8931%2Fcas%2Flogin%3Fservice%3Dhttp%253A%252F%252F172.20.5.160%253A6001%252Fremote%252FcustomerMain%26createToken%3Dfalse'
-
+      location.href = '/'
     });
   });
 }

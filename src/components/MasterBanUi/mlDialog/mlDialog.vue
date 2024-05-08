@@ -54,7 +54,6 @@ import {Close, Edit, FullScreen, Minus, Rank} from "@element-plus/icons-vue";
 const store = useStore();
 const vm = getCurrentInstance().proxy
 let isFullScreen = ref(true);
-let diaLogShows = ref(false);
 let closeDrag = ref(true);//表单是否开启拖拽布局
 const prop = defineProps({
   HasPermi: {
@@ -78,15 +77,19 @@ const prop = defineProps({
     default: false
   }
 })
+let diaLogShows = computed(() => prop.diaLogShow)
+
+console.log(prop, 'prop')
 let HasPermi = ref(prop.HasPermi)
 let showEditDrag = ref(prop.showEditDrag)
 let diaLogWidth = ref(prop.diaLogWidth)
 let diaLogTitle = ref(prop.diaLogTitle)
 let diaLogShow = ref(prop.diaLogShow)
 const emit = defineEmits(['confirmFormDesgin', 'close', 'open'])
-watch(prop.diaLogShow, (val) => {
-  diaLogShows.value = val
-})
+// watch(diaLogShow, (val) => {
+//   console.log(val);
+//   diaLogShows.value = val
+// })
 onBeforeMount(() => {
   window.MlDialogThis = vm
 })

@@ -24,6 +24,10 @@ export default defineConfig({
             },
         },
         commonjsOptions: {
+            /**
+             * fix error "default" is not exported by "node_modules/dayjs/dayjs.min.js
+             * see https://github.com/element-plus/element-plus/issues/9218
+             * */
             include: [
                 'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/dayjs.min.js',
                 'node_modules/.pnpm/dayjs@1.11.4/node_modules/dayjs/plugin/customParseFormat.js',

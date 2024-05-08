@@ -6,7 +6,7 @@
       diaLogWidth="35%"
       @close="closeDialog"
   >
-    <template slot="bologbody">
+    <template #bologbody>
       <div>
         <div style="height: 100%">
           <div class="titleStyle">
@@ -19,7 +19,7 @@
         </div>
       </div>
     </template>
-    <template slot="bologfooter">
+    <template #bologfooter>
       <el-button @click="closeDialog">关闭</el-button>
     </template>
   </bo-dialog>

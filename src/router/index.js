@@ -44,6 +44,12 @@ export const constantRoutes = [
         name: 'bottomT',
         component: (resolve) => import('@/views/components/entrustTable/index.vue')
       },
+        {
+            path: '/webGl',
+            name: 'webGl',
+            component: () => import('@/views/picture/index.vue'),
+            children: []
+        }
     ]
   },
   {

@@ -1,8 +1,9 @@
 <template>
-  <el-dialog v-if="showLog"
+  <el-dialog
              :append-to-body="true"
              title="消息提示"
              width="30%"
+             v-model="showLog"
              :modal-append-to-body="true"
              :visible.sync="showLog"
              @close="close"

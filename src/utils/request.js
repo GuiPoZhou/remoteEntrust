@@ -44,7 +44,7 @@ service.interceptors.response.use(res => {
                 }
             ).then(() => {
         store.dispatch('LogOut').then(() => {
-          location.href = 'http://mis.topscomm.net:8931/cas/login?service=http%3A%2F%2F172.20.5.160%3A6001%2Fremote%2FcustomerMain&createToken=false';
+            location.href = '/'
         })
       })
     } else if (code === 500) {
@@ -71,7 +71,7 @@ service.interceptors.response.use(res => {
         message:`<strong><i>登录已过期，请重新登录</i></strong>`,
         type: 'error'
       })
-      location.href = 'http://mis.topscomm.net:8931/cas/login?service=http%3A%2F%2F172.20.5.160%3A6001%2Fremote%2FcustomerMain&createToken=false'
+        location.href = '/'
       localStorage.clear()
       // location.href ='/index';
     }

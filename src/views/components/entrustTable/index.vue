@@ -64,17 +64,8 @@
     />
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      showProgress: false,
-      entrustShow: false,
-    }
-  }
-}
-</script>
 <script setup>
+import {provide} from 'vue'
 import MicroProgress from "@/components/detectionProgress/entruroPgress.vue";
 import listContainer from "@/components/executionTemplate/tableColumnConfig/listContainer.vue";
 import addEntrustDialog from "./addEntrustDialog3.0.vue";
@@ -180,11 +171,15 @@ function e_actionButtonEventsNew(widgetInfo, scope) {
  * @date 2023/4/20
  * @des 插槽按钮事件
  */
+provide('businessId', businessConfigId.value.slice(0, 4))
+provide('env', 'add')
+let entrustShow = ref(false)
 function e_slotButtonEvents(v) {
-  vm.entrustShow = true;
+  entrustShow.value = true;
   nextTick(() => {
-    console.log('ref', addEntrustDialogRef.value.setup);
-    addEntrustDialogRef.value.init(businessConfigId.value.slice(0, 4), 'add');
+    console.log('ref', addEntrustDialogRef.value);
+    // addEntrustDialogRef.value.init(businessConfigId.value.slice(0, 4), 'add');
+    vm.$refs.entrustDialog.init(businessConfigId.value.slice(0, 4))
   });
   // new Function("ctx","ref", v.events)(vm,de);
 }
@@ -196,6 +191,9 @@ function e_slotButtonEvents(v) {
 function e_actionButtonEvents(v, scope) {
   new Function("ctx", "scope", v.clickEvents)(vm, scope);
 }
+
+
+let showProgress = ref(false)
 </script>
 <style scoped>
 .app-container {

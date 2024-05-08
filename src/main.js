@@ -30,7 +30,7 @@ import RightToolbar from "@/components/RightToolbar/index.vue"
 import BoContainer from '@/components/BoContainer/boContainer.vue'
 import BoMain from '@/components/BoContainer/boMain.vue'
 import BoMain4DynamicList from '@/components/BoContainer/boMain4DynamicList.vue'
-import MasterBanUi from '@/components/MasterBanUi/index.js'
+import MasterBanUi from "./components/MasterBanUi/index.js";
 
 //
 // import KevinEngine from 'kevin-engine'
@@ -38,8 +38,11 @@ import MasterBanUi from '@/components/MasterBanUi/index.js'
 // app.use(KevinEngine)
 
 
-
-app.use(MasterBanUi)
+MasterBanUi.forEach(e => {
+    let name = e.name || e['__name']
+    app.component(name, e)
+})
+console.log(MasterBanUi, '21jda')
 app.component('boDialog', boDialog)
 app.component('pagination', pagination)
 app.component('svg-icon', SvgIcon);

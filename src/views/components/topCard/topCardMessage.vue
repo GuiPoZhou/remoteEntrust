@@ -6,7 +6,7 @@
         <span>消息提示</span>
       </div>
       <div class="top-right">
-        <!--        <el-button type="danger" size="small" round>{{99}}</el-button>-->
+        <!--        <el-button type="danger" size="mini" round>{{99}}</el-button>-->
         <div class="floatStyle" @click="jumpMsg">
           <span class="wanringMsg">{{ nodeRead }}</span>
           <el-image :src="rightBtn" class="imgStyle"></el-image>
@@ -17,7 +17,7 @@
       <div class="text-center">
         <div v-for="item in messageList" class="text-box" @click="checkReport(item)">
           <span>{{ item.content + ',请点击查看' }}</span>
-          <span>{{ dayjs().format('YYYY-MM-DD HH:mm:ss') }}</span>
+          <span>{{ item.createTime }}</span>
         </div>
       </div>
     </div>
@@ -34,7 +34,6 @@
 
 <script setup>
 import iconSrc from '@/assets/logos/icon_bell.png'
-import dayjs from "dayjs";
 import {ref, reactive, getCurrentInstance, onMounted, nextTick, onBeforeUnmount} from 'vue'
 import rightBtn from '@/assets/logos/btn_chevron_right@2x.png'
 import reportDialog from './reportDialog.vue'
@@ -50,7 +49,7 @@ let params = {
 let messageList = ref([])
 const getMessageList = () => {
   vm.$net('/message/list', 'get', params).then(res => {
-    messageList.value = res.data
+    messageList.value = res.data.list
   })
 }
 getMessageList()
@@ -111,37 +110,30 @@ onBeforeUnmount(() => {
   height: 200px;
   width: 372px;
 }
-
 .clearfix {
   width: 100%;
   display: flex;
   align-items: center;
-
   .top-left {
     vertical-align: middle;
     text-align: center;
   }
-
   .top-right {
     flex: 1;
   }
-
   .imgStyle {
     width: 20px;
     height: 20px;
     vertical-align: middle;
     margin-right: 10px;
     cursor: pointer;
-
     :hover {
       border: 1px dashed grey;
     }
   }
-
   .floatStyle {
     float: right;
   }
-
   .wanringMsg {
     display: inline-block;
     width: 30px;
@@ -154,18 +146,15 @@ onBeforeUnmount(() => {
     margin-right: 5px;
   }
 }
-
 .box-center {
   background: #f6f6f8;
   height: 8rem;
   border-radius: 4px;
   overflow-y: scroll;
   overflow-x: hidden;
-
   .text-center {
     width: 100%;
     height: 100%;
-
     .text-box {
       cursor: pointer;
       display: flex;
@@ -175,7 +164,6 @@ onBeforeUnmount(() => {
       overflow: hidden;
       text-overflow: ellipsis;
       margin-top: 10px;
-
       span {
         display: inline-block;
         max-width: 80%;
@@ -184,7 +172,6 @@ onBeforeUnmount(() => {
         white-space: nowrap;
         text-overflow: ellipsis;
       }
-
       span:first-child {
         display: inline-block;
         max-width: 80%;
@@ -192,7 +179,6 @@ onBeforeUnmount(() => {
         margin-left: 20px;
         font-weight: bolder;
       }
-
       span:last-child {
         margin-left: 16px;
         text-align: center;
@@ -203,7 +189,6 @@ onBeforeUnmount(() => {
     }
   }
 }
-
 .emptyMes {
   text-align: center;
 }

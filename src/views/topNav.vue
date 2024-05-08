@@ -9,7 +9,7 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
           <el-menu-item index="1" @click="backIndex">首页</el-menu-item>
           <el-sub-menu index="2">
-            <template slot="title">委托报检</template>
+            <template #title>委托报检</template>
             <el-menu-item v-for="item in $store.state.menu.menus" :key="item.id"
                           :index="item.id.toString()"
                           align="center"
@@ -17,7 +17,8 @@
               {{ item.configName }}
             </el-menu-item>
           </el-sub-menu>
-          <el-menu-item v-if="false" index="3">审核管理</el-menu-item>
+          <el-menu-item index="3">图像</el-menu-item>
+          <!--          <el-menu-item v-if="false" index="3">审核管理</el-menu-item>-->
           <!--            <el-menu-item index="4" >企业管理</el-menu-item>-->
         </el-menu>
       </div>
@@ -79,8 +80,7 @@ function logout() {
     type: "warning",
   }).then(() => {
     vm.$store.dispatch("LogOut").then(() => {
-      location.href = 'http://mis.topscomm.net:8931/cas/logout?service=http%3A%2F%2Fmis.topscomm.net%3A8931%2Fcas%2Flogin%3Fservice%3Dhttp%253A%252F%252F172.20.5.160%253A6001%252Fremote%252FcustomerMain%26createToken%3Dfalse'
-
+      location.href = '/'
     });
   });
 }
@@ -106,6 +106,10 @@ function handleSelect(index) {
     // })
     router.push({
       path: '/remote/customerMain'
+    })
+  } else if (index == 3) {
+    router.push({
+      path: '/webGl'
     })
   } else if (index == 4) {
     router.push({

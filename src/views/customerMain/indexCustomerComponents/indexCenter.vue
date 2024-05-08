@@ -25,20 +25,20 @@
                     :show-overflow-tooltip="true"
                     label="委托编号"
                     align="center"
-                    prop="entrustCode"
+                    prop="entrust_code"
                 >
                 </el-table-column>
                 <el-table-column
                     :show-overflow-tooltip="true"
                     label="业务类型"
                     align="center"
-                    prop="entrustCode"
+                    prop="entrust_code"
                 >
                   <template v-slot="scope">
                     {{ checkEntrustType(scope.row) }}
                   </template>
                 </el-table-column>
-                <el-table-column align="center" label="委托人" prop="remoteLeader">
+                <el-table-column align="center" label="委托人" prop="remote_leader">
                 </el-table-column>
                 <el-table-column align="center" label="委托部门">
                   <template v-slot="scope">
@@ -48,37 +48,59 @@
                 <el-table-column
                     align="center"
                     label="委托日期"
-                    prop="createTime"
+                    prop="create_time"
                     width="160"
                 >
                 </el-table-column>
                 <el-table-column
+                    prop="status"
                     align="center"
                     label="状态"
-                    prop="status"
                 >
                   <template v-slot="scope">
                     {{ statusCheck(scope.row) }}
                   </template>
                 </el-table-column>
+                <el-table-column label="是否合格" prop="resultStatus"></el-table-column>
+                <!--        <el-table-column-->
+                <!--          prop="agreement"-->
+                <!--          label="报检书状态"-->
+                <!--          align="center"-->
+                <!--        >-->
+                <!--          <template v-slot="scope">-->
+                <!--            {{agreementCheck(scope.row.agreement)}}-->
+                <!--          </template>-->
+                <!--        </el-table-column>-->
+
+                <!--        <el-table-column-->
+                <!--          prop="detectCost"-->
+                <!--          label="报检金额"-->
+                <!--          align="center"-->
+                <!--        >-->
+                <!--        </el-table-column>-->
+                <el-table-column align="center" label="检测进度">
+                  <template v-slot="scope">
+                    <el-button size="small" type="text" @click="checkProgress(scope.row)">查看</el-button>
+                  </template>
+                </el-table-column>
                 <el-table-column align="center" fixed="right" label="操作" width="150">
                   <template v-slot="scope">
                     <el-button v-if="scope.row.status === 1 || scope.row.status == 6"
-                               size="small" text type="primary" @click="handleEdit(scope.row,'edit')">编辑
+                               size="mini" type="text" @click="handleEdit(scope.row,'edit')">编辑
                     </el-button>
-                    <el-button size="small" text type="primary" @click="handleEdit(scope.row,'detail')">查看</el-button>
-                    <el-button size="small" text type="primary" @click="handleCopy(scope.row)">复制</el-button>
-                    <el-button v-if="scope.row.status === 1" size="small" text type="primary"
-                               @click="handleDetele(scope.row)">
+                    <el-button size="mini" type="text" @click="handleEdit(scope.row,'detail')">查看</el-button>
+                    <el-button size="mini" type="text" @click="handleCopy(scope.row)">复制</el-button>
+                    <el-button v-if="scope.row.status === 1" size="mini" type="text" @click="handleDetele(scope.row)">
                       删除
                     </el-button>
-                    <!--            <el-button @click="handleRecall(scope.row)" text type="primary" size="small">撤回</el-button>-->
-                    <el-button v-if="scope.row.status === 1" size="small" text type="primary"
-                               @click="handlepush(scope.row)">
-                      推送
+                    <!--            <el-button @click="handleRecall(scope.row)" type="text" size="mini">撤回</el-button>-->
+                    <el-button v-if="scope.row.status === 1 || scope.row.status === 6" size="mini"
+                               type="text" @click="handlepush(scope.row)">推送
                     </el-button>
-
-                    <!--            <el-button @click="handleEvaluate(scope.row)" text type="primary" size="small">评价</el-button>-->
+                    <el-button v-if="scope.row.status === 6" size="small" type="text" @click="returnDetail(scope.row)">
+                      退回原因
+                    </el-button>
+                    <!--            <el-button @click="handleEvaluate(scope.row)" type="text" size="mini">评价</el-button>-->
                   </template>
                 </el-table-column>
               </el-table>
@@ -102,21 +124,35 @@
         @close="entrustShow = false"
         @saveReload="e_saveReload"
     />
+    <sampleProgress
+        v-if="showSampleProgress"
+        ref="sampleProgressRef"
+        @close="showSampleProgress = false"
+    />
+    <returnDialog
+        v-if="showReturn"
+        ref="returnRef"
+        @close="showReturn = false"
+    />
   </div>
 </template>
 
 <script setup>
-import {ref, reactive, getCurrentInstance, onMounted} from 'vue'
+import {ref, reactive, nextTick, getCurrentInstance, onMounted} from 'vue'
 import {cloneTask, recallTask} from '@/api/index'
 import {deleteTask} from '@/api/entrust/entrustConfirm'
-import addEntrustDialog from '@/views/customerMain/entrustCommponents/addEntrustDialog.vue'
+import addEntrustDialog from '@/views/components/entrustTable/addEntrustDialog.vue'
 import indexCenterTop from './indexCenterTop.vue'
+import sampleProgress from '@/views/customerMain/components/detectionProgress/sampleProgress.vue'
+import returnDialog from '@/views/components/returnDetail/index.vue'
+
 const instance = getCurrentInstance()
 // 获取vue实例
 const vm = instance['proxy']
 
 const {tableData, total, queryData} = defineProps(['tableData', 'total', 'queryData'])
 const emit = defineEmits(['init', 'evaluate', 'changePage'])
+
 //跳转
 function jump2List() {
   vm.$router.push(
@@ -125,6 +161,7 @@ function jump2List() {
       }
   )
 }
+
 let status = [
   {label: '待确认', value: null},
   {label: '暂存', value: 0},
@@ -143,6 +180,7 @@ let status = [
 function statusCheck(row) {
   return status.filter(item => item.value == row.status)[0]?.label
 }
+
 const agreement = [
   {label: '未上传', value: 0},
   {label: '报检方上传', value: 1},
@@ -159,7 +197,7 @@ const handlepush = (row) => {
     type: 'warning'
   }).then(res => {
     let params = {
-      entrustCode: row.entrustCode,
+      entrustCode: row.entrust_code,
       status: 5
     }
     vm.$net('/v1/entrustRemoteAgreement/submit', 'post', params).then(res => {
@@ -175,16 +213,17 @@ const checkEntrustType = (row) => {
   let menu = vm.$store.state.menu.menus
   console.log(row);
   console.log(menu);
-  return menu.filter(item => item.id == row.entrustType)[0]?.configName
+  return menu.filter(item => item.id == row.entrust_type)[0]?.configName
 }
 // 委托部门
 const checkEntrustDept = (row) => {
-  return row.deptName
+  return row.dept_name
   if (row.extendedData) {
     let extData = JSON.parse(row.extendedData)
     return extData.principalDept
   }
 }
+
 //加急状态颜色
 function cellStyle(row, column, rowIndex, columnIndex) {
   if (row.column.label === "加急状态") {
@@ -203,6 +242,7 @@ function cellStyle(row, column, rowIndex, columnIndex) {
     return `color:${color}`;
   }
 }
+
 // 报检编号详情
 function detailEntrust(row) {
   if (!row || !row.idCode) return;
@@ -214,24 +254,30 @@ function detailEntrust(row) {
 
 let entrustShow = ref(false)
 let businessConfigId = ref(0)
+
 //编辑
 function handleEdit(row, type) {
   console.log(row)
   entrustShow.value = true;
   vm.$nextTick(() => {
-    vm.$refs.entrustDialogRef.editInit(row.entrustType, row, type)
+    vm.$refs.entrustDialogRef.editInit(row.entrust_type, row, type)
   })
 }
+
 let businessConfigIdQuery = ref(null)
+
 function changePage(e) {
   emit('changePage', e)
 }
+
 const e_saveReload = () => {
+  entrustShow.value = false
   emit('init')
 }
+
 //复制
 function handleCopy(row) {
-  vm.$confirm(`确认复制委托[编号:${row.entrustCode}]？`, "提示", {
+  vm.$confirm(`确认复制委托[编号:${row.entrust_code}]？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
@@ -251,10 +297,12 @@ function handleCopy(row) {
       .catch(function () {
       });
 }
+
 //评价
 function handleEvaluate(row) {
   emit('evaluate', row)
 }
+
 //撤回
 function handleRecall(row) {
   if (!row || !row.idCode) return;
@@ -277,9 +325,10 @@ function handleRecall(row) {
       .catch(function () {
       });
 }
+
 //删除
 function handleDetele(row) {
-  vm.$confirm(`确认删除委托[编号:${row.entrustCode}]？`, "提示", {
+  vm.$confirm(`确认删除委托[编号:${row.entrust_code}]？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
@@ -296,18 +345,40 @@ function handleDetele(row) {
       .catch(function () {
       });
 }
+
+let showSampleProgress = ref(false)
+
+//查看检测进度
+function checkProgress(row) {
+  showSampleProgress.value = true
+  nextTick(() => {
+    vm.$refs.sampleProgressRef.init(row)
+  })
+}
+
+let showReturn = ref(false)
+
+function returnDetail(row) {
+  showReturn.value = true
+  nextTick(() => {
+    vm.$refs.returnRef.init(row)
+  })
+}
 </script>
 <style scoped>
 .positionBtn {
   display: flex;
   justify-content: space-between;
 }
+
 .later-entrust {
   height: 260px;
 }
+
 .boTable {
   width: 100%;
 }
+
 .a-c-bottom {
   width: 100%;
 }

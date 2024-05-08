@@ -543,6 +543,10 @@ function render(createElement, context) {
       </div>
   )
 }
+
+onMounted(() => {
+  render()
+})
 </script>
 
 <style lang="less" scoped>
