@@ -6,43 +6,49 @@
                :close-on-click-modal="false" :fullscreen="isFullScreen" :show-close="false"
                :width="diaLogWidth"
                class="fox-dialog" @close="e_dialogClose" @open="e_dialogOpen">
-      <div slot="title" class="dialog-title">
-        <span class="topTilte">{{ diaLogTitle }}</span>
-        <div class="topRight">
-          <template v-if="showEditDrag && HasPermi">
-            <el-button v-if="!closeDrag" size="small" type="warning"
-                       @click="e_confirmFormDesgin">保存表单布局
-            </el-button>
-            <!-- 开启拖拽 -->
-            <el-icon v-if="closeDrag" class="rightIcon" @click="e_changeDrag(false)">
-              <Edit/>
+      <template #header>
+        <div class="dialog-title">
+          <span class="topTilte">{{ diaLogTitle }}</span>
+          <div class="topRight">
+            <template v-if="showEditDrag && HasPermi">
+              <el-button v-if="!closeDrag" size="small" type="warning"
+                         @click="e_confirmFormDesgin">保存表单布局
+              </el-button>
+              <!-- 开启拖拽 -->
+              <el-icon v-if="closeDrag" class="rightIcon" @click="e_changeDrag(false)">
+                <Edit/>
+              </el-icon>
+              <el-icon v-if="!closeDrag" class="rightIcon" @click="e_changeDrag(true)">
+                <Rank/>
+              </el-icon>
+            </template>
+            <!-- 最小化 -->
+            <el-icon v-if="isFullScreen" class="rightIcon" @click="e_changeBox(false)">
+              <Minus/>
             </el-icon>
-            <el-icon v-if="!closeDrag" class="rightIcon" @click="e_changeDrag(true)">
-              <Rank/>
+            <!-- 最大化 -->
+            <el-icon v-if="!isFullScreen" class="rightIcon" @click="e_changeBox(true)">
+              <FullScreen/>
             </el-icon>
-          </template>
-          <!-- 最小化 -->
-          <el-icon v-if="isFullScreen" class="rightIcon" @click="e_changeBox(false)">
-            <Minus/>
-          </el-icon>
-          <!-- 最大化 -->
-          <el-icon v-if="!isFullScreen" class="rightIcon" @click="e_changeBox(true)">
-            <FullScreen/>
-          </el-icon>
-          <!-- 关闭 -->
-          <el-icon class="rightIcon" @click="e_dialogClose">
-            <Close/>
-          </el-icon>
+            <!-- 关闭 -->
+            <el-icon class="rightIcon" @click="e_dialogClose">
+              <Close/>
+            </el-icon>
+          </div>
         </div>
-      </div>
+      </template>
+
       <!-- 弹框中间内容区域 -->
       <div class="foxlogbody">
         <slot name="bologbody"></slot>
       </div>
       <!-- 弹框底部按钮区域 -->
-      <div slot="footer" class="dialog-footer">
-        <slot name="bologfooter"></slot>
-      </div>
+      <template #footer>
+        <div slot="footer" class="dialog-footer">
+          <slot name="bologfooter"></slot>
+        </div>
+      </template>
+
     </el-dialog>
   </div>
 </template>
@@ -164,10 +170,6 @@ export default {
   width: 100% !important;
 }
 
-.fox-dialog .el-input-number {
-  width: 100% !important;
-}
-
 .el-date-editor--datetimerange.el-input,
 .el-date-editor--datetimerange.el-input__inner {
   width: 220px;
@@ -182,7 +184,7 @@ export default {
 }
 
 .fox-dialog .el-dialog__body .el-col {
-  // margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 // 百叶窗标题部分
@@ -359,5 +361,13 @@ export default {
 
 .fox-dialog .el-dialog__headerbtn {
   top: 0;
+}
+
+.dialog-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 </style>

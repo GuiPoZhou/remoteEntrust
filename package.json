@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@antv/g2plot": "^2.4.31",
+    "@vue-office/docx": "^1.6.0",
+    "@vue-office/excel": "^1.7.6",
+    "@vue-office/pdf": "^2.0.1",
     "@element-plus/icons-vue": "^2.3.1",
     "@types/codemirror": "^5.60.15",
     "axios": "^1.6.7",
@@ -36,6 +39,7 @@
     "vue": "^3.3.11",
     "vue-clipboard2": "^0.3.3",
     "vue-codemirror": "^6.1.1",
+    "vue-draggable-next": "^2.2.1",
     "vue-router": "4",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"

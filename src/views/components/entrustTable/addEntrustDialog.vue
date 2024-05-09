@@ -707,8 +707,8 @@ export default {
     getDept() {
       this.$net('/v1/entrustRemoteAgreement/dept', 'get', {id: this.$store.state.user.user.userId}).then(res => {
         if (res.code === 200) {
-          this.form.extData.deptName = res.data.deptName // 委托部门
-          this.form.extData.deptId = res.data.deptId
+          this.form.extData.deptName = res?.data?.deptName // 委托部门
+          this.form.extData.deptId = res?.data?.deptId
         }
       })
     },

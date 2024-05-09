@@ -56,7 +56,7 @@ const props = defineProps({
     default: () => {
     }
   },
-  businessConfigId: {
+  getDeptbusinessConfigId: {
     typeof: String,
     default: ''
   },

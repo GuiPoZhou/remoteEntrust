@@ -26,7 +26,7 @@
                 </el-date-picker>
               </el-form-item>
             </div>
-            <div v-if="microStore.state.BeiYuan.planElementShowType == 0" class="card-header-right">
+            <div v-if="$store.state.BeiYuan.planElementShowType == 0" class="card-header-right">
               <template v-if="projectSlotButtonList.entrySlotButtonList && !entrustCode && openType !=='view'">
                 <el-button v-for="(v, i) in projectSlotButtonList.entrySlotButtonList" :size="v.size" :type="v.type"
                            @click="e_slotButtonEvents(v, planIndex)">{{ v.label }}
@@ -131,7 +131,7 @@
                 property="detectItem"
                 show-overflow-tooltip
             ></el-table-column>
-            <el-table-column v-if="microStore.state.BeiYuan.planElementShowType == 0" label="操作">
+            <el-table-column v-if="$store.state.BeiYuan.planElementShowType == 0" label="操作">
               <template v-slot="scope">
                 <template v-if="!projectSlotButtonList.actionButtons">
                   <el-button
@@ -472,7 +472,7 @@ export default {
     },
     // 复制点位
     copyRow(pointIndex, planIndex, list) {
-      if (this.microStore.state.project.planType == 1) {
+      if (this.$store.state.project.planType == 1) {
         let target = JSON.parse(
             JSON.stringify(this.infoGiveList[planIndex].planInfoList[pointIndex])
         )

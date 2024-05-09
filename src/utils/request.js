@@ -48,7 +48,7 @@ service.interceptors.response.use(res => {
         })
       })
     } else if (code === 500) {
-        ElMessage({
+            ElMessage.error({
         message: msg,
         type: 'error'
       })

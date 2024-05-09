@@ -68,7 +68,7 @@
 import {provide} from 'vue'
 import MicroProgress from "@/components/detectionProgress/entruroPgress.vue";
 import listContainer from "@/components/executionTemplate/tableColumnConfig/listContainer.vue";
-import addEntrustDialog from "./addEntrustDialog3.0.vue";
+import addEntrustDialog from "./addEntrustDialog.vue";
 import {cloneTask, recallTask} from "@/api/index/index.js";
 import {deleteTask} from "@/api/entrust/entrustConfirm.js";
 import {getPluginsForButtons} from "@/utils/index.js"
@@ -179,7 +179,7 @@ function e_slotButtonEvents(v) {
   nextTick(() => {
     console.log('ref', addEntrustDialogRef.value);
     // addEntrustDialogRef.value.init(businessConfigId.value.slice(0, 4), 'add');
-    vm.$refs.entrustDialog.init(businessConfigId.value.slice(0, 4))
+    vm.$refs.entrustDialog.init(businessConfigId.value.slice(0, 4), 'add')
   });
   // new Function("ctx","ref", v.events)(vm,de);
 }

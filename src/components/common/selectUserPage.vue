@@ -153,8 +153,8 @@ export default {
         })
       }
       if (!this.queryParams.deptId && this.showDefault) {
-        this.deptName = this.microStore.state.BeiYuan.currentUserInfo.dept.deptName
-        this.queryParams.deptId = this.microStore.state.BeiYuan.currentUserInfo.dept.deptId
+        this.deptName = this.$store.state.BeiYuan.currentUserInfo.dept.deptName
+        this.queryParams.deptId = this.$store.state.BeiYuan.currentUserInfo.dept.deptId
         this.getlist();
       }
     },

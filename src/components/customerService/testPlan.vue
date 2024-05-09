@@ -22,7 +22,7 @@
               </el-form-item>
             </div>
             <div
-                v-if="this.microStore.state.BeiYuan.planElementShowType == 0"
+                v-if="this.$store.state.BeiYuan.planElementShowType == 0"
                 class="card-header-right"
             >
               <el-button
@@ -61,7 +61,7 @@
                 </el-form-item>
               </el-col>
               <el-col
-                  v-if="this.microStore.state.BeiYuan.planElementShowType == 0"
+                  v-if="this.$store.state.BeiYuan.planElementShowType == 0"
                   :span="10"
               >
                 <el-form-item label="点位示意图">
@@ -80,7 +80,7 @@
                 </el-form-item>
               </el-col>
               <el-col
-                  v-if="this.microStore.state.BeiYuan.planElementShowType == 0"
+                  v-if="this.$store.state.BeiYuan.planElementShowType == 0"
                   :span="8"
               >
                 <el-form-item>
@@ -128,7 +128,7 @@
                   property="detectItem"
               ></el-table-column>
               <el-table-column
-                  v-if="this.microStore.state.BeiYuan.planElementShowType == 0"
+                  v-if="this.$store.state.BeiYuan.planElementShowType == 0"
                   label="操作"
               >
                 <template v-slot="scope">
@@ -329,11 +329,11 @@ export default {
 
       this.editType = 0;
       this.currentDetectName = detectName;
-      this.microStore.commit("set_detectName", detectName);
+      this.$store.commit("set_detectName", detectName);
       this.currentDetectType = type;
-      this.microStore.commit("set_categoriesId", detectTypeId);
-      this.microStore.commit("set_categoriesType", Number(type));
-      console.log("类型", typeof this.microStore.state.editPonit.detectType);
+      this.$store.commit("set_categoriesId", detectTypeId);
+      this.$store.commit("set_categoriesType", Number(type));
+      console.log("类型", typeof this.$store.state.editPonit.detectType);
       this.currentPlanInfoIndex = planInfoIndex;
       this.currentPlanIndex = planIndex;
       this.showAddPoint = true;
@@ -408,7 +408,7 @@ export default {
     },
     // 复制点位
     copyRow(pointIndex, planInfoIndex, planIndex) {
-      console.log("cc", this.microStore.state.project.planType);
+      console.log("cc", this.$store.state.project.planType);
       let target = JSON.parse(
           JSON.stringify(
               this.infoPickList[planIndex].planInfoList[planInfoIndex].pointList[
